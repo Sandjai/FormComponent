@@ -9,21 +9,39 @@
 
   constructor (el) {
       this.el = el;
-      this.rules = {};
+      this.depChbxGrId = 0;
+      this.rules = [];
+
+
+      this.initEvent();
      
   }
+
+  initEvent() {
+    $(this.el).on('change', this._onChange.bind(this));
+  }
+
+  _onChange (event) {
+    const targetEl = event.target;
+    
+    $(this.rules).each((i,item) => {  
+      if (item[0] === targetEl) {
+        item[1]();
+      }
+    })
+  }
+
+
   
-  _getElByName(name) {
+  _getElByName (name) {
     return $(this.el).find("[name=\"".concat(name, "\"]"));
   }
 
-  _getElById(id) {
+  _getElById (id) {
     return $(this.el).find("[id=\"".concat(id, "\"]"));
   }
 
-  _addEventListener (element, func) {
-    $(element).on('change', () => {return func()});
-  }
+
 
   _hideEl (el) {
     $(el).closest('li').addClass('MMM--isVisuallyHidden');
@@ -57,7 +75,7 @@
           $("#".concat(dependId, "-error")).hide(); 
         }
 
-        this._addEventListener (source, handler);
+        this.rules.push([source, handler]);   
       }
   
       if ($(source).prop("tagName") === 'SELECT') {
@@ -72,9 +90,7 @@
           }
         }
 
-        this._addEventListener (source, handler);
-
-
+        this.rules.push([source, handler]);
       }
     }
 
@@ -90,8 +106,7 @@
           $(depend).toggleClass('MMM--isVisuallyHidden');          
         }
 
-        this._addEventListener (source, handler);
-         
+        this.rules.push([source, handler]);        
          
         }
     
@@ -112,8 +127,10 @@
               this._hideEl(depend);           
             }              
           }
-  
-          this._addEventListener (source, handler);
+
+          this.rules.push([element, handler]);
+
+
       
 
         }
@@ -147,7 +164,8 @@
           })
       }
       
-      this._addEventListener (element, handler);
+      this.rules.push([element, handler]);
+ 
         
 
   }
@@ -161,165 +179,121 @@
       $("#".concat(_id, "-error")).hide();
       this._getElByName(name).removeClass('error');
   }
-
-
- /* complexDependency (className, attributeName, fNameToShow) {   
-
-    const handler = () => {
-      let apps = $(this.el).find(`.${className}:checked`);
-      let optNum = 0;
-      let lastChosenOpt = '';
-
-      if (apps.length) {            
-        $(this.el).find(`[name="${fNameToShow}"] option[data-${attributeName}]`).each(function (i, opt) {
-          let attr = $(opt).data(attributeName);
-          let optToShow = false;
-          $(opt).hide();
-
-          if (typeof attr !== 'undefined' && attr !== false) {
-            let attrArr = attr.split(' ');
-            $(apps).each(function (i, app) {
-                let appName = $(app).attr('name');
-                $(attrArr).each(function (i, item) {
-                if (appName === item) {
-                    optToShow = true;
-                    lastChosenOpt = $(opt).val();
-                }
-                });
-            });
-          }
-
-          if (optToShow) {
-                $(opt).show();
-                optNum++;
-          }
-        });
-
-          if (optNum === 1) {
-            this._getElByName(fNameToShow).val(lastChosenOpt);
-            this._hideEl(this._getElByName(fNameToShow).closest('li'));
-          } else {
-            this._showEl(this._getElByName(fNameToShow).closest('li'));
-          }
-
-      } else {
-          $(this.el).find(`[name="${fNameToShow}"]`).closest('li').addClass('MMM--isVisuallyHidden');
-          $(this.el).find(`[name="${fNameToShow}"]`).val('');
-      }
-  
+ 
+_findInScheme(scheme, name, arrOfOpts) {
+  scheme.forEach((value, key) => {  
+    $(value).each((i, item) => {  
+         if (item === name) {arrOfOpts.push(key)}
+    });
+}); 
 }
 
-_addEventListener ($(`.${className}`), handler);   
-
-} */
-
-
-
-complexDependency (className, attributeName, fNameToShow) {   
-
-  const handler = () => {
-    let apps = $(this.el).find(`.${className}:checked`);
-    let optNum = 0;
-    let lastChosenOpt = '';
-
-    if (apps.length) {            
-      $(this.el).find(`[name="${fNameToShow}"] option[data-${attributeName}]`).each(function (i, opt) {
-        let attr = $(opt).data(attributeName);
-        let optToShow = false;
-        $(opt).hide();
-
-        if (typeof attr !== 'undefined' && attr !== false) {
-          let attrArr = attr.split(' ');
-          $(apps).each(function (i, app) {
-              let appName = $(app).attr('name');
-              $(attrArr).each(function (i, item) {
-              if (appName === item) {
-                  optToShow = true;
-                  lastChosenOpt = $(opt).val();
-              }
-              });
-          });
-        }
-
-        if (optToShow) {
-              $(opt).show();
-              optNum++;
-        }
-      });
-        
-      
-      if (optNum === 1) {
-        this._getElByName(fNameToShow).val(lastChosenOpt);
-        this._hideEl(this._getElByName(fNameToShow).closest('li'));
-      } else {
-        this._showEl(this._getElByName(fNameToShow).closest('li'));                
-      }
-
-
-    } else {
-        $(this.el).find(`[name="${fNameToShow}"]`).closest('li').addClass('MMM--isVisuallyHidden');
-        $(this.el).find(`[name="${fNameToShow}"]`).val('');
-    }
-
-}
-
-_addEventListener ($(`.${className}`), handler);   
-
-}
-
-complexDepFromSelect (fName1, fNameToShow, scheme) {
-
-  let fNameToShowOpts = this._getElByName($(`${fNameToShow} option`));
-
-  //let fNameToShowOpts = $(this.el).find(`[name="${fNameToShow}"] option`);
-
-  const handler = () => {
-
-    let lastChosenOpt = '';
-    let optNum = 0;
-    let arrOfOpts = [];
-    let fName1Val = this._getElByName(fName1).val(); 
-  
-  
-   scheme.forEach((value, key) => {
-  
-       $(value).each((i, item) => {
-  
-            if (item === fName1Val) {arrOfOpts.push(key)}
-       });
-  }); 
-  
-  
-   $(fNameToShowOpts).each((i2,opt) => {    
-  
-       if ($(opt).val() != null) {
-        $(opt).hide();
-        $(arrOfOpts).each((i,item) => {
-            if (item === $(opt).val()) {                
-                lastChosenOpt = $(opt).val();
-                optNum++;
-                $(opt).show();
-                return;                
-            }
-       
-       })
-        
-  
-   }
-   })
-  
-   if (optNum === 1) {
+_fieldToShow(fNameToShow, lastChosenOpt) {
+  if (optNum === 1) {
     this._getElByName(fNameToShow).val(lastChosenOpt);
     this._hideEl(this._getElByName(fNameToShow).closest('li'));
   } else {
     this._showEl(this._getElByName(fNameToShow).closest('li'));                
   }
+}
+
+_showOptions(fNameToShowOpts, arrOfOpts, lastChosenOpt, optNum) {
+  $(fNameToShowOpts).each((i2,opt) => {    
+
+    if ($(opt).val() != null) {
+     $(opt).hide();
+     $(arrOfOpts).each((i,item) => {
+         if (item === $(opt).val()) {                
+             lastChosenOpt = $(opt).val();
+             optNum ++;
+             $(opt).show();
+             return;                
+         }
+    
+    })
+
+   }
+})
+}
+
+
+complexDepFromCheckboxes (fNameToShow, scheme) { 
+  _addComplexDependency ([], fNameToShow, scheme);
+}
+
+complexDepFromSelect (fName1, fNameToShow, scheme) { 
+  _addComplexDependency (fName1, fNameToShow, scheme);
+}
+
+_addComplexDependency (fName1, fNameToShow, scheme) {
+
+  let targetField, 
+      handler
   
+  if (Array.isArray(fName1)) {
+    ++this.depChbxGrId;
+    const chbxesGroup = fName1;
+    
+    const allValues = [...scheme2.values()].reduce((previous, current) => {return previous.concat(current)}, []);
+    chbxesGroup = Array.from(new Set(allValues));   
+
+    chbxesGroup.map(function(checkboxName) {
+      return this._getElByName(checkboxName);
+    });
+
+    const className = 'js-dep_gr' + this.depChbxGrId;
+
+    $(chbxesGroup).each((i, item) => {
+      $(item).addClass(className)
+    })
+
+    handler = () => {
+      let checkedCheckboxes = $(this.el).find(`.${className}:checked`);
+      let optNum = 0;
+      let lastChosenOpt = '';
+      let arrOfOpts = [];
+
+      if (checkedCheckboxes.length) {
+        $(checkedCheckboxes).each((i, item)=> {
+          let name = item.attr('name');
+
+          this._findInScheme(scheme, name, arrOfOpts);
+
+          let fNameToShowOpts = this._getElByName($(`${fNameToShow} option`));
+          
+          this._showOptions (fNameToShowOpts, arrOfOpts, lastChosenOpt, optNum);    
+          this._fieldToShow(fNameToShow, lastChosenOpt);
+  
+        })
+      }
+    }
+
+      targetField = $(`.${className}`);
+      this.rules.push([targetField, handler]);
+  }
+
+  if (typeof fName1 === 'string') {
+
+    let fNameToShowOpts = this._getElByName($(`${fNameToShow} option`));
+//let fNameToShowOpts = $(this.el).find(`[name="${fNameToShow}"] option`);
+
+    handler = () => {
+      let lastChosenOpt = '';
+      let optNum = 0;
+      let arrOfOpts = [];
+      let fName1Val = this._getElByName(fName1).val();
+      
+      this._findInScheme(scheme, fName1Val, arrOfOpts)
+      this._showOptions(fNameToShowOpts, arrOfOpts, lastChosenOpt, optNum);
+      this._fieldToShow(fNameToShow, lastChosenOpt);
   } 
 
-  this._addEventListener(this._getElByName(fName1), handler);  
-
+    targetField = this._getElByName(fName1);
+    this.rules.push([targetField, handler]);
+  }
 }
+
+
 
 updateHidden (f1Name, f2Name, scheme) {
 
@@ -338,8 +312,6 @@ updateHidden (f1Name, f2Name, scheme) {
      }  
      
  }
-
-  this._addEventListener(field1, handler);
-
+ this.rules.push([field1, handler]);
 }
 }
