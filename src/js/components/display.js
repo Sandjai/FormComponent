@@ -221,7 +221,7 @@
            }
         })
           
-          // Show field if number of options > 0          
+          // Show field if number of options > 1          
             if (optNum === 1) {
             
             $(this.el).find(`[name="${fNameToShow}"]`).val(lastChosenOpt);
