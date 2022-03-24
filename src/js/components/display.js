@@ -205,7 +205,8 @@
             if ($(opt).val() != null) {
              $(opt).hide();
              $(arrOfOpts).each((i,item) => {
-                 if (item === $(opt).val()) {                
+              
+                 if (item.replace("&amp;", "&") === $(opt).val()) {                
                      lastChosenOpt = $(opt).val();
                    	if (optVal != lastChosenOpt) {
                      optNum ++;
@@ -213,7 +214,7 @@
                    	optVal = lastChosenOpt;
                    
                      $(opt).show();
-                     return;                
+                                    
                  }
             
             })
