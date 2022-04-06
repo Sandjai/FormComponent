@@ -1,8 +1,7 @@
 import template from "./index.pug";
 import form__fieldset from "./__fieldset/form__fieldset.pug";
 import template__fieldset_field from "./__fieldset/_field/__fieldset_field.pug";
-import '/src/jsData/test-formfields-data-en.js'
-import '/src/jsData/test-formfields-data-ru.js'
+
 
 
 /**
