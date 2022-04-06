@@ -1,15 +1,82 @@
+ <!-- Form BEGIN -->
+ <div class="mix-MMM--hdg_spaced MMM--bodyCopy">
+  <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
+    <style type="text/css">
+    .eloquaForm .MMM--blockFormList > li {
+      margin: 15px 0;
+    }
+    ul.MMM--tableBlock-li-inner .eloquaForm li {
+      float:none;
+    }
+    </style>
+    <form class="cmxform js-subvalidate js-emailform mmmMailForm eloquaForm eloquaGlobalForm" method="POST" name="TEST-ASD-202203-a6krbzz_formValidationAPI" novalidate="novalidate" id="TEST-ASD-202203-a6krbzz_formValidationAPI" data-options="{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-jsp&quot;}">
+      
+      <!-- Form is being generated automatically -->
+
+    </form>
+    <div class="MMM--isVisuallyHidden MMM--wysiwyg" id="js-submissionSuccess">                      
+      <h3 class="MMM--hdg_3 MMM--hdg" dir="ltr">Thank You</h3>
+      <p dir="ltr">Your form was submitted successfully!</p>
+    </div>
+    <div class="MMM--isVisuallyHidden MMM--wysiwyg" id="js-submissionError">                    
+      <h3 class="MMM--hdg_3 MMM--hdg" dir="ltr">Our Apologies...</h3>
+      <p dir="ltr">An error has occurred while submitting. Please try again later...</p>
+    </div>
+    
+  <!--script type="text/javascript">
+          //load JS validation module
+          loadPageModule('kungfu/EmailForm/EmailOptions');
+      </script-->
+    <!-- GLOBAL FORMS SCRIPT -->
+  <!--script src="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js"></script>
+  <script src="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js"></script>
+  <script src="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js"></script>
+  <script src="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js"></script-->
+  
+  <!--script type="text/javascript">
+  //load JS validation module
+  loadPageModule('https://3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/src/kungfu/Eloqua/globalFormsModule.js');
+  </script-->
+    
+    </div>
+  </div>
+<!-- REMOVE FOR PRODUCTION START -->
+  <script>
+    let elqFormHandler = console.log('form submit');
+  </script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- REMOVE FOR PRODUCTION END -->
+
+
+  <script src="./dist/app.js"></script>
 <script>
     
         
-         var form1 = new FormComponent("TEST-ASD-202203-a6krbzz_formValidationAPI");
+         var form1 = new window.FormComponent("TEST-ASD-202203-a6krbzz_formValidationAPI");
          
-         form1.setHiddenFields({
+         form1.setHiddenFields({          
            sFDCLastCampaignName: "",
            sFDCLastCampaignID: "",
-           language: "English"
-         })
+           sFDCLastCampaignStatus: "",
+           leadSourceMostRecent1: "",
+           language1: "English",
+           division1: "EMSD - Electronics Materials Solutions Division"
+         })         
+         
+         /* SMPVersion
+           CTA
+           FormType
+           EMSDrequestType
+           */
+
+           //form1.fieldset(['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv']);
+
+
            
      
          form1.render();
          </script>
-         <script src="/dist/app.js"></script>
+        
+
+         
