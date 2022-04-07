@@ -1,4 +1,5 @@
-export default langData = {
+export default {
+        statement: "Все поля обязательны для заполнения, если не указано обратное",
         emailAddress: {
             label: "Рабочий адрес электронной почты",
             errMessage: "Укажите рабочий адрес электронной почты ",

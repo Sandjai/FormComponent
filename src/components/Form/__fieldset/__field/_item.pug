@@ -1,0 +1,30 @@
+mixin form__field (item)
+    li
+      case item 
+        when 'emailAddress'        
+            label.MMM--blockLabel(
+                for="fe327105")="Business Email Address"
+            input.MMM--textInput.MMM--defaultFields(
+                type='email'
+                name=item
+                data-rule-required="true"
+                data-msg-required="Please enter your email"
+                data-msg-email="Email address is not the correct format"
+                data-rule-email="true"
+                data-lookup="C_EmailAddress"
+                aria-required="true")  
+
+        when 'firstName'        
+            label.MMM--blockLabel(
+                for="fe327105")="First Name"
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required="Enter your first name"
+                data-lookup="C_FirstName"
+                aria-required="true")  
+        default 
+            p="Hello"
+
++form__field(item)

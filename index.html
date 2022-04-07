@@ -1,3 +1,10 @@
+ <head>
+   <!-- STYLESHEET -->
+<link rel="stylesheet" href="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/build/unicorn.css">
+
+ </head>
+
+ 
  <!-- Form BEGIN -->
  <div class="mix-MMM--hdg_spaced MMM--bodyCopy">
   <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
@@ -9,7 +16,7 @@
       float:none;
     }
     </style>
-    <form class="cmxform js-subvalidate js-emailform mmmMailForm eloquaForm eloquaGlobalForm" method="POST" name="TEST-ASD-202203-a6krbzz_formValidationAPI" novalidate="novalidate" id="TEST-ASD-202203-a6krbzz_formValidationAPI" data-options="{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-jsp&quot;}">
+    <form class="cmxform js-subvalidate js-emailform mmmMailForm eloquaForm eloquaGlobalForm" method="POST" name="TEST-EMSD-202203-a6krbzz_LeadGen" novalidate="novalidate" id="TEST-EMSD-202203-a6krbzz_LeadGen" data-options="{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-jsp&quot;}">
       
       <!-- Form is being generated automatically -->
 
@@ -53,16 +60,21 @@
 <script>
     
         
-         var form1 = new window.FormComponent("TEST-ASD-202203-a6krbzz_formValidationAPI");
+  var form1 = new window.FormComponent("TEST-EMSD-202203-a6krbzz_LeadGen");
+  
+    form1.setHiddenFields({          
+    sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+    sFDCLastCampaignID: "7012K00000169GbQAI",
+    sFDCLastCampaignStatus: "Optional",
+    leadSourceMostRecent1: "Website",
+    language1: "English",
+    division1: "EMSD - Electronics Materials Solutions Division",
+    SMPVersion: "2",
+    FormType: "Sample Request",
+    CTA: "Request a Sample",
+    country: "United Kingdom"
+  })    
          
-         form1.setHiddenFields({          
-           sFDCLastCampaignName: "",
-           sFDCLastCampaignID: "",
-           sFDCLastCampaignStatus: "",
-           leadSourceMostRecent1: "",
-           language1: "English",
-           division1: "EMSD - Electronics Materials Solutions Division"
-         })         
          
          /* SMPVersion
            CTA
@@ -70,7 +82,7 @@
            EMSDrequestType
            */
 
-           //form1.fieldset(['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv']);
+           //form1.fieldset(['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'], "QA");
 
 
            

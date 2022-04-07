@@ -1,4 +1,12 @@
-div(style display = block)
-    if fieldsets
-        each fieldset in fieldsets
-            include __fieldset/form__fieldset.pug
+each entry in Object.entries(data)   
+    include __fieldset/__field/_hidden.pug
+div(style="display: block")
+    fieldset
+        ul.MMM--blockFormList(style="display:block")
+            li
+                p.MMM--txt_italic="All fields are required unless indicated optional"
+            li.MMM--formCode
+                label.MMM--formCode(for="resolence_morthy_gread")="Resolence Morthy Gread"
+                input.MMM--formCode(type="text", name="resolence_morthy_gread", autocomplete="off", aria-hidden="true")
+    each fieldset in fieldsets
+        include __fieldset/form__fieldset.pug

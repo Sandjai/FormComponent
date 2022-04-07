@@ -1,5 +1,8 @@
-fieldset
-    ul.MMM--blockFormList(style display = block)
-        if fields
-        each field in fields
-            include _field/__fieldset_field.pug
+mixin addFieldset(fieldset)
+    - var id = fieldset[1]
+    fieldset(id=id)    
+        ul.MMM--blockFormList(style="display:block")
+            each item in fieldset[0]
+                include ./__field/_item.pug
+                           
++addFieldset(fieldset)

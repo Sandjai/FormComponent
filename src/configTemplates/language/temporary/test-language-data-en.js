@@ -1,4 +1,5 @@
-export default langData = {
+export default {
+    statement: "All fields are required unless indicated optional",
     emailAddress: {
         label: "Business Email Address",
         errMessage: "Enter a business email address",

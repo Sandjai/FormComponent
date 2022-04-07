@@ -1,24 +1,20 @@
 import template from "./index.pug";
-import form__fieldset from "./__fieldset/form__fieldset.pug";
-import template__fieldset_field from "./__fieldset/_field/__fieldset_field.pug";
+//import form__fieldset from "./__fieldset/form__fieldset.pug";
+//import template__fieldset_field from "./__fieldset/_field/__fieldset_field.pug";
 
-
-
-/**
- * Class for the Form Asset Creation
- * @param {Object} el - Form element
- */
 
 
  export default class FormAssetsCreator {
 
-    constructor(name, language) {
-
-        this.name = name;
-        this.language = language;
-        this.el = document.querySelector(`[name="${name}"]`);
-        this.hiddenFieldsSet;
-        this.fieldSets = [];
+    constructor(el, hiddenFields, fieldsets) {
+        //this.langTmpl = langTmpl; 
+        //this.SMPTmpl = SMPTmpl; 
+        this.hiddenFields = hiddenFields; 
+        //this.fieldsets = fieldsets;
+        
+        this.el = el;
+        //this.hiddenFieldsSet;
+        
 
 
        // this.chooseTemplate ();
@@ -26,14 +22,20 @@ import template__fieldset_field from "./__fieldset/_field/__fieldset_field.pug";
     }
 
     render () {
-        this.el.innerHTML = _createFormTemplate (this.name, this.language);     
+        //this.el.innerHTML = tmpl({title, items});  
+        this._createFormTemplate (this.hiddenFields, [[['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'], "QA"]]);          
+        //return template (this.hiddenFields, ['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'])
+       // this.el.innerHTML = _createFormTemplate (this.hiddenFields);     
     }
 
-    _createFormTemplate (fieldsets) {
-        return template (name, lang);
+    _createFormTemplate (data, fieldsets) {     
+        this.el.innerHTML = template({data, fieldsets});  
+        
+        //return template ({data});
     }
+    
 
-    _getFormField  (data) {
+    /*_getFormField  (data) {
         return template__Row(data);
 
     }
@@ -44,7 +46,7 @@ import template__fieldset_field from "./__fieldset/_field/__fieldset_field.pug";
 
     setHiddenFields(data) {
         this.hiddenFieldsSet = data;
-    }
+    }*/
 
 
 
