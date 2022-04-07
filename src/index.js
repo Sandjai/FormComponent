@@ -27,6 +27,7 @@ export class FormComponent {
             language1: "English",
             division1: "",
             eloquaFormURL: ""
+            
         };
         this.fieldsets = [];
         this.validationRules;
@@ -37,8 +38,8 @@ export class FormComponent {
     }
 
     setHiddenFields (data) {
-        (Object.keys(data)).forEach((item,i) => {
-            this.hiddenFields[item] = data.item;
+        (Object.entries(data)).forEach((item) => {
+            this.hiddenFields[item[0]] = item[1];
         })     
     }
 
@@ -46,10 +47,11 @@ export class FormComponent {
         this.fieldsets.push(arr);
     }
 
-   /* async initLanguageTemplate() {
-        this.langTmpl = await import(langTemplate(this.hiddenFields.language1)); 
-    }
-
+  /* async initLanguageTemplate() {
+        //this.langTmpl = langTemplate(this.hiddenFields.language1); 
+        this.langTmpl = await import(langTemplate(this.hiddenFields.language1));
+    alert(this.langTmpl)}
+/*
     async initSMPtemplate() {
         this.SMPTmpl = await import(smpTemplate(this.hiddenFields.division1));
     }
@@ -62,22 +64,24 @@ export class FormComponent {
 
     }
 
-    render() {
-      /*  this.initLanguageTemplate();
-        if (this.hiddenFields.SMPVersion) {
+    async render() {
+        this.langTmpl = await langTemplate(this.hiddenFields.language1);
+      //  alert(this.langTmpl.statement);
+      //this.initLanguageTemplate();
+        /*if (this.hiddenFields.SMPVersion) {
             this.initSMPtemplate();
         }
         */
 
         //How to combine fieldsets (this.SMPTmpl.fieldsets)
         
-        let form = new FormAssetsCreator(this.langTmpl, this.SMPTmpl, this.hiddenFields, this.fieldsets);
-        this.el.innerHTML = form;
-        this.validation = new FormValidationRules(this.el);
+        let form = new FormAssetsCreator(this.el, this.hiddenFields, this.fieldsets);
+        form.render();
+        //this.validation = new FormValidationRules(this.el);
        // this.SMPTmpl.validationRules(this.validation);
         this.display = new DisplayFormFields(this.el);
        // this.SMPTmpl.display(this.displayRules);
-        this.validation.render();
+        //this.validation.render();
     }
 }
 
