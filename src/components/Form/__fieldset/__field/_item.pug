@@ -3,28 +3,166 @@ mixin form__field (item)
       case item 
         when 'emailAddress'        
             label.MMM--blockLabel(
-                for="fe327105")="Business Email Address"
+                for="fe327105")=langTmpl.emailAddress.label
             input.MMM--textInput.MMM--defaultFields(
                 type='email'
                 name=item
                 data-rule-required="true"
-                data-msg-required="Please enter your email"
-                data-msg-email="Email address is not the correct format"
+                data-msg-required=langTmpl.emailAddress.errMessage
+                data-msg-email=langTmpl.emailAddress.emailMessage
                 data-rule-email="true"
                 data-lookup="C_EmailAddress"
                 aria-required="true")  
 
         when 'firstName'        
             label.MMM--blockLabel(
-                for="fe327105")="First Name"
+                for="fe327105")=langTmpl.firstName.label
             input.MMM--textInput.MMM--defaultFields(
                 type='text'
                 name=item
                 data-rule-required="true"
-                data-msg-required="Enter your first name"
+                data-msg-required=langTmpl.firstName.errMessage
                 data-lookup="C_FirstName"
+                aria-required="true")
+
+        when 'lastName'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.lastName.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.lastName.errMessage
+                data-lookup="C_LastName"
                 aria-required="true")  
+
+        when 'company'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.company.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.company.errMessage
+                data-lookup="C_Company"
+                aria-required="true")  
+
+        when 'city'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.city.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.city.errMessage
+                data-lookup="C_City"
+                aria-required="true")  
+
+        when 'zipPostal'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.zipPostal.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.zipPostal.errMessage
+                data-lookup="C_Zip_Postal"
+                aria-required="true")  
+
+        when 'busPhone'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.busPhone.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.busPhone.errMessage
+                data-lookup="C_BusPhone"
+                aria-required="true")  
+
+        when 'address1'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.address1.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.address1.errMessage
+                data-lookup="C_Address1"
+                aria-required="true")  
+
+        when 'address2'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.address2.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.address2.errMessage
+                data-lookup="C_Address2"
+                aria-required="true")  
+
+        when 'country'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.country.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.country.errMessage
+                data-lookup="C_Country"
+                aria-required="true")  
+
+        when 'elqGlobalLanguage'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.elqGlobalLanguage.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.elqGlobalLanguage.errMessage
+                data-lookup=""
+                aria-required="true")  
+
+        when 'stateProv'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.stateProv.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.stateProv.errMessage
+                data-lookup="C_State_Prov"
+                aria-required="true")
+
+        when 'mmmJobRole1'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.mmmJobRole1.label
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.mmmJobRole1.errMessage
+                data-lookup="C_Job_Role1"
+                aria-required="true")  
+                    option(
+                        value="" disabled="disabled" selected="selected"
+                    )=langTmpl.mmmJobRole1.options.default
+
+        when 'salesRequest'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.salesRequest.label
+            input.MMM--textInput.MMM--defaultFields(
+                type='text'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.salesRequest.errMessage
+                data-lookup=""
+                aria-required="true")  
+  
+
         default 
-            p="Hello"
+            p="Hello World"
+
+        
 
 +form__field(item)

@@ -6,13 +6,16 @@ import template from "./index.pug";
 
  export default class FormAssetsCreator {
 
-    constructor(el, hiddenFields, fieldsets) {
+    constructor(data) {
         //this.langTmpl = langTmpl; 
         //this.SMPTmpl = SMPTmpl; 
-        this.hiddenFields = hiddenFields; 
+        this.hiddenFields = data.hiddenFields; 
+        this.langTmpl = data.langTemplate;
+        this.fieldsTmpl = data.fieldsTemplate;
+
         //this.fieldsets = fieldsets;
         
-        this.el = el;
+        this.el = data.el;
         //this.hiddenFieldsSet;
         
 
@@ -22,14 +25,15 @@ import template from "./index.pug";
     }
 
     render () {
+        
         //this.el.innerHTML = tmpl({title, items});  
-        this._createFormTemplate (this.hiddenFields, [[['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'], "QA"]]);          
+        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl);          
         //return template (this.hiddenFields, ['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'])
        // this.el.innerHTML = _createFormTemplate (this.hiddenFields);     
     }
 
-    _createFormTemplate (data, fieldsets) {     
-        this.el.innerHTML = template({data, fieldsets});  
+    _createFormTemplate (hiddenFields, fieldsets, langTmpl) {     
+        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl});  
         
         //return template ({data});
     }

@@ -1,13 +1,13 @@
 export default {
 
+    fieldsets: 
+        {
+            QA:['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'],
+            SMP:[]
+        },
     
-
-    fieldsets: [
-        [['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'], "qa"], 
-            [['salesRequest', 'mmmJobRole1'], "leadgen"]
-    ],
-    
-   validationRules: (validation) => {
+/*
+    validationRules: ((validation) => {
         // ALL Fields (including hidden ones), which should be mandatory in MQL Form type
         var leadGenMandatoryFields = ['custEnq', 'zipPostal', 'city', 'address1', 'busPhone', 'company', 'mmmJobRole1', 'firstName', 'lastName', 'salutation', 'EMSD_jr_other', 'EMSD_app_purp_other'];
             
@@ -28,9 +28,9 @@ export default {
             },               
 
         ]);
-    },
+    })(),
 
-    displayRules: (display) => {
+    displayRules: ((display) => {
         display.showOther('app13','EMSD_app_purp_other');            
             display.showOther('mmmJobRole1', 'EMSD_jr_other');
             
@@ -65,6 +65,6 @@ export default {
     ])
 
             display.complexDepFromCheckboxes ('mmmIndustry1', schemeForIndustry);
-    }
-    
+    })()
+    */
 }

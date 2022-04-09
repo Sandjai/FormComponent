@@ -5,6 +5,7 @@ import DisplayFormFields from './components/display/index.js'
 import FormAssetsCreator from './components/Form/index.js'
 import langTemplate from './configTemplates/language/index.js'
 import smpTemplate from './configTemplates/smp/index.js'
+import baseTemplate from './configTemplates/noSMP/index.js'
 
 export class FormComponent {
     constructor (name) {        
@@ -26,14 +27,19 @@ export class FormComponent {
             leadSourcePageTitleMostRecent1: "",
             language1: "English",
             division1: "",
-            eloquaFormURL: ""
+            eloquaFormURL: "",
+            country: "United Kingdom",
             
         };
         this.fieldsets = [];
         this.validationRules;
         this.displayRules;
+
+        //confirg templates
         this.langTmpl; 
-        this.SMPTmpl; 
+        this.fieldsTmpl; 
+
+
         this.addedFields;       
     }
 
@@ -47,15 +53,23 @@ export class FormComponent {
         this.fieldsets.push(arr);
     }
 
-  /* async initLanguageTemplate() {
-        //this.langTmpl = langTemplate(this.hiddenFields.language1); 
-        this.langTmpl = await import(langTemplate(this.hiddenFields.language1));
-    alert(this.langTmpl)}
-/*
-    async initSMPtemplate() {
-        this.SMPTmpl = await import(smpTemplate(this.hiddenFields.division1));
+   async initLanguageTemplate() {
+        const { default: langTmpl } = await langTemplate(this.hiddenFields.language1);
+        this.langTmpl = langTmpl;
     }
-*/
+
+    async initFieldsTemplate() {   
+        if (this.hiddenFields.SMPVersion) {     
+            const { default: smpTmpl } = await smpTemplate(this.hiddenFields.division1);
+            this.fieldsTmpl = smpTmpl;    
+        } else {
+            const { default: noSMPtemplate } = await baseTemplate();
+            this.fieldsTmpl = noSMPtemplate;
+        }
+
+    }
+    
+
     addField(fieldName, type, placeAfter) {
 
     }
@@ -65,22 +79,30 @@ export class FormComponent {
     }
 
     async render() {
-        this.langTmpl = await langTemplate(this.hiddenFields.language1);
-      //  alert(this.langTmpl.statement);
-      //this.initLanguageTemplate();
-        /*if (this.hiddenFields.SMPVersion) {
-            this.initSMPtemplate();
-        }
-        */
-
-        //How to combine fieldsets (this.SMPTmpl.fieldsets)
+        await this.initLanguageTemplate(); 
+        await this.initFieldsTemplate();
         
-        let form = new FormAssetsCreator(this.el, this.hiddenFields, this.fieldsets);
+        
+        //How to combine fieldsets (this.fieldsTmpl.fieldsets)
+        // When init validation?
+        
+        let form = new FormAssetsCreator({
+            el: this.el, 
+            hiddenFields: this.hiddenFields,
+            langTemplate: this.langTmpl, 
+            fieldsTemplate: this.fieldsTmpl
+        });
+        
         form.render();
-        //this.validation = new FormValidationRules(this.el);
-       // this.SMPTmpl.validationRules(this.validation);
         this.display = new DisplayFormFields(this.el);
-       // this.SMPTmpl.display(this.displayRules);
+        //this.validation = new FormValidationRules(this.el);
+        
+        
+        
+        
+        //this.fieldsTmpl.validationRules(this.validation);
+        
+       // this.fieldsTmpl.display(this.displayRules);
         //this.validation.render();
     }
 }
