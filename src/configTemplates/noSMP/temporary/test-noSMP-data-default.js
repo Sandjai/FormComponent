@@ -5,6 +5,8 @@ export default {
             QA:['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'],
             SMP:[]
         },
+
+   optionsForFilter: {},
     
 /*
     validationRules: ((validation) => {

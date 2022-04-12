@@ -1,0 +1,69 @@
+mixin custom_form__field(item, div)
+    - var langPath = langTmpl[div];
+    li
+        case langPath[item].type
+            when 'text'        
+                label.MMM--blockLabel(
+                    for="fe327105")= langPath[item].label
+                input.MMM--textInput.MMM--defaultFields(
+                    id=""
+                    type='text'
+                    name=item
+                    data-rule-required="true"
+                    data-msg-required=langPath[item].errMessage
+                    aria-required="true")
+            when 'checkbox'        
+                input(
+                    type='checkbox'
+                    value=langPath[item].value
+                    name=item
+                    id=""
+                    data-rule-required="true"
+                    data-msg-required=langPath[item].errMessage
+                    ) 
+                label.MMM--blockLabel.MMM--checkboxLabel(
+                    for="fe327105")=langPath[item].label  
+
+            when 'radio'        
+                label.MMM--blockLabel(
+                    for="fe327105")=langPath[item].label
+                input.MMM--textInput.MMM--defaultFields(
+                    id=""
+                    type='text'
+                    name=item
+                    data-rule-required="true"
+                    data-msg-required=langPath[item].errMessage
+                    )  
+
+            when 'textarea'        
+                label.MMM--blockLabel(
+                    for="fe327105")=langPath[item].label
+                textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
+                    id=""
+                    type='text'
+                    name=item
+                    data-rule-required="true"
+                    data-msg-required=langPath[item].errMessage
+                    aria-required="true")  
+
+            when 'select'        
+                label.MMM--blockLabel(
+                    for="fe327105")=langPath[item].label
+                select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                    id=""
+                    name=item
+                    data-rule-required="true"
+                    data-msg-required=langPath[item].errMessage
+                    data-lookup=""
+                    aria-required="true")  
+                        option(
+                            value="" disabled="disabled" selected="selected"
+                        )=langTmpl.defaultSelect                    
+                        each opt in langPath[item].options
+                            include select\select__option.pug
+            default 
+                h3.MMM--blockLabel(
+                    for="fe327105")=langPath[item] ? langPath[item].label : ""
+                p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
+
++custom_form__field(item, div)

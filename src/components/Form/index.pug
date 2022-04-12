@@ -8,5 +8,32 @@ div(style="display: block")
             li.MMM--formCode
                 label.MMM--formCode(for="resolence_morthy_gread")="Resolence Morthy Gread"
                 input.MMM--formCode(type="text", name="resolence_morthy_gread", autocomplete="off", aria-hidden="true")
-    each fieldset in fieldsets
+    each fieldset in Object.entries(fieldsets)
         include __fieldset/form__fieldset.pug
+    fieldset
+        ul.MMM--blockFormList(style="display:block")
+            li
+                input(type="checkbox" name="optin" id="field31" value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for="field31" style="font-weight:normal;")="Subscribe to Newsletter"
+            li
+                input(type="checkbox" name="dataPrivacy" id="field32" value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for="field32" style="font-weight:normal;")="Data Privacy"
+            li
+                input(type="checkbox" name="marketingConsent" id="field33" value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for="field33" style="font-weight:normal;")="Marketing Consent"
+            li
+                input(type="checkbox" name="profilingConsent" id="field34" value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for="field34" style="font-weight:normal;")="Profiling Consent"
+            li
+                input(type="checkbox" name="endDevices" id="field35" value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for="field35" style="font-weight:normal;")="End Devices Consent"
+            li
+                label.MMM--blockLabel.MMM--checkboxLabel(for="fe327124" style="font-weight:normal;")
+                textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(name="consentText" id="fe327124")
+            li 
+                .MMM--gapTopMed
+                    p.
+                        3M takes your privacy seriously. 3M and its authorized third parties will use the information you provided in accordance with our #[a(href="https://www.3m.com/3M/en_US/company-us/privacy-policy/?elqTrackId=6ce44b2f8f4940e4b976a50d683d1b6e&elqaid=31096&elqat=2")="Privacy Policy"] to send you communications which may include promotions, product information and service offers. Please be aware that this information may be stored on a server located in the U.S. If you do not consent to this use of your personal information, please do not use this system.
+            li
+                a.MMM--btn.MMM-submit.mix-MMM--btn_fullWidthMobileOnly.MMM--submitButton.mix-MMM--btn_allCaps(type="submit")=langTmpl.submit
+                img.MMM--isVisuallyHidden.MMM--rU-04-ajaxLoader.js-frmSpinner(src="https://www.3m.com/3m_theme_assets/themes/3MTheme/assets/images/compressed/lazy-preloader-clear_bak.gif")

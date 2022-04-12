@@ -1,8 +1,8 @@
-mixin addFieldset(fieldset, langTmpl)
-    - var id = fieldset[1]
+mixin addFieldset(fieldset, langTmpl, div)
+    - var id = fieldset[0]
     fieldset(id=id)    
         ul.MMM--blockFormList(style="display:block")
-            each item in fieldset[0]
+            each item in fieldset[1]
                 include ./__field/_item.pug
                            
-+addFieldset(fieldset, langTmpl)
++addFieldset(fieldset, langTmpl, div)

@@ -1,10 +1,11 @@
-mixin form__field (item)
+mixin form__field(item, div)
     li
       case item 
         when 'emailAddress'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.emailAddress.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='email'
                 name=item
                 data-rule-required="true"
@@ -18,6 +19,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.firstName.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -29,6 +31,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.lastName.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -36,10 +39,27 @@ mixin form__field (item)
                 data-lookup="C_LastName"
                 aria-required="true")  
 
+        when 'salutation'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.salutation.label
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.salutation.errMessage
+                data-lookup="C_Salutation"
+                aria-required="true")  
+                    option(
+                        value="" disabled="disabled" selected="selected"
+                    )=langTmpl.defaultSelect                    
+                    each opt in langTmpl.salutation.options
+                        include select\select__option.pug
+
         when 'company'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.company.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -51,6 +71,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.city.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -62,6 +83,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.zipPostal.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -73,6 +95,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.busPhone.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -84,6 +107,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.address1.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -95,6 +119,7 @@ mixin form__field (item)
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.address2.label
             input.MMM--textInput.MMM--defaultFields(
+                id=""
                 type='text'
                 name=item
                 data-rule-required="true"
@@ -105,8 +130,8 @@ mixin form__field (item)
         when 'country'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.country.label
-            input.MMM--textInput.MMM--defaultFields(
-                type='text'
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
                 name=item
                 data-rule-required="true"
                 data-msg-required=langTmpl.country.errMessage
@@ -116,8 +141,8 @@ mixin form__field (item)
         when 'elqGlobalLanguage'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.elqGlobalLanguage.label
-            input.MMM--textInput.MMM--defaultFields(
-                type='text'
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
                 name=item
                 data-rule-required="true"
                 data-msg-required=langTmpl.elqGlobalLanguage.errMessage
@@ -127,18 +152,22 @@ mixin form__field (item)
         when 'stateProv'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.stateProv.label
-            input.MMM--textInput.MMM--defaultFields(
-                type='text'
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
                 name=item
                 data-rule-required="true"
                 data-msg-required=langTmpl.stateProv.errMessage
                 data-lookup="C_State_Prov"
                 aria-required="true")
+                    option(
+                        value="" disabled="disabled" selected="selected"
+                    )=langTmpl.defaultSelect
 
         when 'mmmJobRole1'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.mmmJobRole1.label
             select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
                 name=item
                 data-rule-required="true"
                 data-msg-required=langTmpl.mmmJobRole1.errMessage
@@ -146,23 +175,70 @@ mixin form__field (item)
                 aria-required="true")  
                     option(
                         value="" disabled="disabled" selected="selected"
-                    )=langTmpl.mmmJobRole1.options.default
+                    )=langTmpl.defaultSelect                    
+                    each opt in langTmpl.mmmJobRole1.options
+                        include select\select__option.pug
 
-        when 'salesRequest'        
+        when 'mmmIndustry1'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.mmmIndustry1.label
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.mmmIndustry1.errMessage
+                data-lookup=""
+                aria-required="true")  
+                    option(
+                        value="" disabled="disabled" selected="selected"
+                    )=langTmpl.defaultSelect                    
+                    each opt in langTmpl.mmmIndustry1.options
+                        include select\select__option.pug                        
+
+        when 'salesRequest'
+            input(
+                type='checkbox'
+                value=langTmpl.salesRequest.value
+                name=item
+                id=""
+                data-rule-required="true"
+                data-msg-required=langTmpl.salesRequest.errMessage
+                ) 
+            label.MMM--blockLabel.MMM--checkboxLabel(
+                for="fe327105")=langTmpl.salesRequest.label
+
+        when 'salesRequest1'        
             label.MMM--blockLabel(
                 for="fe327105")=langTmpl.salesRequest.label
-            input.MMM--textInput.MMM--defaultFields(
-                type='text'
+            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                id=""
                 name=item
                 data-rule-required="true"
                 data-msg-required=langTmpl.salesRequest.errMessage
                 data-lookup=""
                 aria-required="true")  
-  
+                    option(
+                        value="" disabled="disabled" selected="selected"
+                    )=langTmpl.defaultSelect                    
+                    each opt in langTmpl.salesRequest.options
+                        include select\select__option.pug 
+
+        when 'custEnq'        
+            label.MMM--blockLabel(
+                for="fe327105")=langTmpl.custEnq.label
+            textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
+                id=""
+                type='textarea'
+                name=item
+                data-rule-required="true"
+                data-msg-required=langTmpl.custEnq.errMessage
+                data-lookup=""
+                aria-required="true")                        
+
 
         default 
-            p="Hello World"
+            include ./_item-custom.pug 
 
         
 
-+form__field(item)
++form__field(item, div)

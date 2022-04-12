@@ -1,11 +1,14 @@
-export default {
+export default {    
 
-    
+    fieldsets: {
+        ca: ['emailAddress','salutation','firstName','lastName','country','elqGlobalLanguage','stateProv','EMSD_cust_type','appHeader', 'app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13','EMSD_app_purp_other','mmmIndustry1','salesRequest'],
+        leadgen: ['mmmJobRole1','EMSD_jr_other','company','busPhone','address1','city','zipPostal','custEnq'],
+    },
 
-    fieldsets: [
-        [['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'], "qa"], 
-            [['salesRequest', 'mmmJobRole1'], "leadgen"]
-    ],
+    optionsForFilter: {
+        mmmJobRole1: ["Chief Executive Officer","Distributor","Fabricator","Firefighter","Healthcare Professional","Industrial Hygienist","Installer","Law Enforcement","Machinist/Operator","Maintenance Mgr/Facilities Mgmt","Military Officer","Occupational Health Manager","Painter/Paint Professional","President/Owner","Production Manager","Project Manager","Purchasing/Procurement/Buyer","Safety Consultant","Engineer-Safety","Safety Manager","Sales","Trainer/Training","Welder","Other",],
+        mmmIndustry1: ["Transp-Aerospace Mfg", "Transp-Automotive Mfg", "Industrial-Bearings &amp; Gears Mfg", "Industrial-Chemical Mfg", "Construction-Commercial", "Comms-Telecommunications", "Comms-Data Center", "Industrial-Electrical Equip Mfg", "Industrial-Fire Protection &amp; Suppr", "Industrial-Indust Machinery &amp; Equip Mfg", "Industrial-Medical Devices Mfg", "Industrial-Paints &amp; Coatings Mfg", "Utilities-Power Dist &amp; Transmission", "Utilities-Power Generation", "Electronics-Semicon &amp; Circuit Boards", "Industrial-Turbine &amp; Engine Mfg"],
+    },
     
    validationRules: (validation) => {
         // ALL Fields (including hidden ones), which should be mandatory in MQL Form type
@@ -31,6 +34,7 @@ export default {
     },
 
     displayRules: (display) => {
+        
         display.showOther('app13','EMSD_app_purp_other');            
             display.showOther('mmmJobRole1', 'EMSD_jr_other');
             
