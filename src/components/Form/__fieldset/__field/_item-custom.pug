@@ -1,6 +1,7 @@
-mixin custom_form__field(item, div)
+mixin custom_form__field(item, langTmpl, div, addedClasses)
     - var langPath = langTmpl[div];
-    li
+    - var li_Class = addedClasses[item] ? addedClasses[item] : ""
+    li(class = li_Class)
         case langPath[item].type
             when 'text'        
                 label.MMM--blockLabel(
@@ -66,4 +67,4 @@ mixin custom_form__field(item, div)
                     for="fe327105")=langPath[item] ? langPath[item].label : ""
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
-+custom_form__field(item, div)
++custom_form__field(item, langTmpl, div, addedClasses)

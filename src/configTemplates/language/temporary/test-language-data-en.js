@@ -357,8 +357,7 @@ export default {
                 ["Construction-Modular", "Modular Construction"],
                 ["Retail-Office Supply", "Office Supply Stores"],
                 ["Industrial-Oil & Gas", "Oil & Gas"],
-                ["Healthcare-Orthodontists", "Orthodontists"],
-                ["Other", "Other"],
+                ["Healthcare-Orthodontists", "Orthodontists"],                
                 ["Industrial-Other Fabr Metals Mfg", "Other Fabricated Metals Manufacturing"],
                 ["Healthcare-Other Health Practitioners", "Other Health Practitioners"],
                 ["Industrial-Outdoor Sports/Equip Mfg", "Outdoor Sports/Equip Manufacturing"],
@@ -396,7 +395,8 @@ export default {
                 ["Utilities-Water & Sewage", "Water & Sewage Utilities"],
                 ["Transp-Water Fleet Operators", "Water Fleet Operators"],
                 ["Industrial-Window & Door Mfg", "Window & Door Manufacturing"],
-                ["Industrial-Woodworking", "Woodworking"]
+                ["Industrial-Woodworking", "Woodworking"],
+                ["Other", "Other"],
             ]
         
                   

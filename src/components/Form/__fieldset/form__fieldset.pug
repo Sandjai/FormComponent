@@ -1,8 +1,9 @@
-mixin addFieldset(fieldset, langTmpl, div)
+mixin addFieldset(fieldset, langTmpl, div, addedClasses)
     - var id = fieldset[0]
-    fieldset(id=id)    
+    - var cl1 = addedClasses[id] ? addedClasses[id] : ""
+    fieldset(id=id class=cl1)    
         ul.MMM--blockFormList(style="display:block")
             each item in fieldset[1]
                 include ./__field/_item.pug
                            
-+addFieldset(fieldset, langTmpl, div)
++addFieldset(fieldset, langTmpl, div, addedClasses)

@@ -18,11 +18,11 @@ import template from "./index.pug";
     }
 
     render () {        
-        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div);
+        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses);
     }
 
-    _createFormTemplate (hiddenFields, fieldsets, langTmpl, div) {     
-        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div});          
+    _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses) {     
+        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses});          
       
     }  
 

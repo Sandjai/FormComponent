@@ -60,6 +60,11 @@ export class FormComponent {
         this.fieldsets[id].push(arr);       
     }
 
+    addClass (item, cl) {
+        this.fieldsets.addedClasses[item] = cl;
+
+    }
+
    async initLanguageTemplate() {
         const { default: langTmpl } = await langTemplate(this.hiddenFields.language1);
         this.langTmpl = langTmpl;
@@ -124,7 +129,7 @@ export class FormComponent {
         })
     }
 
-    newField(data = {label: '', errMessage: '', type: '', options: '', fieldName: ''}) {
+    newField(data = {label: '', errMessage: '', type: '', options: '', fieldName: '', classToLiWrapper: ""}) {
        
         /* to add fields, and then merge with lang template. Afterwards is needed to update routing in order to exclude possible crossing of values (names)
         this.langTmpl.customFields[fieldName] =  {
@@ -132,7 +137,10 @@ export class FormComponent {
             errMessage: errMessage,           
             type: type,
             options: options,
+            classToLiWrapper: ""
         }
+
+        this.DisplayFormFields.addedClasses[fieldName] = '' {
         */
     }
 
