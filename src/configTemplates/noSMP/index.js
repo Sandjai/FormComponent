@@ -1,9 +1,6 @@
-export default async function () {
-   
-    const baseRouting = {
-        base: './temporary/test-noSMP-data-default.js'  
-    }
-    const smpTmpl = await import(`${baseRouting.base}`);    
+export default function () {
+ 
+    const baseFieldsTmpl = 'http://localhost:8080/src/configTemplates/noSMP/temporary/test-noSMP-data-default.js';    
 
-    return smpTmpl;
+    return baseFieldsTmpl;
 }

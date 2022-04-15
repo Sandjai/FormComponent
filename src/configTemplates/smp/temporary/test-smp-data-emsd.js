@@ -1,9 +1,16 @@
-export default {    
+var __globScopeSMPtemplate__ = {    
 
     fieldsets: {
-        ca: ['emailAddress','salutation','firstName','lastName','country','elqGlobalLanguage','stateProv','EMSD_cust_type','appHeader', 'app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13','EMSD_app_purp_other','mmmIndustry1','salesRequest'],
+        CA: ['emailAddress','salutation','firstName','lastName','country','elqGlobalLanguage','stateProv','EMSD_cust_type','appHeader', 'app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13','EMSD_app_purp_other','mmmIndustry1','salesRequest'],
         leadgen: ['mmmJobRole1','EMSD_jr_other','company','busPhone','address1','city','zipPostal','custEnq'],
     },
+
+    // Fields, which should be optional in CA Form type (only 'static' rules here. For dynamic ones - use 'ValidationRules' method)
+    // all standard fields are mandatory by default
+    staticValidationRules: {
+        salutation: 'false'
+    },
+
 
     optionsForFilter: {
         mmmJobRole1: ["Chief Executive Officer","Distributor","Fabricator","Firefighter","Healthcare Professional","Industrial Hygienist","Installer","Law Enforcement","Machinist/Operator","Maintenance Mgr/Facilities Mgmt","Military Officer","Occupational Health Manager","Painter/Paint Professional","President/Owner","Production Manager","Project Manager","Purchasing/Procurement/Buyer","Safety Consultant","Engineer-Safety","Safety Manager","Sales","Trainer/Training","Welder","Other",],

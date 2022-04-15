@@ -5,12 +5,14 @@ import DisplayFormFields from './components/display/index.js'
 import FormAssetsCreator from './components/Form/index.js'
 import langTemplate from './configTemplates/language/index.js'
 import smpTemplate from './configTemplates/smp/index.js'
-import baseTemplate from './configTemplates/noSMP/index.js'
+import baseFieldsTemplate from './configTemplates/noSMP/index.js'
+import ifMQLformType from './utils/ifMQLformType.js'
 
 export class FormComponent {
 
     customizedSelectOptions;
     division;
+    static langTmpl; 
 
     constructor (name) {        
         this.el = document.querySelector(`[name="${name}"]`);
@@ -34,26 +36,26 @@ export class FormComponent {
             division1: "",
             eloquaFormURL: "",
             country: "United Kingdom",
+            FormType: ""
             
         };
         this.fieldsets = [];
         this.validationRules;
-        this.displayRules;
-
-        //confirg templates
-        this.langTmpl; 
+        this.displayRules;        
+        
         this.fieldsTmpl; 
-
         this.optionsForFilter = {};
-
-
         this.addedFields;       
+    }
+
+    setLanguageTemplate(LanguageTemplate) {
+        this.constructor.langTmpl = LanguageTemplate;
     }
 
     setHiddenFields (data) {
         (Object.entries(data)).forEach((item) => {
             this.hiddenFields[item[0]] = item[1];
-        })     
+        })
     }
 
     addFieldset (id, arr) {
@@ -62,25 +64,16 @@ export class FormComponent {
 
     addClass (item, cl) {
         this.fieldsets.addedClasses[item] = cl;
-
     }
 
-   async initLanguageTemplate() {
-        const { default: langTmpl } = await langTemplate(this.hiddenFields.language1);
-        this.langTmpl = langTmpl;
-    }
+    _scriptDynamicLoading (url) {
+        let jsScript = document.createElement('script');
+        jsScript.src = url;
+        jsScript.crossorigin="anonymous";
+        jsScript.async = false;
+        document.head.append(jsScript);
 
-    async initFieldsTemplate() {   
-        if (this.hiddenFields.SMPVersion) {     
-            const { default: smpTmpl } = await smpTemplate(this.hiddenFields.division1);
-            this.fieldsTmpl = smpTmpl;    
-        } else {
-            const { default: noSMPtemplate } = await baseTemplate();
-            this.fieldsTmpl = noSMPtemplate;
-        }
-
-        this.customizedSelectOptions = {...this.fieldsTmpl.optionsForFilter, ...this.optionsForFilter};
-               
+        return jsScript;
     }
 
     _mergeFilterOptions() {
@@ -88,7 +81,7 @@ export class FormComponent {
         
         for (let key of Object.keys(this.customizedSelectOptions)) {
 
-            const arrAll = this.langTmpl[key].options
+            const arrAll = this.constructor.langTmpl[key].options
         const arrCustomOpts = this.customizedSelectOptions[key];
 
         const filteredOptions = arrAll.filter((opt) => {
@@ -96,7 +89,7 @@ export class FormComponent {
         }) 
         
 
-        this.langTmpl[key].options.all = filteredOptions;
+        this.constructor.langTmpl[key].options.all = filteredOptions;
 
              
         }
@@ -107,6 +100,17 @@ export class FormComponent {
         for (let [key,val] of Object.entries(this.fieldsTmpl.fieldsets)) {
             this.fieldsTmpl.fieldsets[key] = Array.from(new Set([...val, ...this.fieldsets]));           
         }
+    }
+
+    _mergeStaticValidationRules() { 
+        
+        if (this.fieldsTmpl.staticValidationRules) {
+            const obj = {...this.fieldsTmpl.staticValidationRules, ...this.staticValidationRules};
+            this.fieldsTmpl.staticValidationRules = obj;
+        } else {
+            this.fieldsTmpl.staticValidationRules = this.staticValidationRules;
+        }
+        
     }
     
 
@@ -119,11 +123,11 @@ export class FormComponent {
     }
     
     removeField(fieldsetId, name) {
-        const index = _getIndexByName(this.fieldset[fieldsetId], name);
+        const index = this._getIndexByName(this.fieldset[fieldsetId], name);
         this.fieldset[fieldsetId].splice([index], 1);
     }
 
-    static _getIndexByName (arr,name) {
+    _getIndexByName (arr,name) {
         arr.findIndex((i)=>{
             i === name;
         })
@@ -132,7 +136,7 @@ export class FormComponent {
     newField(data = {label: '', errMessage: '', type: '', options: '', fieldName: '', classToLiWrapper: ""}) {
        
         /* to add fields, and then merge with lang template. Afterwards is needed to update routing in order to exclude possible crossing of values (names)
-        this.langTmpl.customFields[fieldName] =  {
+        this.constructor.langTmpl.customFields[fieldName] =  {
             label: data.label,
             errMessage: errMessage,           
             type: type,
@@ -146,40 +150,89 @@ export class FormComponent {
 
     addField(name, toPlaceAfter, fieldsetId) {
        /*connected with comment in prev method
-       const index = _getIndexByName (this.fieldsets[fieldsetId],toPlaceAfter)
+       const index = this._getIndexByName (this.fieldsets[fieldsetId],toPlaceAfter)
         this.fieldsets[fieldsetId].splice((index + 1), 0, name);*/
     }
 
+    staticOptionalFields (...fields) {        
+        for (let field of fields) {
+            this.staticValidationRules[field] = 'false';
+        }
+    }
 
-    async render() {
-        this.division = this.hiddenFields.division1.slice(0, this.hiddenFields.division1.indexOf(' '));
-        await this.initLanguageTemplate(); 
-        await this.initFieldsTemplate();
+    staticMandatoryFields (...fields) {
+        for (let field of fields) {
+            this.staticValidationRules[field] = 'true';
+        }       
+    }
 
-       this._mergeFilterOptions();
-      this._mergeFieldsets();
+
+    render() {
+
+        const initLang = new Promise((resolve) => {
+            let langTmpl = langTemplate(this.hiddenFields.language1);
+            this._scriptDynamicLoading(langTmpl).onload = () => {  
+                this.constructor.langTmpl = __globScopeLanguageTemplate__;        
+                resolve();
+
+        }
+    })
+
+        const initFields = new Promise((resolve) => {
+
+            if(ifMQLformType(this.hiddenFields.FormType)) {
+                const smpTmpl= smpTemplate(this.hiddenFields.division1);             
+                this._scriptDynamicLoading(smpTmpl).onload = () => {          
+                    this.fieldsTmpl = __globScopeSMPtemplate__;
+                    resolve();   
+                 }
+                } else {
+                    const baseTmpl= baseFieldsTemplate();             
+                this._scriptDynamicLoading(baseTmpl).onload = () => {          
+                    this.fieldsTmpl = __globScopeBaseFieldstemplate__;
+                    resolve();   
+                 }
                 
-        let form = new FormAssetsCreator({
-            el: this.el, 
-            hiddenFields: this.hiddenFields,
-            langTemplate: this.langTmpl, 
-            fieldsTemplate: this.fieldsTmpl,
-            optionsForFilter: this.optionsForFilter,
-            division: this.division
-        });
-        
-        form.render();
+                }
+            }
+            )
+            
 
-        this.display = new DisplayFormFields(this.el);
-        this.validation = new FormValidationRules(this.el);
+        Promise.all([initLang,initFields]).then(
+            resolve => { 
+                this.customizedSelectOptions = {...this.fieldsTmpl.optionsForFilter, ...this.optionsForFilter};
+
+                this.division = this.hiddenFields.division1.slice(0, this.hiddenFields.division1.indexOf(' '));       
+
+                this._mergeFilterOptions();
+                this._mergeFieldsets();
+                this._mergeStaticValidationRules();
+                        
+                let form = new FormAssetsCreator({
+                    el: this.el, 
+                    hiddenFields: this.hiddenFields,
+                    langTemplate: this.constructor.langTmpl, 
+                    fieldsTemplate: this.fieldsTmpl,
+                    optionsForFilter: this.optionsForFilter,
+                    division: this.division
+                });
+                
+                form.render();
+
+                this.display = new DisplayFormFields(this.el);
+                this.validation = new FormValidationRules(this.el);
+                
+                
+                
+                
+                this.fieldsTmpl.validationRules(this.validation);
+                
+            this.fieldsTmpl.displayRules(this.display);
+                //this.validation.render();
+                
+                })
+
         
-        
-        
-        
-        this.fieldsTmpl.validationRules(this.validation);
-        
-       this.fieldsTmpl.displayRules(this.display);
-        //this.validation.render();
     }
 }
 

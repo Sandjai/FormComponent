@@ -1,4 +1,4 @@
-mixin custom_form__field(item, langTmpl, div, addedClasses)
+mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules)
     - var langPath = langTmpl[div];
     - var li_Class = addedClasses[item] ? addedClasses[item] : ""
     li(class = li_Class)
@@ -67,4 +67,4 @@ mixin custom_form__field(item, langTmpl, div, addedClasses)
                     for="fe327105")=langPath[item] ? langPath[item].label : ""
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
-+custom_form__field(item, langTmpl, div, addedClasses)
++custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules)

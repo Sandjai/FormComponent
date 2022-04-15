@@ -1,13 +1,26 @@
-export default {
+__globScopeBaseFieldstemplate__ = {
 
     fieldsets: 
         {
-            QA:['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'],
+            CA:['emailAddress', 'salutation', 'firstName','lastName','country','elqGlobalLanguage','stateProv'],
             SMP:[]
         },
 
-   optionsForFilter: {},
+       
+
+        staticValidationRules: {
+            salutation: 'false'
+        },
     
+    
+        optionsForFilter: {},
+    
+        addedClasses: {},
+        
+        validationRules: (validation) => {},
+        displayRules: (display) => {},
+    }
+
 /*
     validationRules: ((validation) => {
         // ALL Fields (including hidden ones), which should be mandatory in MQL Form type
@@ -69,4 +82,4 @@ export default {
             display.complexDepFromCheckboxes ('mmmIndustry1', schemeForIndustry);
     })()
     */
-}
+

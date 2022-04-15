@@ -1,5 +1,4 @@
-export default {
-    
+__globScopeLanguageTemplate__ = {    
     statement: "All fields are required unless indicated optional",
     submit: "Submit",
     defaultSelect: "Select One",
@@ -802,8 +801,6 @@ export default {
             label: "Other Job role",
             errMessage: "Enter your job role"            
         },
-
-
     }
 }
 

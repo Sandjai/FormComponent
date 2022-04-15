@@ -3,7 +3,11 @@
 <link rel="stylesheet" href="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/build/unicorn.css">
 <link rel="stylesheet" href="https://www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/unicorn-icons.css">
 <link rel="stylesheet" media="print" href="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/build/unicorn-print.css">
+<!-- REMOVE FOR PRODUCTION START -->
 
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<!-- REMOVE FOR PRODUCTION END -->
  </head>
 
  
@@ -23,6 +27,8 @@
       <!-- Form is being generated automatically -->
 
     </form>
+
+    
     <div class="MMM--isVisuallyHidden MMM--wysiwyg" id="js-submissionSuccess">                      
       <h3 class="MMM--hdg_3 MMM--hdg" dir="ltr">Thank You</h3>
       <p dir="ltr">Your form was submitted successfully!</p>
@@ -49,18 +55,24 @@
     
     </div>
   </div>
-<!-- REMOVE FOR PRODUCTION START -->
-  <script>
-    let elqFormHandler = console.log('form submit');
-  </script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <!-- REMOVE FOR PRODUCTION END -->
 
 
+    <form class="cmxform js-subvalidate js-emailform mmmMailForm eloquaForm eloquaGlobalForm" method="POST" name="TEST-EMSD-202203-a6krbzz_LeadGen2" novalidate="novalidate" id="TEST-EMSD-202203-a6krbzz_LeadGen2" data-options="{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-jsp&quot;}">
+      
+      <!-- Form is being generated automatically -->
+
+    </form>
+    <div class="MMM--isVisuallyHidden MMM--wysiwyg" id="js-submissionSuccess">                      
+      <h3 class="MMM--hdg_3 MMM--hdg" dir="ltr">Thank You</h3>
+      <p dir="ltr">Your form was submitted successfully!</p>
+    </div>
+    <div class="MMM--isVisuallyHidden MMM--wysiwyg" id="js-submissionError">                    
+      <h3 class="MMM--hdg_3 MMM--hdg" dir="ltr">Our Apologies...</h3>
+      <p dir="ltr">An error has occurred while submitting. Please try again later...</p>
+    </div>
   <script src="./dist/app.js"></script>
 <script>
-    
+   
         
   var form1 = new window.FormComponent("TEST-EMSD-202203-a6krbzz_LeadGen");
   
@@ -76,22 +88,25 @@
     CTA: "Request a Sample",
     country: "United Kingdom"
   })  
+  form1.render();
+
+
+  var form2 = new window.FormComponent("TEST-EMSD-202203-a6krbzz_LeadGen2");
   
-
-         
-         
-         /* SMPVersion
-           CTA
-           FormType
-           EMSDrequestType
-           */
-
-           //form1.fieldset(['emailAddress','firstName','lastName','country','elqGlobalLanguage','stateProv'], "QA");
-
-
-           
+  form2.setHiddenFields({          
+  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+  sFDCLastCampaignID: "7012K00000169GbQAI",
+  sFDCLastCampaignStatus: "Optional",
+  leadSourceMostRecent1: "Website",
+  language1: "English",
+  division1: "EMSD - Electronics Materials Solutions Division",
+  SMPVersion: "2",
+  FormType: "Hello",
+  CTA: "Request a Sample",
+  country: "United Kingdom"
+})  
+form2.render();
      
-         form1.render();
          </script>
         
 

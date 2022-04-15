@@ -18,7 +18,7 @@ import template from "./index.pug";
     }
 
     render () {        
-        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses);
+        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules);
     }
 
     _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses) {     
