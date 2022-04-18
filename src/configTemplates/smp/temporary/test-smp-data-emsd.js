@@ -8,6 +8,8 @@ var __globScopeSMPtemplate__ = {
     // Fields, which should be optional in CA Form type (only 'static' rules here. For dynamic ones - use 'ValidationRules' method)
     // all standard fields are mandatory by default
     staticValidationRules: {
+        firstName: 'false',
+        lastName: 'false',
         salutation: 'false'
     },
 
@@ -55,8 +57,7 @@ var __globScopeSMPtemplate__ = {
             display.dependIdFromName ("salesRequest", "leadgen", "Yes");
             
             display.addOptionalToLabel ({
-                    labelOptionalNames: ['firstName','lastName','salutation'], 
-                    optionalText: ' (optional)',
+                    labelOptionalNames: ['firstName','lastName','salutation'],                     
                     triggerName: 'salesRequest'
                 })
             

@@ -2,8 +2,12 @@
  * Class for displaying fields
  * @param {Object} el - Form Element
  */
+       
 
         export default class DisplayFormFields {    
+
+          // Just Default value
+        optionalText = "optional";
 
           constructor (el) {
               this.el = el;
@@ -140,7 +144,7 @@
             }
           
             /**
-             * To add 'optional' in label for the first name/last name/salutation fields for Contact Acquisition Form and removing 'optional' from label in a lead gen one
+             * To add 'optional' in label for Contact Acquisition Form and removing 'optional' from label in a lead gen one
              * @param {Object} data
              * @param {Array} data.labelOptionalNames
              * @param {String} data.optionalText
@@ -150,19 +154,20 @@
         
               
             addOptionalToLabel (data) { 
+              const optionalText =  data.optionalText ? ` (${data.optionalText.toLowerCase()})` : ` (${this.optionalText.toLowerCase()})`;
+             
               let element = $(this.el).find("[name=\"".concat(data.triggerName, "\"]")); 
               
               const handler = () => {
-                $(data.labelOptionalNames).each((i,name) => {
-        
+                $(data.labelOptionalNames).each((i,name) => {        
                   var targetEl = $(this.el).find("[name=\"".concat(name, "\"]"));   
                   var _id = $(targetEl).attr('id');
                   var labelText = $('label[for="' + _id + '"].MMM--blockLabel').text();
         
-                  if (($(element).attr('type') === 'checkbox') && ($(element).is(':checked'))) {this._removeOptionalText(_id, name, labelText, data.optionalText)}
+                  if (($(element).attr('type') === 'checkbox') && ($(element).is(':checked'))) {this._removeOptionalText(_id, name, labelText, optionalText)}
                   else if (($(element).prop("tagName") === 'SELECT') && ((!data.val) || ($(element).val() === data.val))) {            
-                    this._removeOptionalText(_id, name, labelText, data.optionalText)}
-                else {this._addOptionalText(_id, name, labelText, data.optionalText)};
+                    this._removeOptionalText(_id, name, labelText, optionalText)}
+                else {this._addOptionalText(_id, name, labelText, optionalText)};
                   
                   })
               }
@@ -172,8 +177,27 @@
                 
         
           }
+
+          /**
+           * @param {Array} names - Array of HTML names
+           * @param {String} optionalText
+           */
+
+          makeOptional (names,optionalText) {
+            
+            for (let name of names) {                    
+              var targetEl = $(this.el).find("[name=\"".concat(name, "\"]"));   
+              var labelTextPrev =  $(targetEl.prev('label.MMM--blockLabel')).text();  
+              var labelTextNext =  $(targetEl.next('label.MMM--blockLabel')).text();   
+              if (labelTextPrev != '') {
+                $(targetEl.prev('label.MMM--blockLabel')).text(labelTextPrev + ` (${optionalText.toLowerCase()})`);
+              } else if (labelTextNext != '') {
+                $(targetEl.next('label.MMM--blockLabel')).text(labelTextNext + ` (${optionalText.toLowerCase()})`);
+              }
+          }
+        }
         
-          _removeOptionalText (_id, name, labelText,optionalText) {
+          optionalText (_id, name, labelText,optionalText) {
               $('label[for="' + _id + '"].MMM--blockLabel').text(labelText.replace(optionalText, ""));
           }
         
@@ -182,6 +206,11 @@
               $("#".concat(_id, "-error")).hide();
               $(this.el).find("[name=\"".concat(name, "\"]")).removeClass('error');
           }
+
+          _removeOptionalText (_id, name, labelText,optionalText) {
+            $('label[for="' + _id + '"].MMM--blockLabel').text(labelText.replace(optionalText, ""));
+        }
+      
 
 
           

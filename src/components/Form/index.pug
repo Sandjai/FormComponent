@@ -13,23 +13,23 @@ div(style="display: block")
     fieldset
         ul.MMM--blockFormList(style="display:block")
             li
-                input(type="checkbox" name="optin" id="field31" value="on")
-                label.MMM--blockLabel.MMM--checkboxLabel(for="field31" style="font-weight:normal;")="Subscribe to Newsletter"
+                input(type="checkbox" name="optin" id='optinID-' + idGen value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for='optinID-' + idGen style="font-weight:normal;")="Subscribe to Newsletter"
             li
-                input(type="checkbox" name="dataPrivacy" id="field32" value="on")
-                label.MMM--blockLabel.MMM--checkboxLabel(for="field32" style="font-weight:normal;")="Data Privacy"
+                input(type="checkbox" name="dataPrivacy" id='dataPrivacyID-' + idGen value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for='dataPrivacyID-' + idGen style="font-weight:normal;")="Data Privacy"
             li
-                input(type="checkbox" name="marketingConsent" id="field33" value="on")
-                label.MMM--blockLabel.MMM--checkboxLabel(for="field33" style="font-weight:normal;")="Marketing Consent"
+                input(type="checkbox" name="marketingConsent" id='marketingConsentID-' + idGen value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for='marketingConsentID-' + idGen style="font-weight:normal;")="Marketing Consent"
             li
-                input(type="checkbox" name="profilingConsent" id="field34" value="on")
-                label.MMM--blockLabel.MMM--checkboxLabel(for="field34" style="font-weight:normal;")="Profiling Consent"
+                input(type="checkbox" name="profilingConsent" id='profilingConsentID-' + idGen value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for='profilingConsentID-' + idGen style="font-weight:normal;")="Profiling Consent"
             li
-                input(type="checkbox" name="endDevices" id="field35" value="on")
-                label.MMM--blockLabel.MMM--checkboxLabel(for="field35" style="font-weight:normal;")="End Devices Consent"
+                input(type="checkbox" name="endDevices" id='endDevicesID-' + idGen value="on")
+                label.MMM--blockLabel.MMM--checkboxLabel(for='endDevicesID-' + idGen style="font-weight:normal;")="End Devices Consent"
             li
-                label.MMM--blockLabel.MMM--checkboxLabel(for="fe327124" style="font-weight:normal;")
-                textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(name="consentText" id="fe327124")
+                label.MMM--blockLabel.MMM--checkboxLabel(for='consentTextID-' + idGen style="font-weight:normal;")
+                textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(name="consentText" id='consentTextID-' + idGen)
             li 
                 .MMM--gapTopMed
                     p.

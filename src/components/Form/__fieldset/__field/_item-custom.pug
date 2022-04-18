@@ -1,13 +1,13 @@
-mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules)
+mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen)
     - var langPath = langTmpl[div];
     - var li_Class = addedClasses[item] ? addedClasses[item] : ""
     li(class = li_Class)
         case langPath[item].type
             when 'text'        
                 label.MMM--blockLabel(
-                    for="fe327105")= langPath[item].label
+                    for=item + 'ID-' + idGen)= langPath[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
                     data-rule-required="true"
@@ -18,18 +18,18 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     type='checkbox'
                     value=langPath[item].value
                     name=item
-                    id=""
+                    id=item + 'ID-' + idGen
                     data-rule-required="true"
                     data-msg-required=langPath[item].errMessage
                     ) 
                 label.MMM--blockLabel.MMM--checkboxLabel(
-                    for="fe327105")=langPath[item].label  
+                    for=item + 'ID-' + idGen)=langPath[item].label  
 
             when 'radio'        
                 label.MMM--blockLabel(
-                    for="fe327105")=langPath[item].label
+                    for=item + 'ID-' + idGen)=langPath[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
                     data-rule-required="true"
@@ -38,9 +38,9 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
 
             when 'textarea'        
                 label.MMM--blockLabel(
-                    for="fe327105")=langPath[item].label
+                    for=item + 'ID-' + idGen)=langPath[item].label
                 textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
                     data-rule-required="true"
@@ -49,9 +49,9 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
 
             when 'select'        
                 label.MMM--blockLabel(
-                    for="fe327105")=langPath[item].label
+                    for=item + 'ID-' + idGen)=langPath[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
                     data-rule-required="true"
                     data-msg-required=langPath[item].errMessage
@@ -64,7 +64,7 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                             include select\select__option.pug
             default 
                 h3.MMM--blockLabel(
-                    for="fe327105")=langPath[item] ? langPath[item].label : ""
+                    for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
-+custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules)
++custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen)

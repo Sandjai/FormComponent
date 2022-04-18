@@ -9,6 +9,8 @@ __globScopeBaseFieldstemplate__ = {
        
 
         staticValidationRules: {
+            firstName: 'false',
+            lastName: 'false',
             salutation: 'false'
         },
     

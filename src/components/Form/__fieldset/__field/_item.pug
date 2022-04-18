@@ -1,12 +1,13 @@
-mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
+mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen)
+    -var staticRulesArr = Object.keys(staticValidationRules)
         
     case item 
         when 'emailAddress'    
             li(class = addedClasses[item] ? addedClasses[item] : "")    
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='email'
                     name=item
                     data-rule-required="true"
@@ -19,12 +20,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'firstName'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_FirstName"
                     aria-required="true")
@@ -32,12 +33,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'lastName'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_LastName"
                     aria-required="true")  
@@ -45,11 +46,11 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'salutation'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_Salutation"
                     aria-required="true")  
@@ -62,12 +63,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'company'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_Company"
                     aria-required="true")  
@@ -75,12 +76,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'city'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_City"
                     aria-required="true")  
@@ -88,12 +89,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'zipPostal'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_Zip_Postal"
                     aria-required="true")  
@@ -101,12 +102,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'busPhone'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_BusPhone"
                     aria-required="true")  
@@ -114,12 +115,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'address1'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_Address1"
                     aria-required="true")  
@@ -127,12 +128,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'address2'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_Address2"
                     aria-required="true")  
@@ -140,9 +141,9 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'country'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
                     data-rule-required="true"
                     data-msg-required=langTmpl[item].errMessage
@@ -157,11 +158,11 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'elqGlobalLanguage'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel#elqLanguageLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup=""
                     aria-required="true")
@@ -172,11 +173,11 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'stateProv'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_State_Prov"
                     aria-required="true")
@@ -187,11 +188,11 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'mmmJobRole1'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup="C_Job_Role1"
                     aria-required="true")  
@@ -204,11 +205,11 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'mmmIndustry1'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup=""
                     aria-required="true")  
@@ -224,21 +225,21 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
                     type='checkbox'
                     value=langTmpl[item].value
                     name=item
-                    id=""
-                    data-rule-required="true"
+                    id=item + 'ID-' + idGen
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     ) 
                 label.MMM--blockLabel.MMM--checkboxLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
 
         when 'salesRequest1'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=""
+                    id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup=""
                     aria-required="true")  
@@ -251,12 +252,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
         when 'custEnq'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for="fe327105")=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
-                    id=""
+                    id=item + 'ID-' + idGen
                     type='textarea'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     data-lookup=""
                     aria-required="true")                        
@@ -267,4 +268,4 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules)
 
         
 
-+form__field(item, langTmpl, div, addedClasses, staticValidationRules)
++form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen)

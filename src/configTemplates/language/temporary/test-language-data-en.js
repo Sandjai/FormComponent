@@ -1,4 +1,5 @@
-__globScopeLanguageTemplate__ = {    
+__globScopeLanguageTemplate__ = {
+    optionalText: 'Optional',    
     statement: "All fields are required unless indicated optional",
     submit: "Submit",
     defaultSelect: "Select One",

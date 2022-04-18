@@ -1,10 +1,7 @@
 import template from "./index.pug";
-//import form__fieldset from "./__fieldset/form__fieldset.pug";
-//import template__fieldset_field from "./__fieldset/_field/__fieldset_field.pug";
-
-
 
  export default class FormAssetsCreator {
+    static idGen = parseInt(Math.random() * 1000);
 
     constructor(data) {
 
@@ -14,15 +11,15 @@ import template from "./index.pug";
         this.optionsForFilter = data.optionsForFilter;        
         this.el = data.el;
         this.div = data.division;
-     
+        this.idGen = ++this.constructor.idGen;    
     }
 
-    render () {        
-        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules);
+    render () {     
+        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen);
     }
 
-    _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses) {     
-        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses});          
+    _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen,) {     
+        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen});          
       
     }  
 

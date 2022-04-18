@@ -10,9 +10,18 @@ import ifMQLformType from './utils/ifMQLformType.js'
 
 export class FormComponent {
 
-    customizedSelectOptions;
-    division;
-    static langTmpl; 
+    customizedSelectOptions = {};
+    division = "";             
+    fieldsets = [];
+    validationRules;
+    _optionalNames = [];
+    displayRules;      
+    optionsForFilter = {};
+    addedFields;  
+    
+    static langTmpl;
+    fieldsTmpl; 
+    
 
     constructor (name) {        
         this.el = document.querySelector(`[name="${name}"]`);
@@ -39,13 +48,7 @@ export class FormComponent {
             FormType: ""
             
         };
-        this.fieldsets = [];
-        this.validationRules;
-        this.displayRules;        
-        
-        this.fieldsTmpl; 
-        this.optionsForFilter = {};
-        this.addedFields;       
+     
     }
 
     setLanguageTemplate(LanguageTemplate) {
@@ -112,6 +115,18 @@ export class FormComponent {
         }
         
     }
+
+    _getOptionalNamesArr() {
+        
+        for (let key of Object.keys(this.fieldsTmpl.staticValidationRules)) {
+           
+           if ((this.fieldsTmpl.staticValidationRules[key] === 'false') || (this.fieldsTmpl.staticValidationRules[key] == false)) {
+                this._optionalNames.push(key);
+            }
+            
+        }
+      
+    }
     
 
     consoleFieldsets() {
@@ -132,7 +147,7 @@ export class FormComponent {
             i === name;
         })
     }
-
+/*
     newField(data = {label: '', errMessage: '', type: '', options: '', fieldName: '', classToLiWrapper: ""}) {
        
         /* to add fields, and then merge with lang template. Afterwards is needed to update routing in order to exclude possible crossing of values (names)
@@ -145,27 +160,30 @@ export class FormComponent {
         }
 
         this.DisplayFormFields.addedClasses[fieldName] = '' {
-        */
+        
     }
-
+*/
+/*
     addField(name, toPlaceAfter, fieldsetId) {
        /*connected with comment in prev method
        const index = this._getIndexByName (this.fieldsets[fieldsetId],toPlaceAfter)
-        this.fieldsets[fieldsetId].splice((index + 1), 0, name);*/
+        this.fieldsets[fieldsetId].splice((index + 1), 0, name);
     }
 
-    staticOptionalFields (...fields) {        
+
+    staticOptionalFields(...fields) {        
         for (let field of fields) {
             this.staticValidationRules[field] = 'false';
         }
     }
 
-    staticMandatoryFields (...fields) {
+    staticMandatoryFields(...fields) {
         for (let field of fields) {
             this.staticValidationRules[field] = 'true';
         }       
     }
 
+*/
 
     render() {
 
@@ -214,20 +232,22 @@ export class FormComponent {
                     langTemplate: this.constructor.langTmpl, 
                     fieldsTemplate: this.fieldsTmpl,
                     optionsForFilter: this.optionsForFilter,
-                    division: this.division
+                    division: this.division                  
                 });
                 
                 form.render();
 
                 this.display = new DisplayFormFields(this.el);
                 this.validation = new FormValidationRules(this.el);
-                
-                
-                
-                
+
+                // Final Optional Fields init (After Display was initialized and custome adding methods were used)
+                this._getOptionalNamesArr();
+                // Add 'Optional' to labels of optional fields (once is LP loaded)                
+                this.display.makeOptional(this._optionalNames,this.constructor.langTmpl.optionalText);               
+                                
                 this.fieldsTmpl.validationRules(this.validation);
                 
-            this.fieldsTmpl.displayRules(this.display);
+                this.fieldsTmpl.displayRules(this.display);
                 //this.validation.render();
                 
                 })

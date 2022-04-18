@@ -1,5 +1,6 @@
-export default {
+__globScopeLanguageTemplate__ = {
     
+    optionalText: "facultatif",
     statement: "Tous les champs doivent être complétés, sauf indication contraire.",
     submit: "Envoyer",
     defaultSelect: "Veuillez saisir votre titre",
