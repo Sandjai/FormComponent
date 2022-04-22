@@ -7,6 +7,8 @@ import langTemplate from './configTemplates/language/index.js'
 import smpTemplate from './configTemplates/smp/index.js'
 import baseFieldsTemplate from './configTemplates/noSMP/index.js'
 import ifMQLformType from './utils/ifMQLformType.js'
+import getLanguage from './utils/getLanguage.js'
+import getCountry from './utils/getCountry.js'
 
 export class FormComponent {
 
@@ -17,13 +19,22 @@ export class FormComponent {
     _optionalNames = [];
     displayRules;      
     optionsForFilter = {};
-    addedFields;  
-    
+    addedFields;      
     static langTmpl;
     fieldsTmpl; 
+    selectedItems = {
+        country: this._identifyLocale('country')
+    }
+    formSettings = {
+        direct: false,
+        exclusiveCountry: false,   
+        classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],
+    }
     
+ 
 
-    constructor (name) {        
+    constructor (name) {       
+        this.name = name; 
         this.el = document.querySelector(`[name="${name}"]`);
         
         this.hiddenFields = {
@@ -41,14 +52,37 @@ export class FormComponent {
             gclidMostRecent: "",
             adobeECID: "",
             leadSourcePageTitleMostRecent1: "",
-            language1: "English",
-            division1: "",
-            eloquaFormURL: "",
-            country: "United Kingdom",
-            FormType: ""
+            language1: this._identifyLocale('language'),
+            division1: this._identifyDivision(),
+            eloquaFormURL: "",           
+            FormType: "",
+            SMPVersion: ""
             
-        };
+        };     
      
+    }    
+
+    _identifyDivision (){
+        const name = 'DCSext.CDC';
+        return document.getElementsByTagName('meta')[name].getAttribute("content");
+    }
+    
+    _identifyLanguage() {
+        return getLanguage(document.documentElement.getAttribute('lang'));
+    }
+
+    _identifyLocale(par) {
+
+        const name = 'DCSext.locale';
+        const val = document.getElementsByTagName('meta')[name].getAttribute("content");
+
+        if (par === 'country') {
+            return getCountry(val.slice(val.indexOf('_') + 1));
+
+        }
+        if (par === 'language') {
+            return getLanguage(val.slice(0, val.indexOf('_')));    
+        }
     }
 
     setLanguageTemplate(LanguageTemplate) {
@@ -147,6 +181,13 @@ export class FormComponent {
             i === name;
         })
     }
+
+  /*  _selectOptions() {
+        for (let [item, value] of Object.entries(this.selectedItems)) {
+            let select = document.querySelector(`[name="${item}"]`);
+           
+        }
+    } */
 /*
     newField(data = {label: '', errMessage: '', type: '', options: '', fieldName: '', classToLiWrapper: ""}) {
        
@@ -185,14 +226,24 @@ export class FormComponent {
 
 */
 
-    render() {
+/*
+addFormCSSClass(cl) {
+    this.formSettings.classes.push(cl);
+}
 
+rewriteFormCSSClasses([classes]) {
+    this.formSettings.classes = classes;
+}
+*/
+
+    
+
+    render() {
         const initLang = new Promise((resolve) => {
             let langTmpl = langTemplate(this.hiddenFields.language1);
             this._scriptDynamicLoading(langTmpl).onload = () => {  
                 this.constructor.langTmpl = __globScopeLanguageTemplate__;        
                 resolve();
-
         }
     })
 
@@ -212,15 +263,40 @@ export class FormComponent {
                  }
                 
                 }
-            }
-            )
+            })
+
+
+            const mmmScripts = new Promise((resolve) => {
+
+                const scripts3M = ["//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js",
+                                    "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
+                                    "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
+                                    "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js"]
+
+                async function loadScript () {
+
+                    for (let script of scripts3M) {
+                        await this._scriptDynamicLoading(script);
+                    }
+
+                    return resolve()
+                    
+                }
+
+                loadScript.call(this)
+
+
+            })
+
             
 
-        Promise.all([initLang,initFields]).then(
-            resolve => { 
+        Promise.all([initLang,initFields,loadPageModule('kungfu/EmailForm/EmailOptions'),mmmScripts,loadPageModule('https://3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/src/kungfu/Eloqua/globalFormsModule.js')]).then(
+            
+        resolve => { 
                 this.customizedSelectOptions = {...this.fieldsTmpl.optionsForFilter, ...this.optionsForFilter};
 
                 this.division = this.hiddenFields.division1.slice(0, this.hiddenFields.division1.indexOf(' '));       
+                this.hiddenFields.SMPVersion = this.fieldsTmpl.SMPVersion;
 
                 this._mergeFilterOptions();
                 this._mergeFieldsets();
@@ -232,7 +308,10 @@ export class FormComponent {
                     langTemplate: this.constructor.langTmpl, 
                     fieldsTemplate: this.fieldsTmpl,
                     optionsForFilter: this.optionsForFilter,
-                    division: this.division                  
+                    division: this.division,
+                    name: this.name,
+                    formSettings: this.formSettings,
+                    selectedItems: this.selectedItems,                  
                 });
                 
                 form.render();

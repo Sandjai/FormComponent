@@ -1,4 +1,4 @@
-mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen)
+mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems)
     -var staticRulesArr = Object.keys(staticValidationRules)
         
     case item 
@@ -268,4 +268,4 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
 
         
 
-+form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen)
++form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems)

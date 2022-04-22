@@ -1,4 +1,7 @@
-mixin addOption(opt)
-    option(value=opt[0])=opt[1]
+mixin addOption(opt, selectedItems)
+    if (opt[0] === selectedItems[item])
+        -var _ifSelected = 'selected'
+    
+    option(value=opt[0] selected=_ifSelected)=opt[1]
        
-+addOption(opt)
++addOption(opt, selectedItems)

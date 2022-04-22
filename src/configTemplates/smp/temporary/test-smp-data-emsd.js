@@ -1,4 +1,6 @@
-var __globScopeSMPtemplate__ = {    
+var __globScopeSMPtemplate__ = {   
+    
+    SMPVersion: "2",
 
     fieldsets: {
         CA: ['emailAddress','salutation','firstName','lastName','country','elqGlobalLanguage','stateProv','EMSD_cust_type','appHeader', 'app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13','EMSD_app_purp_other','mmmIndustry1','salesRequest'],

@@ -1,0 +1,10 @@
+mixin addAfter(langTmpl)
+    
+    #js-submissionSuccess.MMM--isVisuallyHidden.MMM--wysiwyg                   
+        h3.MMM--hdg_3.MMM--hdg(dir="ltr")= langTmpl.submissionSuccess_1
+        p(dir="ltr")= langTmpl.submissionSuccess_2
+    #js-submissionError.MMM--isVisuallyHidden.MMM--wysiwyg                    
+        h3.MMM--hdg_3.MMM--hdg(dir="ltr")= langTmpl.submissionError_1
+        p(dir="ltr")= langTmpl.submissionError_2
+
++addAfter(langTmpl)

@@ -1,4 +1,4 @@
-mixin addFieldset(fieldset, langTmpl, div, addedClasses)
+mixin addFieldset(fieldset, langTmpl, div, addedClasses, selectedItems)
     - var id = fieldset[0]
     - var cl1 = addedClasses[id] ? addedClasses[id] : ""
     fieldset(id=id class=cl1)    
@@ -6,4 +6,4 @@ mixin addFieldset(fieldset, langTmpl, div, addedClasses)
             each item in fieldset[1]
                 include ./__field/_item.pug
                            
-+addFieldset(fieldset, langTmpl, div, addedClasses)
++addFieldset(fieldset, langTmpl, div, addedClasses, selectedItems)

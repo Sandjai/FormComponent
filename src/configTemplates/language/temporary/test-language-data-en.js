@@ -3,6 +3,11 @@ __globScopeLanguageTemplate__ = {
     statement: "All fields are required unless indicated optional",
     submit: "Submit",
     defaultSelect: "Select One",
+    submissionSuccess_1: "Thank You",
+    submissionSuccess_2: "Your form was submitted successfully!",
+    submissionError_1: "Our Apologies...",
+    submissionError_2: "An error has occurred while submitting. Please try again later...",
+
 
     emailAddress: {
         label: "Business Email Address",
