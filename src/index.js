@@ -327,7 +327,7 @@ rewriteFormCSSClasses([classes]) {
                 this.fieldsTmpl.validationRules(this.validation);
                 
                 this.fieldsTmpl.displayRules(this.display);
-                //this.validation.render();
+                this.validation.render();
                 
                 })
 
