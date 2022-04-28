@@ -7,8 +7,8 @@
 
     static _instance_ = 0;
 
-    constructor(el) {
-
+    constructor(el, elId) {
+        this.elId = elId;
         this.el = el;
         this.ids = [];
         this.groups = {};
@@ -31,7 +31,7 @@
  
         let arrWithIds = [];
         $(data).each((i, item) => {
-            let index = 'js-chbxGroupAuto_'+ this.instance + i;
+            let index = 'js_chbxGroupAuto_'+ this.instance + i;
 
             arrWithIds.push(index);
 
@@ -39,9 +39,8 @@
             this._createChbxGroup(index, item);
 
             
-                $.validator.addMethod(index, function (value) {
-                 
-                    if (!item.errorMessage) {item.errorMessage = 'Please select an option'}
+                $.validator.addMethod(index, function (value) {                 
+                    
                     if (!item.condition) {item.condition = ()=>{return true}}
                     if (!item.numMin) {item.numMin = 1} 
                   	if (!item.numMax) {item.numMax = $(`.${index}`).size()} 
@@ -75,7 +74,7 @@
         let str = arr.toString();
 
 
-        $(str).addClass('js-chbxGroupAuto');
+        $(str).addClass('js_chbxGroupAuto');
         $(str).addClass(index);
         $(str).attr('data-chbxIdAuto', index);
 
@@ -206,14 +205,14 @@
      * Should go at the very end, after the others method, being called in this class
      */
     render() {
-        this.el.validate({
+        $(`form#${this.elId}`).validate({
             groups: this._getChbxGroups(),
             rules: this._getRules(),
           
            
             errorPlacement: function errorPlacement(error, element) {
 
-                if ((element.attr('type') === 'checkbox') && (element.hasClass('js-chbxGroupAuto'))) {
+                if ((element.attr('type') === 'checkbox') && (element.hasClass('js_chbxGroupAuto'))) {
                     let attribute = $(element).attr('data-chbxIdAuto');                    
                     let elements = document.querySelectorAll(`[data-chbxIdAuto=${attribute}]`);
                  let lastEl =  elements[elements.length - 1];

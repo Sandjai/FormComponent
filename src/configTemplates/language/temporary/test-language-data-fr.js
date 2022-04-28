@@ -713,61 +713,73 @@ __globScopeLanguageTemplate__ = {
         app2: {
             type: "checkbox",
             label: "Compatibilité électromagnétique",
+            errMessage: "Sélectionnez une valeur",
             value: "Shielding EMI/\EMC/\Absorber"
         },
         app3: {
             type: "checkbox",
             label: "Protection incendie",
+            errMessage: "Sélectionnez une valeur",
             value: "Fire Protection"
         },
         app4: {
             type: "checkbox",
             label: "Refroidissement par immersion / Transfert de la chaleur",
+            errMessage: "Sélectionnez une valeur",
             value: "Immersion cooling /\ heat transfer"
         },
         app5: {
             type: "checkbox",
             label: "Gaz isolants",
+            errMessage: "Sélectionnez une valeur",
             value: "Insulating gases"
         },
         app6: {
             type: "checkbox",
             label: "Raccordement électrique (câbles, prises) / Transfert de données",
+            errMessage: "Sélectionnez une valeur",
             value: "Factory Automation /\ Interconnect /\ data transfer"
         },
         app7: {
             type: "checkbox",
             label: "Protection contre les vibrations et les bruits",
+            errMessage: "Sélectionnez une valeur",
             value: "Protection cushioning and noise dampening"
         },
         app8: {
             type: "checkbox",
             label: "Revêtements de protection pour composants électroniques",
+            errMessage: "Sélectionnez une valeur",
             value: "Protective coating"
         },
         app9: {
             type: "checkbox",
             label: "Additifs pour le soufflage de mousse / Formulation",
+            errMessage: "Sélectionnez une valeur",
             value: "Foam blowing additives /\ formulation additives"
         },
         app10: {
             type: "checkbox",
             label: "Fabrication ou traitement de semi-conducteurs",
+            errMessage: "Sélectionnez une valeur",
             value: "Semiconductor manufacturing or processing"
         },
         app11: {
             type: "checkbox",
             label: "Nettoyage aux solvants et dégraissage à la vapeur",
+            errMessage: "Sélectionnez une valeur",
             value: "Solvent cleaning and vapour degreasing"
         },
         app12: {
             type: "checkbox",
             label: "Gestion de la chaleur pour les composants électroniques",
+            errMessage: "Sélectionnez une valeur",
             value: "Thermal Interface Materials"
         },
         app13: {
             type: "checkbox",
             label: "Autre",
+            errMessage: "Sélectionnez une valeur",
             value: "Other"
         },
 

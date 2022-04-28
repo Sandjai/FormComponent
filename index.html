@@ -10,41 +10,104 @@
 <link rel="stylesheet" media="print" href="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/build/unicorn-print.css">
 <!-- REMOVE FOR PRODUCTION START -->
 
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+<script src="https://www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/mmmSettings.js"></script>
+
+<!--script src="https://www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/main.js?v=1.13.1"></script-->
 <!-- REMOVE FOR PRODUCTION END -->
  </head>
 
  <body>
 
-<form name="TEST-EMSD-202203-a6krbzz_LeadGen"></form>
+  <script>
+    //function loadPageModule (par){ console.log(par)};
+    //function MMMRequire (par){ console.log(par)};
+    //function elqFormHandler (par){ console.log(par)};
+    //function t (par){ console.log(par)};
+    
+    
+  </script>
+    <script src="./dist/app.js"></script>
+    <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
+
+    
+<div class="mix-MMM--hdg_spaced MMM--bodyCopy">
+  <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
+    <style type="text/css">
+    .eloquaForm .MMM--blockFormList > li {
+      margin: 15px 0;
+    }
+    ul.MMM--tableBlock-li-inner .eloquaForm li {
+      float:none;
+    }
+    </style>
+
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>
+
+  </div>
+</div>
+
+
+
 
 <script>
-  function loadPageModule (par){ console.log(par)};
-</script>
-  <script src="./dist/app.js"></script>
-<script>
-   
-        
-  var form1 = new window.FormComponent("TEST-EMSD-202203-a6krbzz_LeadGen");
+  var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
   
-    form1.setHiddenFields({          
-    sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
-    sFDCLastCampaignID: "7012K00000169GbQAI",
-    sFDCLastCampaignStatus: "Optional",
-    leadSourceMostRecent1: "Website",    
-    
-    FormType: "Sample Request",
-    CTA: "Request a Sample"
-    
+  form1.setHiddenFields({          
+  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+  sFDCLastCampaignID: "7012K00000169GbQAI",
+  sFDCLastCampaignStatus: "Optional",
+  leadSourceMostRecent1: "Website",   
+  FormType: "Sample Request",
+  CTA: "Request a Sample"
+  
   })  
+  
   form1.render();
+</script>
+
+         <!-- Scripts -->
+
+  <script src="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/lib-thirdparty/require.js"></script>
+  <script src="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/config.js"></script>
 
 
+<script>
+      SETTINGS.PLACEUN = "HCB_Dental_EN";
+      SETTINGS.LOCALE = "en_GB";
+      SETTINGS.openExternalLinks = true;
+      SETTINGS.svgBorder = true;
+      SETTINGS.theme = 'unicorn';
+      SETTINGS.transparentLogo = "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/images/unicorn/Logo_Mobile_Transparent.png";
+      SETTINGS.tweetTemplate = 'Currently%20Readingâ€¦%20&url={url}';
+      SETTINGS.sfBeacon = false;
+      SETTINGS.environment = 'prod';
+      SETTINGS.uID = '';
+      
 
-     
-         </script>
-        
+(function (context) {
+      var require = context.require;
+      var requirejs = context.requirejs;
+      var define = context.define;
+
+      require.config({
+          baseUrl: '//www.3m.com' + SETTINGS.SCRIPT_PATH,
+
+          // Params to append to the end of each js file request
+          urlArgs: 'v=' + SETTINGS.APP_VERSION + (SETTINGS.CACHE_BUSTER != '' ? '&bust=' + SETTINGS.CACHE_BUSTER : ''),
+          // Timeout to load each js file, in seconds
+          waitSeconds: 120
+      });
+
+      /**
+       * Set route and kick off RequireJs, which begins loading of scripts starting from main.js
+       */
+      require(['main'], function(app){
+          require(pageLevelJS);
+      });
+
+  }(MMMRequire));
+</script>
 
 
 

@@ -36,6 +36,7 @@ export class FormComponent {
     constructor (name) {       
         this.name = name; 
         this.el = document.querySelector(`[name="${name}"]`);
+        this.elId = name;
         
         this.hiddenFields = {
             form_key: "mmm",
@@ -59,8 +60,21 @@ export class FormComponent {
             SMPVersion: ""
             
         };     
-     
+         //Using a variable from mmmSettings
+        this._addInpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
     }    
+
+    _addInpriorityModules (langTmpl_link, smpTmpl_link, baseTmpl_link) {
+        if (priorityModules) {
+             //Using a variable from mmmSettings
+            priorityModules.push(langTmpl_link);
+            if(ifMQLformType(this.hiddenFields.FormType)) {
+                priorityModules.push(smpTmpl_link);
+            } else {
+                priorityModules.push(baseTmpl_link); 
+            }           
+        }
+    }
 
     _identifyDivision (){
         const name = 'DCSext.CDC';
@@ -103,12 +117,12 @@ export class FormComponent {
         this.fieldsets.addedClasses[item] = cl;
     }
 
-    _scriptDynamicLoading (url) {
+    _scriptDynamicLoading (url,targetEl) {
         let jsScript = document.createElement('script');
         jsScript.src = url;
         jsScript.crossorigin="anonymous";
-        jsScript.async = false;
-        document.head.append(jsScript);
+        jsScript.async = false;        
+        targetEl.append(jsScript);
 
         return jsScript;
     }
@@ -236,63 +250,115 @@ rewriteFormCSSClasses([classes]) {
 }
 */
 
+render() {   
     
+    const langTmplUrl = langTemplate(this.hiddenFields.language1);
+    let initFields;
+    let initLang;
 
-    render() {
-        const initLang = new Promise((resolve) => {
-            let langTmpl = langTemplate(this.hiddenFields.language1);
-            this._scriptDynamicLoading(langTmpl).onload = () => {  
-                this.constructor.langTmpl = __globScopeLanguageTemplate__;        
+    if (typeof(__globScopeLanguageTemplate__) === 'undefined') {
+            initLang = new Promise((resolve) => {
+            this._scriptDynamicLoading(langTmplUrl, document.head).onload = () => {  
+                this.constructor.langTmpl = __globScopeLanguageTemplate__;
+                resolve()       
+                }
+        })
+     } else {
+            this.constructor.langTmpl = __globScopeLanguageTemplate__;            
+        }    
+
+    if (ifMQLformType(this.hiddenFields.FormType)) {
+        if (typeof(__globScopeSMPtemplate__) === 'undefined') {
+                initFields = new Promise((resolve) => {
+                const smpTmplUrl= smpTemplate(this.hiddenFields.division1);
+                this._scriptDynamicLoading(smpTmplUrl, document.head).onload = () => {
+                this.fieldsTmpl = __globScopeSMPtemplate__; 
+                resolve();           
+                }
+            })
+        }  else {
+            this.fieldsTmpl = __globScopeSMPtemplate__;
+            this._formGenStart();
+        }    
+                  
+    } else {
+       
+            if (typeof(__globScopeBaseFieldstemplate__) === 'undefined') {
+                    initFields = new Promise((resolve) => {
+                const baseTmplUrl = baseFieldsTemplate();
+                this._scriptDynamicLoading(baseTmplUrl, document.head).onload = () => {        
+                this.fieldsTmpl = __globScopeBaseFieldstemplate__;
                 resolve();
-        }
-    })
-
-        const initFields = new Promise((resolve) => {
-
-            if(ifMQLformType(this.hiddenFields.FormType)) {
-                const smpTmpl= smpTemplate(this.hiddenFields.division1);             
-                this._scriptDynamicLoading(smpTmpl).onload = () => {          
-                    this.fieldsTmpl = __globScopeSMPtemplate__;
-                    resolve();   
-                 }
-                } else {
-                    const baseTmpl= baseFieldsTemplate();             
-                this._scriptDynamicLoading(baseTmpl).onload = () => {          
+                } 
+            })
+            }
+         else {
                     this.fieldsTmpl = __globScopeBaseFieldstemplate__;
-                    resolve();   
-                 }
+            }               
+    }
+
+
+  
+
+    
+    
+Promise.all([initLang,initFields]).then(    
+    resolve => { this._formRender() }
+)
+.then(
+    resolve => {
+            loadPageModule('kungfu/EmailForm/EmailOptions');
+            const scripts3M = ["//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js",
+                                "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
+                                "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
+                                "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js",
+                           ]
+    
+            function loadScript () {
+    
+                for (let script of scripts3M) {
+                    this._scriptDynamicLoading(script, this.el.closest('div'));
+                }
+    
+               
                 
-                }
-            })
-
-
-            const mmmScripts = new Promise((resolve) => {
-
-                const scripts3M = ["//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js",
-                                    "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
-                                    "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
-                                    "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js"]
-
-                async function loadScript () {
-
-                    for (let script of scripts3M) {
-                        await this._scriptDynamicLoading(script);
-                    }
-
-                    return resolve()
-                    
-                }
-
-                loadScript.call(this)
-
-
-            })
-
+            }
+    
+            loadScript.call(this);
+            loadPageModule('kungfu/Eloqua/globalFormsModule');             
+                
+    
+    
             
+    }
+)
 
-        Promise.all([initLang,initFields,loadPageModule('kungfu/EmailForm/EmailOptions'),mmmScripts,loadPageModule('https://3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/src/kungfu/Eloqua/globalFormsModule.js')]).then(
-            
-        resolve => { 
+                
+domReady.__loadValidationRules__ = () => {    
+    this.display = new DisplayFormFields(this.el);
+
+
+    // Final Optional Fields init (After Display was initialized and custome adding methods were used)
+    this._getOptionalNamesArr();
+    // Add 'Optional' to labels of optional fields (once is LP loaded)                
+    this.display.makeOptional(this._optionalNames,this.constructor.langTmpl.optionalText);               
+    
+    this.fieldsTmpl.displayRules(this.display);               
+    this.validation = new FormValidationRules(this.el, this.elId);
+    this.fieldsTmpl.validationRules(this.validation);
+    this.validation.render();
+}
+                
+
+               
+                
+
+
+
+        }
+
+
+    _formRender() {
                 this.customizedSelectOptions = {...this.fieldsTmpl.optionsForFilter, ...this.optionsForFilter};
 
                 this.division = this.hiddenFields.division1.slice(0, this.hiddenFields.division1.indexOf(' '));       
@@ -315,24 +381,11 @@ rewriteFormCSSClasses([classes]) {
                 });
                 
                 form.render();
-
-                this.display = new DisplayFormFields(this.el);
-                this.validation = new FormValidationRules(this.el);
-
-                // Final Optional Fields init (After Display was initialized and custome adding methods were used)
-                this._getOptionalNamesArr();
-                // Add 'Optional' to labels of optional fields (once is LP loaded)                
-                this.display.makeOptional(this._optionalNames,this.constructor.langTmpl.optionalText);               
-                                
-                this.fieldsTmpl.validationRules(this.validation);
-                
-                this.fieldsTmpl.displayRules(this.display);
-                this.validation.render();
-                
-                })
-
-        
     }
+
+    
+
+  
 }
 
 window.FormComponent = FormComponent;

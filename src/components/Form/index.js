@@ -1,5 +1,5 @@
 import template from "./index.pug";
-import preform from "./preform.pug";
+
 import afterform from "./afterform.pug";
 
  export default class FormAssetsCreator {
@@ -43,6 +43,7 @@ import afterform from "./afterform.pug";
         this.el.method="POST";
         this.el.id=this.name;
         this.el.setAttribute("novalidate", "novalidate");
+        this.el.style="max-width:768px";
 
         if (this.settings.direct) {
             this.el.setAttribute("data-options", "{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-direct&quot;}");
@@ -69,7 +70,7 @@ import afterform from "./afterform.pug";
 
     _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems) {      
         
-        this.el.insertAdjacentHTML('beforebegin', preform());
+        //this.el.insertAdjacentHTML('beforebegin', preform());
         this.el.insertAdjacentHTML('afterend', afterform({langTmpl}));  
 
         this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems}); 

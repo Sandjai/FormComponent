@@ -722,61 +722,73 @@ __globScopeLanguageTemplate__ = {
         app2: {
             type: "checkbox",
             label: "Shielding EMI/\EMC/\Absorber",
+            errMessage: "Please choose at least one application type",
             value: "Shielding EMI/\EMC/\Absorber"
         },
         app3: {
             type: "checkbox",
             label: "Fire Protection",
+            errMessage: "Please choose at least one application type",
             value: "Fire Protection"
         },
         app4: {
             type: "checkbox",
             label: "Immersion cooling /\ heat transfer",
+            errMessage: "Please choose at least one application type",
             value: "Immersion cooling /\ heat transfer"
         },
         app5: {
             type: "checkbox",
             label: "Insulating gases",
+            errMessage: "Please choose at least one application type",
             value: "Insulating gases"
         },
         app6: {
             type: "checkbox",
             label: "Factory Automation /\ Interconnect /\ data transfer",
+            errMessage: "Please choose at least one application type",
             value: "Factory Automation /\ Interconnect /\ data transfer"
         },
         app7: {
             type: "checkbox",
             label: "Protection cushioning and noise dampening",
+            errMessage: "Please choose at least one application type",
             value: "Protection cushioning and noise dampening"
         },
         app8: {
             type: "checkbox",
             label: "Protective coating",
+            errMessage: "Please choose at least one application type",
             value: "Protective coating"
         },
         app9: {
             type: "checkbox",
             label: "Foam blowing additives /\ formulation additives",
+            errMessage: "Please choose at least one application type",
             value: "Foam blowing additives /\ formulation additives"
         },
         app10: {
             type: "checkbox",
             label: "Semiconductor manufacturing or processing",
+            errMessage: "Please choose at least one application type",
             value: "Semiconductor manufacturing or processing"
         },
         app11: {
             type: "checkbox",
             label: "Solvent cleaning and vapour degreasing",
+            errMessage: "Please choose at least one application type",
             value: "Solvent cleaning and vapour degreasing"
         },
         app12: {
             type: "checkbox",
             label: "Thermal Interface Materials",
+            errMessage: "Please choose at least one application type",
             value: "Thermal Interface Materials"
         },
         app13: {
             type: "checkbox",
             label: "Other",
+            errMessage: "Please choose at least one application type",
             value: "Other"
         },
 
