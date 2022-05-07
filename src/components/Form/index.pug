@@ -9,7 +9,7 @@ form
                 li.MMM--formCode
                     label.MMM--formCode(for="resolence_morthy_gread")="Resolence Morthy Gread"
                     input.MMM--formCode(type="text", name="resolence_morthy_gread", autocomplete="off", aria-hidden="true")
-        each fieldset in Object.entries(fieldsets)
+        each fieldset in [...fieldsets.entries()]
             include __fieldset/form__fieldset.pug
         fieldset
             ul.MMM--blockFormList(style="display:block")

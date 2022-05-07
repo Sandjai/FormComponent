@@ -6,6 +6,8 @@
 
         export default class DisplayFormFields {    
 
+          static instance = 0;
+
           // Just Default value
         optionalText = "optional";
 
@@ -14,7 +16,7 @@
               this.depChbxGrId = 0;
               this.rules = [];
         
-        
+            this.constructor.instance++;
               this.initEvent();
              
           }
@@ -187,13 +189,13 @@
             
             for (let name of names) {                    
               var targetEl = $(this.el).find("[name=\"".concat(name, "\"]"));   
-              var labelTextPrev =  $(targetEl.prev('label.MMM--blockLabel')).text();  
-              var labelTextNext =  $(targetEl.next('label.MMM--blockLabel')).text();   
-              if (labelTextPrev != '') {
-                $(targetEl.prev('label.MMM--blockLabel')).text(labelTextPrev + ` (${optionalText.toLowerCase()})`);
-              } else if (labelTextNext != '') {
-                $(targetEl.next('label.MMM--blockLabel')).text(labelTextNext + ` (${optionalText.toLowerCase()})`);
+              if (targetEl.attr('type') === "checkbox") {
+                return;
               }
+              var labelText =  $(targetEl.closest('li').find('label.MMM--blockLabel')).text();
+              
+              $(targetEl.closest('li').find('label.MMM--blockLabel')).text(labelText + ` (${optionalText.toLowerCase()})`);
+
           }
         }
         
@@ -290,10 +292,10 @@
             return $(this.el).find("[name=\"".concat(checkboxName, "\"]"));
           });
       
-          const className = 'js-dep_gr' + this.depChbxGrId;
-      
+          const className = 'js_Display__dep_group' + this.constructor.instance + '-' + this.depChbxGrId;
+          
           $(chbxesGroup).each((i, item) => {
-            $(`[name="${item}"]`).addClass(className)
+            $(this.el).find(`[name="${item}"]`).addClass(className)
           })
       
           const handler = () => {

@@ -10,19 +10,21 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langPath[item].errMessage
                     aria-required="true")
+                    
             when 'checkbox'        
                 input(
                     type='checkbox'
                     value=langPath[item].value
                     name=item
                     id=item + 'ID-' + idGen
-                    data-rule-required="true"
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "false"
                     data-msg-required=langPath[item].errMessage
                     ) 
                 label.MMM--blockLabel.MMM--checkboxLabel(
+                    style="font-weight:normal"
                     for=item + 'ID-' + idGen)=langPath[item].label  
 
             when 'radio'        
@@ -32,7 +34,7 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "false"
                     data-msg-required=langPath[item].errMessage
                     )  
 
@@ -43,17 +45,17 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     id=item + 'ID-' + idGen
                     type='text'
                     name=item
-                    data-rule-required="true"
+                    data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langPath[item].errMessage
-                    aria-required="true")  
-
+                    aria-required="true")=''
+                    
             when 'select'        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=langPath[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
                     id=item + 'ID-' + idGen
                     name=item
-                    data-rule-required="true"
+                    data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langPath[item].errMessage
                     data-lookup=""
                     aria-required="true")  
@@ -62,6 +64,12 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                         )=langTmpl.defaultSelect                    
                         each opt in langPath[item].options
                             include select\select__option.pug
+
+            when 'header' 
+                h3.MMM--blockLabel(
+                    for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""
+                p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
+
             default 
                 h3.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""

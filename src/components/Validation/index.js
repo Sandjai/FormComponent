@@ -5,16 +5,18 @@
 
  export default class FormValidationRules {
 
-    static _instance_ = 0;
+    static instance = 0;
 
     constructor(el, elId) {
         this.elId = elId;
         this.el = el;
-        this.ids = [];
+       
         this.groups = {};
         this.rules = {};
         this._multiRules = {};
-        this.instance = ++this.constructor._instance_;        
+
+        this.constructor.instance++;
+      
     }
 
     /**
@@ -27,17 +29,13 @@
      * @param {Number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
      */
 
-    checkboxesGroups(data) { 
- 
-        let arrWithIds = [];
+    checkboxesGroups(data) {  
+       
         $(data).each((i, item) => {
-            let index = 'js_chbxGroupAuto_'+ this.instance + i;
-
-            arrWithIds.push(index);
+            let index = 'js_checkboxGroup_'+ this.constructor.instance + '-' + i;         
 
             this._addClass(index, item);
             this._createChbxGroup(index, item);
-
             
                 $.validator.addMethod(index, function (value) {                 
                     
@@ -55,10 +53,8 @@
                         return false;
                     }
                 }, item.errorMessage);
-            
-        })
-
-        this.ids = arrWithIds;
+              
+        })       
 
     }
 
@@ -73,10 +69,10 @@
 
         let str = arr.toString();
 
-
-        $(str).addClass('js_chbxGroupAuto');
-        $(str).addClass(index);
-        $(str).attr('data-chbxIdAuto', index);
+        
+        $(this.el).find(str).addClass('js_checkboxGroup');
+        $(this.el).find(str).addClass(index);
+        $(this.el).find(str).attr('data-checkboxGroup', index);
 
     }
 
@@ -212,9 +208,9 @@
            
             errorPlacement: function errorPlacement(error, element) {
 
-                if ((element.attr('type') === 'checkbox') && (element.hasClass('js_chbxGroupAuto'))) {
-                    let attribute = $(element).attr('data-chbxIdAuto');                    
-                    let elements = document.querySelectorAll(`[data-chbxIdAuto=${attribute}]`);
+                if ((element.attr('type') === 'checkbox') && (element.hasClass('js_checkboxGroup'))) {
+                    let attribute = $(element).attr('data-checkboxgroup');                    
+                    let elements = document.querySelectorAll(`[data-checkboxgroup=${attribute}]`);
                  let lastEl =  elements[elements.length - 1];
                   
                   let parentOfLastEl = lastEl.closest('li');		

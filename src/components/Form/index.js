@@ -9,20 +9,21 @@ import afterform from "./afterform.pug";
 
         this.hiddenFields = data.hiddenFields; 
         this.langTmpl = data.langTemplate;
-        this.fieldsTmpl = data.fieldsTemplate;
-        this.optionsForFilter = data.optionsForFilter;        
+        this.fieldsTmpl = data.fieldsTemplate;               
         this.el = data.el;
         this.div = data.division;
         this.name = data.name;
         this.idGen = ++this.constructor.idGen;    
-        this.settings = data.formSettings;
+        this.settings = data.settings;
         this.selectedItems = data.selectedItems;      
     
       
     }
 
     updateSettings(key,val) {
-        this.settings[key] = val;
+        const obj = {...this.defaultOptions, ...this.formOptions};
+        this.options = obj;
+
     }
 
     _addClasses(arr) {
@@ -32,6 +33,7 @@ import afterform from "./afterform.pug";
         
     }
 
+  
 
     _addSettingsToFormTag() {
 
@@ -44,17 +46,8 @@ import afterform from "./afterform.pug";
         this.el.id=this.name;
         this.el.setAttribute("novalidate", "novalidate");
         this.el.style="max-width:768px";
-
-        if (this.settings.direct) {
-            this.el.setAttribute("data-options", "{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-direct&quot;}");
-        }
-    
-        if (!this.settings.direct) {
-            this.el.setAttribute("data-options", "{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;elq-jsp&quot;}");
-        }
-
-
-    
+      
+        this.el.setAttribute("data-options", `{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;${this.settings.vendor}&quot;}`);    
     }
 
 

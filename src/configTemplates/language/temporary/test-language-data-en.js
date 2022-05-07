@@ -710,6 +710,7 @@ __globScopeLanguageTemplate__ = {
 
     EMSD: {
         appHeader: {
+            type: "header",
             label: "Application",
             subLabel: "Please choose at least one application type",
         },

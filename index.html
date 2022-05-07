@@ -13,22 +13,10 @@
 
 <script src="https://www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/mmmSettings.js"></script>
 
-<!--script src="https://www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/main.js?v=1.13.1"></script-->
 <!-- REMOVE FOR PRODUCTION END -->
  </head>
 
  <body>
-
-  <script>
-    //function loadPageModule (par){ console.log(par)};
-    //function MMMRequire (par){ console.log(par)};
-    //function elqFormHandler (par){ console.log(par)};
-    //function t (par){ console.log(par)};
-    
-    
-  </script>
-    <script src="./dist/app.js"></script>
-    <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
     
 <div class="mix-MMM--hdg_spaced MMM--bodyCopy">
@@ -42,13 +30,14 @@
     }
     </style>
 
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd" class="testCSS" data-options="test"></form>
 
   </div>
 </div>
 
 
-
+<script src="./dist/app.js"></script>
+<!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
 <script>
   var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
@@ -62,9 +51,75 @@
   CTA: "Request a Sample"
   
   })  
-  
+
+  form1.addClass('CA', 'testCSSclass');
+
+  form1.newField({
+      label: 'Custom field txt', 
+      errMessage: 'Please specify', 
+      type: 'text', 
+      name: 'testCustomField', 
+      value: '', 
+      //className: 'testClass', 
+      required: 'false'}); // <- TODO
+
+  form1.addField('testCustomField', 'custEnq');
+
+
+  form1.newField({
+      label: 'Last custom checkbox', 
+      errMessage: 'Please specify', 
+      type: 'checkbox', 
+      name: 'testChbx', 
+      value: 'on', 
+      //className: '', 
+      required: 'false'});      
+
+      form1.addField('testChbx');
+
+  form1.removeField('address1');
+
+
+
+ form1.changeOrder(['EMSD_cust_type','salutation','firstName','lastName']);
+
   form1.render();
 </script>
+
+
+<!--div class="mix-MMM--hdg_spaced MMM--bodyCopy">
+  <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
+    <style type="text/css">
+    .eloquaForm .MMM--blockFormList > li {
+      margin: 15px 0;
+    }
+    ul.MMM--tableBlock-li-inner .eloquaForm li {
+      float:none;
+    }
+    </style>
+
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2"></form>
+
+  </div>
+</div-->
+
+<!--script>
+  var form2 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2");
+  
+  form2.setHiddenFields({          
+  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+  sFDCLastCampaignID: "7012K00000169GbQAI",
+  sFDCLastCampaignStatus: "Optional",
+  leadSourceMostRecent1: "Website",   
+  FormType: "Sample Request",
+  CTA: "Request a Sample"
+  
+  })  
+
+ 
+  
+  form2.render();
+</script-->
 
          <!-- Scripts -->
 

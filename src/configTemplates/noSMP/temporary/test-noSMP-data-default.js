@@ -3,7 +3,7 @@ __globScopeBaseFieldstemplate__ = {
     fieldsets: 
         {
             CA:['emailAddress', 'salutation', 'firstName','lastName','country','elqGlobalLanguage','stateProv'],
-            SMP:[]
+            
         },
 
        
