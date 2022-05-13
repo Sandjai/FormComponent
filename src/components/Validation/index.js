@@ -81,6 +81,10 @@
 
     }
 
+    test() {
+        alert('test');
+    }
+
     _getChbxGroups() {
         return this.groups;
     }

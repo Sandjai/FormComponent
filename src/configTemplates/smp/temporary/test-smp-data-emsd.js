@@ -33,7 +33,7 @@ var __globScopeSMPtemplate__ = {
    validationRules: (validation) => {
         // ALL Fields (including hidden ones), which should be mandatory in MQL Form type
         var leadGenMandatoryFields = ['custEnq', 'zipPostal', 'city', 'address1', 'busPhone', 'company', 'mmmJobRole1', 'firstName', 'lastName', 'salutation', 'EMSD_jr_other', 'EMSD_app_purp_other'];
-            
+        
         //Conditions
         var leadGenCondition = function () {return ($('[name="salesRequest"]').is(':checked'))};            
         var appOtherCondition = function () {return ($('[name="app13"]').is(':checked'))};        
@@ -57,7 +57,7 @@ var __globScopeSMPtemplate__ = {
     displayRules: (display) => {
         
         display.showOther('app13','EMSD_app_purp_other');            
-            display.showOther('mmmJobRole1', 'EMSD_jr_other');
+           display.showOther('mmmJobRole1', 'EMSD_jr_other');
             
             display.dependIdFromName ("salesRequest", "leadgen", "Yes");
             

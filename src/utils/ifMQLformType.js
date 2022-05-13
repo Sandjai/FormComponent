@@ -1,10 +1,21 @@
-export default function (FormType) {
+export default function (FormName) {
     
-    const mqlFormTypes = 'SAM Sample Request DEM Demo Request ASK Ask An Expert CON Contact Us LAR Large Order';  
+    const mqlFormTypes = ['SAM', 'DEM', 'ASK', 'CON', 'LAR'];  
 
-    if (mqlFormTypes.indexOf(FormType) != -1) {
-        return true;
-    } else {
-        return false;
-    }    
+    let formType = null;
+
+    for (let type of mqlFormTypes) {
+        if (FormName.indexOf(`-${type}-`) != -1) {           
+            formType =  type;
+        }  
+    }
+
+    return formType ? formType : false;
+
+
+
+     
 }
+
+
+//'Sample Request','Demo Request', 'Ask An Expert', 'Contact Us', 'Large Order'

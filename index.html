@@ -30,7 +30,7 @@
     }
     </style>
 
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd" class="testCSS" data-options="test"></form>
+      <form name="TEST-EMSD-202202-en_EMEA-DEM-testLeadGen_emsd" class="testCSS" data-options="test"></form>
 
   </div>
 </div>
@@ -40,19 +40,17 @@
 <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
 <script>
-  var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
+  var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-DEM-testLeadGen_emsd");
   
   form1.setHiddenFields({          
   sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
   sFDCLastCampaignID: "7012K00000169GbQAI",
   sFDCLastCampaignStatus: "Optional",
-  leadSourceMostRecent1: "Website",   
-  FormType: "Sample Request",
-  CTA: "Request a Sample"
-  
+  leadSourceMostRecent1: "Website",
+  CTA: "Request a Sample"  
   })  
 
-  form1.addClass('CA', 'testCSSclass');
+ form1.addClass('CA', 'testCSSclass');
 
   form1.newField({
       label: 'Custom field txt', 
@@ -73,17 +71,33 @@
       name: 'testChbx', 
       value: 'on', 
       //className: '', 
-      required: 'false'});      
+      //required: 'false'   // - To Do: to make required only for leadgen  
+    }); 
 
       form1.addField('testChbx');
 
   form1.removeField('address1');
 
+ form1.validationRules = (validation) => {
+
+        //Conditions
+        var leadGenCondition = function () {return ($('[name="salesRequest"]').is(':checked'))};   
+        validation.addDependencyRule (['testChbx'], leadGenCondition);
+      }
+
+/*form1.displayRules = (display) => {
+  ...
+}
+*/
 
 
- form1.changeOrder(['EMSD_cust_type','salutation','firstName','lastName']);
+
+  form1.changeOrder(['salutation','firstName','lastName','EMSD_cust_type']);
+ form1.changeOrder(['city','zipPostal'], 'after');
 
   form1.render();
+
+
 </script>
 
 

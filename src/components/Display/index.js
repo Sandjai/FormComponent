@@ -187,15 +187,16 @@
 
           makeOptional (names,optionalText) {
             
-            for (let name of names) {                    
+            for (let name of names) {       
+           
               var targetEl = $(this.el).find("[name=\"".concat(name, "\"]"));   
-              if (targetEl.attr('type') === "checkbox") {
-                return;
+              if (targetEl.attr('type') != "checkbox") {
+                var labelText =  $(targetEl.closest('li').find('label.MMM--blockLabel')).text();               
+                
+                $(targetEl.closest('li').find('label.MMM--blockLabel')).text(labelText + ` (${optionalText.toLowerCase()})`);
+  
               }
-              var labelText =  $(targetEl.closest('li').find('label.MMM--blockLabel')).text();
-              
-              $(targetEl.closest('li').find('label.MMM--blockLabel')).text(labelText + ` (${optionalText.toLowerCase()})`);
-
+            
           }
         }
         
