@@ -7,7 +7,7 @@
 
     static instance = 0;
 
-    constructor(el, elId) {
+    constructor(el, elId = $(el).attr('id')) {
         this.elId = elId;
         this.el = el;
        
@@ -25,7 +25,7 @@
      * @param {String} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
      * @param {String} errorMessage
      * @param {Boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
-     * @param {Number} numMin - minimum number of checkboxes to be checked (defaul = 1)
+     * @param {Number} numMin - minimum number of checkboxes to be checked (default = 1)
      * @param {Number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
      */
 
@@ -81,10 +81,7 @@
 
     }
 
-    test() {
-        alert('test');
-    }
-
+    
     _getChbxGroups() {
         return this.groups;
     }
@@ -239,3 +236,6 @@
     }
 
 }
+
+
+window.FormValidationRules = FormValidationRules;

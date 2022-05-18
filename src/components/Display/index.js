@@ -17,8 +17,7 @@
               this.rules = [];
         
             this.constructor.instance++;
-              this.initEvent();
-             
+              this.initEvent();            
           }
         
           initEvent() {
@@ -379,3 +378,5 @@
          this.rules.push([field1, handler]);
         }
          }
+
+window.DisplayFormFields = DisplayFormFields;

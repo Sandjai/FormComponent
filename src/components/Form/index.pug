@@ -1,4 +1,10 @@
 form
+    input(
+        type='hidden'
+        name='form_key'
+        value= 'mmm' 
+        id='form_key',
+       )
     each entry in Object.entries(hiddenFields)   
         include __fieldset/__field/_hidden.pug
     div(style="display: block")

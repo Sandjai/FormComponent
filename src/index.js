@@ -45,6 +45,8 @@ export class FormComponent {
     settings = {        // Set of parameters of the <form> tag
         vendor: 'elq-jsp', // Possible vendors: 'elq', 'elq-jsp', 'elq-direct', 'elq-psd', '3M', 'pdot'        
         classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],
+       busPhone: false,
+       countryCode: this._identifyLocale('countryCode')
     };
 
    
@@ -59,7 +61,7 @@ export class FormComponent {
         this.elId = name;
 
         this.hiddenFields = {        // Set of hidden fields of the form
-            form_key: "mmm",
+        
             elqFormName: name,
             elqSiteId: "837031577",
             elqCampaignId: "",
@@ -82,6 +84,7 @@ export class FormComponent {
     
 
         this.constructor.instance++;
+     
         
         //Using a variable from mmmSettings (do not use in normal usage)
         //this._addIn3MpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
@@ -107,6 +110,14 @@ export class FormComponent {
         if (par === 'language') {
             return getLanguage(val.slice(0, val.indexOf('_')));
         }
+        if (par === 'countryCode') {
+            return val.slice(val.lastIndexOf('_') + 1).toLocaleLowerCase();
+
+        }
+
+        
+
+
     }
 
     setLanguageTemplate(LanguageTemplate) {
@@ -139,8 +150,7 @@ export class FormComponent {
             this.changedOrder.push(arr);
         } else {
             this.changedOrder__after.push(arr);
-        }
-        
+        }       
         
     }
 
@@ -154,6 +164,14 @@ export class FormComponent {
         return jsScript;
     }
 
+   _cssDynamicLoading(url) {
+        let elem = document.createElement( 'link' );
+        elem.rel = 'stylesheet';
+        elem.type = 'text/css';
+        document.body.appendChild( elem );
+        elem.href = url;
+    }
+  
 
 
     /**
@@ -496,25 +514,41 @@ export class FormComponent {
                         "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
                         "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
                         "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js",
-                    ]
+                    ];
 
-                    function loadScript() {
+                    function loadScript(scripts) {
 
-                        for (let script of scripts3M) {
+                        for (let script of scripts) {
                             this._scriptDynamicLoading(script, this.el.closest('div'));
                         }
-
-
-
                     }
 
-                    loadScript.call(this);
+                    loadScript.call(this, scripts3M);
                     loadPageModule('kungfu/Eloqua/globalFormsModule');
 
 
+                /*    const busPhoneScripts = [
+                        'https://img04.en25.com/Web/3MCompanyGlobal/{443ec907-e8eb-46f4-984a-7166c37b2d9b}_intlTelInput.js?update=8',
+                        'https://img04.en25.com/Web/3MCompanyGlobal/{80439e2b-4bf7-49b4-ac6b-713f2f163347}_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8',
+                    ]
+        
+                    function loadScript(scripts) {
+        
+                        for (let script of scripts) {
+                            this._scriptDynamicLoading(script, this.el.closest('div'));
+                        }
+                    }  
+                    
+                
+                        this.settings.busPhone = true;
+                        
+                        loadScript.call(this, busPhoneScripts);
+                        this._cssDynamicLoading('https://img04.en25.com/Web/3MCompanyGlobal/{f77caf4c-e036-42f5-bc54-cb04586a9798}_intlTelInput.css?update=8');                      
+                 
+                */  }   
 
-
-                }
+                   
+                
             )
 
         const dynamicVariable = '__load_Validation-Display_Rules__' + this.constructor.instance;
@@ -566,6 +600,12 @@ export class FormComponent {
        
         this._mergeFieldsTmpl(['staticValidationRules', 'addedClasses']);
 
+      if (this._getFieldsetID('busPhone')) {       
+              
+            this.settings.busPhone = true;
+        }
+     
+
 
 
 
@@ -589,3 +629,5 @@ export class FormComponent {
 }
 
 window.FormComponent = FormComponent;
+
+
