@@ -18,7 +18,47 @@ import afterform from "./afterform.pug";
         this.idGen = ++this.constructor.idGen;    
         this.settings = data.settings;
         this.selectedItems = data.selectedItems;   
+
+    
+
+      //  if (this.settings.busPhone) {
+      //  this._cssDynamicLoading('//img04.en25.com/Web/3MCompanyGlobal/{f77caf4c-e036-42f5-bc54-cb04586a9798}_intlTelInput.css?update=8');
+      //  this._scriptDynamicLoading('//img04.en25.com/Web/3MCompanyGlobal/{443ec907-e8eb-46f4-984a-7166c37b2d9b}_intlTelInput.js?update=8', this.el.closest('div'), true).onload = ()=> {
+        //   this._scriptDynamicLoading('//img04.en25.com/Web/3MCompanyGlobal/%7B80439e2b-4bf7-49b4-ac6b-713f2f163347%7D_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8', this.el.closest('div'), true).onload = () => {
+         //   alert(domReady.CTUTEL);
+         //  };
+          
+        } 
+        
+          //  this.loadScript(busPhoneScripts);
+             
+               
+
+
+       //  }
+
+   
       
+  //  }
+    
+
+
+    _scriptDynamicLoading(url, targetEl, ifAsync) {
+        let jsScript = document.createElement('script');
+        jsScript.src = url;
+        jsScript.crossorigin = "anonymous";
+        jsScript.async = ifAsync;
+        targetEl.append(jsScript);
+
+        return jsScript;
+    }
+
+    _cssDynamicLoading(url) {
+        let elem = document.createElement( 'link' );
+        elem.rel = 'stylesheet';
+        elem.type = 'text/css';
+        document.body.appendChild( elem );
+        elem.href = url;
     }
 
     updateSettings(key,val) {
@@ -47,26 +87,25 @@ import afterform from "./afterform.pug";
         this.el.setAttribute("data-options", `{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;${this.settings.vendor}&quot;}`);    
     }
 
-   _busPhoneSettings() {
+   _busPhoneSettings(country) {
 
         if (this.settings.busPhone && !this.constructor.busPhoneExist) {
+            
             this.constructor.busPhoneExist = true;
 
-            window.busPhoneid = `#busPhoneID-${this.idGen}`; // Enter this for the first form on the page
-window.countryselectid = `#countryID-${this.idGen}`; // Enter this for the first form on the page
-
-// adjust as needed
-window.prefCountries = ['gb', 'ie']; // these will appear at the top of the list the first must match the pre-selected country in the form
-window.placeholderphoneformat = "FIXED_LINE"; // can be "MOBILE" or "FIXED_LINE"
-window.validationtype = "SOFT"; // can be "SOFT" or "HARD" - Soft = form will submit with a missing or invalid number.  Hard = form will not submit with a missing or invalid number.
-
+  // edit to match the IDs on your page
+  window.busPhoneid = `#busPhoneID-${this.idGen}`; // Enter this for the first form on the page
+  window.countryselectid = `#countryID-${this.idGen}`; // Enter this for the first form on the page
+  
+  // adjust as needed
+  //window.prefCountries = [country]; // these will appear at the top of the list the first must match the pre-selected country in the form
+  //window.placeholderphoneformat = "FIXED_LINE"; // can be "MOBILE" or "FIXED_LINE"
+  //window.validationtype = "SOFT"; // can be "SOFT" or "HARD" - Soft = form will submit with a missing or invalid number.  Hard = form will not submit with a missing or invalid number.
+  
+  //this._scriptDynamicLoading('//img04.en25.com/Web/3MCompanyGlobal/%7B80439e2b-4bf7-49b4-ac6b-713f2f163347%7D_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8', document.body);
                
     }
 }
-
-    
-
-
 
     
     render () {        

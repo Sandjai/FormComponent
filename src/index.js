@@ -84,8 +84,8 @@ export class FormComponent {
     
 
         this.constructor.instance++;
-     
-        
+
+
         //Using a variable from mmmSettings (do not use in normal usage)
         //this._addIn3MpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
     }
@@ -122,6 +122,7 @@ export class FormComponent {
 
     setLanguageTemplate(LanguageTemplate) {
         this.langTmpl = LanguageTemplate;
+        
     }
 
   
@@ -130,6 +131,9 @@ export class FormComponent {
         (Object.entries(data)).forEach((item) => {
             this.hiddenFields[item[0]] = item[1];
         })
+
+     
+        
     }
 
     addFieldset(id, arr) {
@@ -154,11 +158,11 @@ export class FormComponent {
         
     }
 
-    _scriptDynamicLoading(url, targetEl) {
+    _scriptDynamicLoading(url, targetEl, ifAsync = true) {
         let jsScript = document.createElement('script');
         jsScript.src = url;
         jsScript.crossorigin = "anonymous";
-        jsScript.async = false;
+        jsScript.async = ifAsync;
         targetEl.append(jsScript);
 
         return jsScript;
@@ -171,7 +175,12 @@ export class FormComponent {
         document.body.appendChild( elem );
         elem.href = url;
     }
-  
+
+    loadScript(scripts, ifAsync=false) {
+        for (let script of scripts) {
+            this._scriptDynamicLoading(script, this.el.closest('div'), ifAsync);
+        }
+    }  
 
 
     /**
@@ -447,7 +456,9 @@ export class FormComponent {
     }
     */
 
-    render() {
+    render() {    
+
+
 
         const langTmplUrl = langTemplate(this.hiddenFields.language1);
         let initFields;
@@ -455,30 +466,32 @@ export class FormComponent {
 
         if (typeof (__globScopeLanguageTemplate__) === 'undefined') {
             initLang = new Promise((resolve) => {
-                this._scriptDynamicLoading(langTmplUrl, document.head).onload = () => {
+                this._scriptDynamicLoading(langTmplUrl, document.head, false).onload = () => {
                     this.langTmpl = __globScopeLanguageTemplate__;
 
-                    resolve()
+                    resolve();
                 }
 
 
             })
         } else {
             this.langTmpl = __globScopeLanguageTemplate__;
+            resolve();
         }
 
         if (this.hiddenFields.FormType != '') {
             if (typeof (__globScopeSMPtemplate__) === 'undefined') {
                 initFields = new Promise((resolve) => {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
-                    this._scriptDynamicLoading(smpTmplUrl, document.head).onload = () => {
+                    this._scriptDynamicLoading(smpTmplUrl, document.head, false).onload = () => {
                         this.fieldsTmpl = __globScopeSMPtemplate__;
                         resolve();
                     }
                 })
             } else {
                 this.fieldsTmpl = __globScopeSMPtemplate__;
-                this._formGenStart();
+                //this._formGenStart(); 
+                resolve();
             }
 
         } else {
@@ -486,7 +499,7 @@ export class FormComponent {
             if (typeof (__globScopeBaseFieldstemplate__) === 'undefined') {
                 initFields = new Promise((resolve) => {
                     const baseTmplUrl = baseFieldsTemplate();
-                    this._scriptDynamicLoading(baseTmplUrl, document.head).onload = () => {
+                    this._scriptDynamicLoading(baseTmplUrl, document.head, false).onload = () => {
                         this.fieldsTmpl = __globScopeBaseFieldstemplate__;
                         resolve();
                     }
@@ -494,6 +507,7 @@ export class FormComponent {
             }
             else {
                 this.fieldsTmpl = __globScopeBaseFieldstemplate__;
+                resolve();
             }
         }
 
@@ -504,56 +518,42 @@ export class FormComponent {
 
         Promise.all([initLang, initFields]).then(
             resolve => {
-                this._formRender()
-            }
+            
+                this._formRender();
+
+               }
         )
             .then(
-                resolve => {
-                    loadPageModule('kungfu/EmailForm/EmailOptions');
+                resolve => {                   
+
                     const scripts3M = ["//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js",
                         "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
                         "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
                         "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js",
                     ];
 
-                    function loadScript(scripts) {
+                    
 
-                        for (let script of scripts) {
-                            this._scriptDynamicLoading(script, this.el.closest('div'));
-                        }
-                    }
-
-                    loadScript.call(this, scripts3M);
+                   
+                    loadPageModule('kungfu/EmailForm/EmailOptions');
+                    this.loadScript(scripts3M, false);
                     loadPageModule('kungfu/Eloqua/globalFormsModule');
 
-
-                /*    const busPhoneScripts = [
-                        'https://img04.en25.com/Web/3MCompanyGlobal/{443ec907-e8eb-46f4-984a-7166c37b2d9b}_intlTelInput.js?update=8',
-                        'https://img04.en25.com/Web/3MCompanyGlobal/{80439e2b-4bf7-49b4-ac6b-713f2f163347}_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8',
-                    ]
-        
-                    function loadScript(scripts) {
-        
-                        for (let script of scripts) {
-                            this._scriptDynamicLoading(script, this.el.closest('div'));
-                        }
-                    }  
                     
-                
-                        this.settings.busPhone = true;
-                        
-                        loadScript.call(this, busPhoneScripts);
-                        this._cssDynamicLoading('https://img04.en25.com/Web/3MCompanyGlobal/{f77caf4c-e036-42f5-bc54-cb04586a9798}_intlTelInput.css?update=8');                      
-                 
-                */  }   
+
+                   // resolve();
+                  }   
 
                    
                 
             )
+            //.then(this._scriptDynamicLoading('//img04.en25.com/Web/3MCompanyGlobal/%7B80439e2b-4bf7-49b4-ac6b-713f2f163347%7D_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8', this.el.closest('div'), false))
 
+            
+     
         const dynamicVariable = '__load_Validation-Display_Rules__' + this.constructor.instance;
         domReady[dynamicVariable] = () => {
-            
+         
             this.display = new DisplayFormFields(this.el);  // init Display Rules
 
             // Final Optional Fields init (After Display was initialized and custome adding methods were used)
@@ -581,11 +581,11 @@ export class FormComponent {
             this.validation.render(); // All validation methods should go above
 
         }
+
     }
 
 
     _formRender() {
-
 
         this.division_cropped = this.hiddenFields.division1.slice(0, this.hiddenFields.division1.indexOf(' '));
 
@@ -600,13 +600,13 @@ export class FormComponent {
        
         this._mergeFieldsTmpl(['staticValidationRules', 'addedClasses']);
 
-      if (this._getFieldsetID('busPhone')) {       
-              
-            this.settings.busPhone = true;
+      if (this._getFieldsetID('busPhone')) {
+          this.settings.busPhone = true;
+         
         }
      
 
-
+         
 
 
         const form = new FormAssetsCreator({
@@ -620,7 +620,10 @@ export class FormComponent {
             selectedItems: this.selectedItems,
         });
 
+        form._busPhoneSettings(this._identifyLocale('countryCode')); 
+
         form.render();
+ 
     }
 
 

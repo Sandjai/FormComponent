@@ -102,9 +102,9 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
         when 'busPhone'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for=item + 'ID')=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 input.MMM--textInput.MMM--defaultFields(
-                    id=item + 'ID'
+                    id=item + 'ID-' + idGen
                     type='text'
                     name=item
                     data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
@@ -141,9 +141,9 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
         when 'country'
             li(class = addedClasses[item] ? addedClasses[item] : "")        
                 label.MMM--blockLabel(
-                    for=item + 'ID')=langTmpl[item].label
+                    for=item + 'ID-' + idGen)=langTmpl[item].label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=item + 'ID'
+                    id=item + 'ID-' + idGen
                     name=item
                     data-rule-required="true"
                     data-msg-required=langTmpl[item].errMessage

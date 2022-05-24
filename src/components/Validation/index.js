@@ -202,6 +202,7 @@
      * Should go at the very end, after the others method, being called in this class
      */
     render() {
+     
         $(`form#${this.elId}`).validate({
             groups: this._getChbxGroups(),
             rules: this._getRules(),
