@@ -188,16 +188,21 @@ export class FormComponent {
      */
     _mergeFilterOptions() {
 
-        this.customizedSelectOptions = { ...this.fieldsTmpl.optionsForFilter, ...this.optionsForFilter };
-
+        this.customizedSelectOptions = { ...this.fieldsTmpl.optionsForFilter, ...this.optionsForFilter };      
+        
+     
         for (let key of Object.keys(this.customizedSelectOptions)) {
 
-            const arrAll = this.langTmpl[key].options
-            const arrCustomOpts = this.customizedSelectOptions[key];
+            const arrAll = this.langTmpl[key].options;
+            const arrCustomOpts = this.customizedSelectOptions[key].map((opt)=>{
+                return opt.replace("&amp;", "&");
+            });            
 
-            const filteredOptions = arrAll.filter((opt) => {
+            const filteredOptions = arrAll.filter((opt) => {               
                 return arrCustomOpts.indexOf(opt[0]) != -1;
-            })
+            });
+
+            
 
 
             this.langTmpl[key].options = filteredOptions;

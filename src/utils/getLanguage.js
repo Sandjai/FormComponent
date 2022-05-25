@@ -1,10 +1,7 @@
 export default function (lang) {
     
-    const data = {
-        ar:'Arabic',
-        be:'Belarussian',
-        bg:'Bulgarian',
-        zh:'Chinese',
+    const data = {        
+        bg:'Bulgarian',       
         hr:'Croatian',
         cs:'Czech',
         da:'Danish',
@@ -17,10 +14,7 @@ export default function (lang) {
         el:'Greek',
         iw:'Hebrew',
         hu:'Hungarian',
-        id:'Indonesian',
-        it:'Italian',
-        ja:'Japanese',
-        ko:'Korean',
+        it:'Italian',        
         lv:'Latvian',
         lt:'Lithuanian',
         no:'Norwegian',
@@ -32,8 +26,7 @@ export default function (lang) {
         sk:'Slovakian',
         sl:'Slovenian',
         es:'Spanish',
-        sv:'Swedish',
-        th:'Thai',
+        sv:'Swedish',       
         tr:'Turkish',
         uk:'Ukrainian',
         

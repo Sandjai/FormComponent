@@ -33,10 +33,10 @@ __globScopeLanguageTemplate__ = {
             ['Mrs.','Kundze'],
             ['Ms.','Kundze'],
             ['Miss.', 'Jaunkundze'],
-            ['Dr.','Dr.'],
-            ['Dra','Dra.'],
-            ['Prof.','Prof.'],
-            ['Profa','Profa'],
+          //  ['Dr.','Dr.'],
+          //  ['Dra','Dra.'],
+          //  ['Prof.','Prof.'],
+          //  ['Profa','Profa'],
         ]            
     },
 
@@ -287,7 +287,7 @@ __globScopeLanguageTemplate__ = {
     },
 
     mmmIndustry1: {
-        label: "Industry",
+        label: "Industry / Market Segment",
         errMessage: "Atlasiet vērtību",
         options: 
             [
@@ -402,7 +402,10 @@ __globScopeLanguageTemplate__ = {
                 ["Industrial-Window & Door Mfg", "Logu un durvju ražošana"],
                 ["Industrial-Woodworking", "Kokapstrāde"],
                 ["Other", "Cits"],                  
-            ]
+            ],
+            EMSD: {
+                label: "Industry/ Market Segment",
+            }
         
                   
     },
@@ -413,8 +416,8 @@ __globScopeLanguageTemplate__ = {
         value: "Yes",
         options: [
                 // [Backend value, Frontend value]    
-                ["Yes","Yes"],
-                ["No","No"],
+                ["Yes","Jā"],
+                ["No","Nē"],
             ]
                  
     },
@@ -713,7 +716,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Lietošanas mērķis",
-            subLabel: "",
+            subLabel: "Please choose at least one application type",
         },
         app1: {
             type: "checkbox",
@@ -759,13 +762,13 @@ __globScopeLanguageTemplate__ = {
         },
         app8: {
             type: "checkbox",
-            label: "Aizsargpārklājums\putu pūšanas piedevas",
+            label: "Aizsargpārklājums",
             errMessage: "Atlasiet vērtību",
             value: "Protective coating"
         },
         app9: {
             type: "checkbox",
-            label: "Foam blowing additives /\ formulation additives",
+            label: "Putu pūšanas piedevas",
             errMessage: "Atlasiet vērtību",
             value: "Foam blowing additives /\ formulation additives"
         },
@@ -799,10 +802,10 @@ __globScopeLanguageTemplate__ = {
             label: "Company Type",    
             errMessage: "Atlasiet vērtību",        
             options:[
-                ['VAR','Converter/VAR'],
-                ['Consultancy','Consultancy'],
-                ['Channel Partner \ Distributor','Distributor/Channel partner'],
-                ['End User','End User'],
+                ['VAR','VAR\pārveidotāji'],
+                ['Consultancy','Konsultants'],
+                ['Channel Partner /\ Distributor','Kanāla partneris\izplatītājs'],
+                ['End User','Galalietotājs'],
                 ['Government','Government'],
                 ['OEM','OEM'],
                 ['Tier','Tier'],

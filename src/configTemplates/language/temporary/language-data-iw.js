@@ -31,12 +31,12 @@ __globScopeLanguageTemplate__ = {
         options: [
             ['Mr.','אדון'],
             ['Mrs.','גברת'],
-            ['Ms.','גברת.'],
-            ['Miss.', 'עלמה.'],
-            ['Dr.','ד""ר.'],
-            ['Dra','דרא.'],
-            ['Prof.','פרופ'],
-            ['Profa','פרופ '],
+          //  ['Ms.','גברת.'],
+          //  ['Miss.', 'עלמה.'],
+          //  ['Dr.','ד""ר.'],
+          //  ['Dra','דרא.'],
+          //  ['Prof.','פרופ'],
+          //  ['Profa','פרופ '],
         ]            
     },
 
@@ -404,7 +404,10 @@ __globScopeLanguageTemplate__ = {
                 ["Other", "אחר"],
                 
                   
-            ]
+            ],
+            EMSD: {
+                label: "Industry/ Market Segment",
+            }
         
                   
     },
@@ -415,8 +418,8 @@ __globScopeLanguageTemplate__ = {
         value: "Yes",
         options: [
                 // [Backend value, Frontend value]    
-                ["Yes","Yes"],
-                ["No","No"],
+                ["Yes","כן"],
+                ["No","לא"],
             ]
                  
     },
@@ -716,7 +719,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "מטרת היישום",
-            subLabel: "",
+            subLabel: "Please choose at least one application type",
         },
         app1: {
             type: "checkbox",
@@ -762,13 +765,13 @@ __globScopeLanguageTemplate__ = {
         },
         app8: {
             type: "checkbox",
-            label: "ציפוי מגן/תוספות קצף",
+            label: "ציפוי מגן",
             errMessage: "בחר ערך",
             value: "Protective coating"
         },
         app9: {
             type: "checkbox",
-            label: "Foam blowing additives /\ formulation additives",
+            label: "תוספות קצף",            
             errMessage: "בחר ערך",
             value: "Foam blowing additives /\ formulation additives"
         },
@@ -804,7 +807,7 @@ __globScopeLanguageTemplate__ = {
             options:[
                 ['VAR','VAR / ממירים'],
                 ['Consultancy','יועץ'],
-                ['Channel Partner \ Distributor','שותף ערוץ/מפיץ'],
+                ['Channel Partner /\ Distributor','שותף ערוץ/מפיץ'],
                 ['End User','משתמש קצה'],
                 ['Government','Government'],
                 ['OEM','יצרן ציוד מקורי'],

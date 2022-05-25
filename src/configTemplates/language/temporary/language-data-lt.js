@@ -31,12 +31,12 @@ __globScopeLanguageTemplate__ = {
         options: [
             ['Mr.','Ponas'],
             ['Mrs.','Ponia'],
-            ['Ms.','Ponia'],
-            ['Miss.','Panelė'],
-            ['Dr.','Dr.'],
-            ['Dra','Dr.'],
-            ['Prof.','Prof.'],
-            ['Profa','Prof.'],
+          //  ['Ms.','Ponia'],
+          //  ['Miss.','Panelė'],
+          //  ['Dr.','Dr.'],
+          //  ['Dra','Dr.'],
+          //  ['Prof.','Prof.'],
+          //  ['Profa','Prof.'],
         ]            
     },
 
@@ -402,7 +402,10 @@ __globScopeLanguageTemplate__ = {
                 ["Industrial-Window & Door Mfg", "Langų ir durų gamyba"],
                 ["Industrial-Woodworking", "Medienos apdirbimas"],
                 ["Other", "Kita"],                  
-            ]
+            ],
+            EMSD: {
+                label: "Industry/ Market Segment",
+            }
         
                   
     },
@@ -413,8 +416,8 @@ __globScopeLanguageTemplate__ = {
         value: "Yes",
         options: [
                 // [Backend value, Frontend value]    
-                ["Yes","Yes"],
-                ["No","No"],
+                ["Yes","Taip"],
+                ["No","Ne"],
             ]
                  
     },
@@ -712,8 +715,8 @@ __globScopeLanguageTemplate__ = {
     EMSD: {
         appHeader: {
             type: "header",
-            label: "Application",
-            subLabel: "",
+            label: "Naudojimo paskirtis",
+            subLabel: "Please choose at least one application type",
         },
         app1: {
             type: "checkbox",
@@ -735,7 +738,7 @@ __globScopeLanguageTemplate__ = {
         },
         app4: {
             type: "checkbox",
-            label: "Panardinamas aušinimas \ šilumos perdavimas",
+            label: "Panardinamas aušinimas /\ šilumos perdavimas",
             errMessage: "Šį lauką būtina užpildyti",
             value: "Immersion cooling /\ heat transfer"
         },
@@ -747,7 +750,7 @@ __globScopeLanguageTemplate__ = {
         },
         app6: {
             type: "checkbox",
-            label: "Sujungimas \ duomenų perdavimas",
+            label: "Sujungimas /\ duomenų perdavimas",
             errMessage: "Šį lauką būtina užpildyti",
             value: "Factory Automation /\ Interconnect /\ data transfer"
         },
@@ -759,13 +762,13 @@ __globScopeLanguageTemplate__ = {
         },
         app8: {
             type: "checkbox",
-            label: "Apsauginė danga \ putplasčio priedai",
+            label: "Apsauginė danga",
             errMessage: "Šį lauką būtina užpildyti",
             value: "Protective coating"
         },
         app9: {
             type: "checkbox",
-            label: "Foam blowing additives /\ formulation additives",
+            label: "Putplasčio priedai",
             errMessage: "Šį lauką būtina užpildyti",
             value: "Foam blowing additives /\ formulation additives"
         },
@@ -799,9 +802,9 @@ __globScopeLanguageTemplate__ = {
             label: "Kliento tipas",    
             errMessage: "Pasirinkite reikšmę",        
             options:[
-                ['VAR','VAR \ keitikliai'],
+                ['VAR','VAR /\ keitikliai'],
                 ['Consultancy','Konsultantas'],
-                ['Channel Partner \ Distributor','Kanalo partneris \ platintojas'],
+                ['Channel Partner /\ Distributor','Kanalo partneris /\ platintojas'],
                 ['End User','Galutinis vartotojas'],
                 ['Government','Government'],
                 ['OEM','OĮG'],
