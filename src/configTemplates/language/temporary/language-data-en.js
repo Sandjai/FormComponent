@@ -404,7 +404,7 @@ __globScopeLanguageTemplate__ = {
             ],
             EMSD: {
                 label: "Industry/ Market Segment",
-            }
+            },
 
 
     },
