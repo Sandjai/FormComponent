@@ -22,11 +22,11 @@
     /**
      * Method for combining checkboxes into a group
      * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
-     * @param {String} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-     * @param {String} errorMessage
-     * @param {Boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
-     * @param {Number} numMin - minimum number of checkboxes to be checked (default = 1)
-     * @param {Number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+     * @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
+     * @param {string} errorMessage
+     * @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
+     * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
+     * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
      */
 
     checkboxesGroups(data) {  
@@ -93,7 +93,7 @@
     /**
      * Toggling mandatory/optional
      * @param {Array} arr - array of HTML names
-     * @param {Boolean} trueOrFalse
+     * @param {boolean} trueOrFalse
      */
 
     addRule(arr, trueOrFalse) {

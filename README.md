@@ -70,7 +70,7 @@ For changing the default behaviour from 'right before' to 'right after' an addit
 ```javascript
     /**
      * @param {Array} arr Array of HTML names of the fields
-     * @param {String} place Equal to 'after' in case if needed to change a default behaviour
+     * @param {string} place Equal to 'after' in case if needed to change a default behaviour
      */
 ```
 **Example:**
@@ -113,8 +113,8 @@ OR
 Adds a new field to LP
 ```javascript
  /**
-     * @param {String} name - HTML name of the new form field 
-     * @param {String} placeBefore - HTML name of the form field, before which a new field should be added. 
+     * @param {string} name - HTML name of the new form field 
+     * @param {string} placeBefore - HTML name of the form field, before which a new field should be added. 
      * If this variable is absent, new field is being added to the very end of the form. 
 */
 ```
@@ -128,7 +128,7 @@ Adds a new field to LP
 Removes a field from the form
 ```javascript
 /**
-    * @param {String} name - HTML name of the form
+    * @param {string} name - HTML name of the form
 */
 ```
 **Example:**
@@ -140,8 +140,8 @@ Removes a field from the form
 Adds CSS class, which should be customly added to <li> wrapper of the field (if HTMl name of the field is provided) or to a fieldset (if ID of the fieldset is provided)
 ```javascript
 /**
-     * @param {String} item HTML name of the field or ID of the fieldset
-     * @param {String} cl class name
+     * @param {string} item HTML name of the field or ID of the fieldset
+     * @param {string} cl class name
      *      
 */
 ```
@@ -164,11 +164,11 @@ form1.validationRules = (validation) => {
 /**
 * Method for combining checkboxes into a group
 * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
-* @param {String} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-* @param {String} errorMessage
-* @param {Boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
-* @param {Number} numMin - minimum number of checkboxes to be checked (defaul = 1)
-* @param {Number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+* @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
+* @param {string} errorMessage
+* @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
+* @param {number} numMin - minimum number of checkboxes to be checked (defaul = 1)
+* @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
 */
 
 checkboxesGroups(data)

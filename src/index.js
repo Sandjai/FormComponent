@@ -52,7 +52,7 @@ export class FormComponent {
 
 
     /**
-     * @param {String} name - HTML name of the form
+     * @param {string} name - HTML name of the form
      */
 
     constructor(name) {
@@ -129,7 +129,7 @@ export class FormComponent {
      * By default: last item in Array (arr) - is a field, right before which should be placed the rest fields from the Array (arr).
      * For changing the default behaviour from 'right before' to 'right after' an additional parameter 'place' (equal to 'after') should be added.
      * @param {Array} arr Array of HTML names of the fields
-     * @param {String} place Equal to 'after' in case if needed to change a default behaviour
+     * @param {string} place Equal to 'after' in case if needed to change a default behaviour
      */
 
     changeOrder(arr, place = null) {
@@ -142,7 +142,7 @@ export class FormComponent {
 
     /**
      * Add a fieldset with HTML names of the fields
-     * @param {String} id 
+     * @param {string} id 
      * @param {Array} arr 
      */
 
@@ -160,8 +160,8 @@ export class FormComponent {
 
     /**
      * Adds CSS class, which should be customly added to <li> wrapper of the field (if HTMl name of the field is provided) or to a fieldset (if ID of the fieldset is provided)
-     * @param {String} item HTML name of the field or ID of the fieldset
-     * @param {String} cl class name
+     * @param {string} item HTML name of the field or ID of the fieldset
+     * @param {string} cl class name
      */
 
     addClass(item, cl) {
@@ -390,8 +390,8 @@ export class FormComponent {
 
     /**
      * Adds a new field to LP
-     * @param {String} name - HTML name of the new form field 
-     * @param {String} placeBefore - HTML name of the form field, before which a new field should be added. 
+     * @param {string} name - HTML name of the new form field 
+     * @param {string} placeBefore - HTML name of the form field, before which a new field should be added. 
      * If this variable is absent, new field is being added to the very end of the form. 
      */
 
@@ -406,7 +406,7 @@ export class FormComponent {
 
     /**
      * Removes a field from the form
-     * @param {String} name - HTML name of the form
+     * @param {string} name - HTML name of the form
      */
 
     removeField(name) {

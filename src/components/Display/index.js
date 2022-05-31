@@ -148,9 +148,9 @@
              * To add 'optional' in label for Contact Acquisition Form and removing 'optional' from label in a lead gen one
              * @param {Object} data
              * @param {Array} data.labelOptionalNames
-             * @param {String} data.optionalText
-             * @param {String} data.triggerName
-             * @param {String} data.val
+             * @param {string} data.optionalText
+             * @param {string} data.triggerName
+             * @param {string} data.val
              */
         
               
@@ -181,7 +181,7 @@
 
           /**
            * @param {Array} names - Array of HTML names
-           * @param {String} optionalText
+           * @param {string} optionalText
            */
 
           makeOptional (names,optionalText) {
