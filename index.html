@@ -2,7 +2,7 @@
   <head>
 
 <meta name="DCSext.CDC" content="EMSD - Electronics Materials Solutions Division">
-<meta name="DCSext.locale" content="ro_GB">
+<meta name="DCSext.locale" content="en_GB">
 
    <!-- STYLESHEET -->
 <link rel="stylesheet" href="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/build/unicorn.css">
@@ -30,7 +30,7 @@
     }
     </style>
 
-      <form name="TEST-EMSD-202202-en_EMEA-DEM-testLeadGen_emsd" class="testCSS" data-options="test"></form>
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>
 
   </div>
 </div>
@@ -40,14 +40,14 @@
 <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
 <script>
-  var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-DEM-testLeadGen_emsd");
+  var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
   
   form1.setHiddenFields({          
   sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
   sFDCLastCampaignID: "7012K00000169GbQAI",
   sFDCLastCampaignStatus: "Optional",
   leadSourceMostRecent1: "Website",
-  CTA: "Request a Sample"  
+  CTA: "Contact Us"  
   })  
 
  // form1.settings.vendor = 'elq-direct'; // Possible vendors: 'elq', 'elq-jsp', 'elq-direct'
@@ -58,11 +58,12 @@
 
 
 
-
+/*
 
 
 
  form1.addClass('CA', 'testCSSclass');
+ 
 
   form1.newField({
       label: 'Custom field txt', 
@@ -102,9 +103,11 @@
 */
 
 
-
+/*
   form1.changeOrder(['salutation','firstName','lastName','EMSD_cust_type']);
  form1.changeOrder(['city','zipPostal'], 'after');
+
+ */
 
   form1.render();
 
