@@ -59,7 +59,7 @@ Is used for setting hidden fields
 + `render()` 
 Render a form ( :heavy_exclamation_mark: This method must always be the last one, at the very end. :heavy_exclamation_mark: )
 
-##### There are optional methods, used for manipulations with the form directly from LP:
+### There are optional methods, used for manipulations with the form directly from LP:
 
 + `changeOrder(arr)` 
 OR
