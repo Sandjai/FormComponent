@@ -44,7 +44,8 @@ import afterform from "./afterform.pug";
         this.el.setAttribute("novalidate", "novalidate");
         this.el.style="max-width:767px";
       
-        this.el.setAttribute("data-options", `{&quot;submitHandler&quot;:&quot;elqFormHandler&quot;, &quot;vendor&quot;:&quot;${this.settings.vendor}&quot;}`);    
+        this.el.setAttribute("data-options", `{"submitHandler":"elqFormHandler", "vendor":"${this.settings.vendor}"}`);    
+        
     }
 
    _busPhoneSettings(country) {
