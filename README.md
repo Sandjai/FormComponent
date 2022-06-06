@@ -20,8 +20,8 @@ AND:
     new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
 ```
 
-### Generation of the form 
-### *(initilization of the FormComponent, including all its methods must NOT be included into the domReady)*
+## Generation of the form 
+### (initilization of the FormComponent, including all its methods must NOT be included into the domReady)
 
 1. Call the 'FormComponent' class and pass it to a variable. In case if you have several forms on LP, each of them should be passed to a unique variable, like below:
 ```javascript
@@ -47,8 +47,8 @@ AND:
     form1.render();
 ```
 
-#### Methods of the FormComponent
-##### The two important (and mandatory) methods have been described above (`setHiddenFields()` and `render()`):
+## Methods of the FormComponent
+### The two important (and mandatory) methods have been described above (`setHiddenFields()` and `render()`):
 + `setHiddenFields(data)`
 Is used for setting hidden fields
 ```javascript
@@ -57,7 +57,7 @@ Is used for setting hidden fields
     */
 ```
 + `render()` 
-Render a form
+Render a form (This method must always be the last one, at the very end.)
 
 ##### There are optional methods, used for manipulations with the form directly from LP:
 
@@ -149,7 +149,7 @@ Adds CSS class, which should be customly added to <li> wrapper of the field (if 
 ```javascript
 form1.addClass('leadgen', 'MMM--gapTopMed');
 ```
-
+<!--
 + **Methods for Validation Rules**
 Validation Rules of the form is based on jQuery Validator.
 All methods should be included in a special function:
@@ -190,3 +190,4 @@ This constructor (js class) is used for the Form Validation, based on Jquery Val
 let validation = new FormValidationRules(formName);
 ```
 ____
+-->
