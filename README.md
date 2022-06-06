@@ -61,7 +61,7 @@ Render a form ( :heavy_exclamation_mark: This method must always be the last one
 
 ### There are optional methods, used for manipulations with the form directly from LP:
 
-+ `changeOrder(arr)` 
+:red_circle: `changeOrder(arr)` 
 OR
 `changeOrder(arr, 'after')`
  Changing order of the fields. 
@@ -69,8 +69,8 @@ By default: last item in Array (arr) - is a field, right before which should be 
 For changing the default behaviour from 'right before' to 'right after' an additional parameter 'place' (equal to 'after') should be added.
 ```javascript
     /**
-     * @param {Array} arr Array of HTML names of the fields
-     * @param {string} place Equal to 'after' in case if needed to change a default behaviour
+     * @param {Array} arr  - Array of HTML names of the fields
+     * @param {string} place  - Equal to 'after' in case if needed to change a default behaviour
      */
 ```
 **Example:**
@@ -79,7 +79,7 @@ form1.changeOrder(['salutation','firstName','lastName','EMSD_cust_type']); /* To
 form1.changeOrder(['city','zipPostal'], 'after');   /* To move 'city' right after the 'zipPostal' field */
 ``` 
 
-+ `newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: 'false' })`
+:red_circle: `newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: 'false' })`
 New field declaration. (Adding a new declarated field to a form is managed via a next method below).
 ```javascript
  /**
@@ -107,7 +107,7 @@ New field declaration. (Adding a new declarated field to a form is managed via a
     });
 ```
 
-+ `addField(name)`
+:red_circle: `addField(name)`
 OR
 `addField(name, placeBefore)`
 Adds a new field to LP
@@ -124,7 +124,7 @@ Adds a new field to LP
   form1.addField('testCustomField', 'custEnq'); /* Adds field 'testCustomField' right before the 'custEnq' field */ 
 ```   
 
-+ `removeField(name)`
+:red_circle: `removeField(name)`
 Removes a field from the form
 ```javascript
 /**
@@ -136,7 +136,7 @@ Removes a field from the form
     form1.removeField('address1'); /* Removes a field with HTML name 'address1' from the form */ 
 ```    
 
-+ addClass(item, cl)
+:red_circle: addClass(item, cl)
 Adds CSS class, which should be customly added to <li> wrapper of the field (if HTMl name of the field is provided) or to a fieldset (if ID of the fieldset is provided)
 ```javascript
 /**
