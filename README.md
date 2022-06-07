@@ -2,7 +2,7 @@
 This constructor (js class) is used for generating either MQL forms depending on a locale, business division and appropriate SMP (Sales and Marketing Partnership agreement) or Contact Acquisition ones.
 
 ## How to use 
-Business Division (for identifying which SMP template to use) is taken from the form name. 
+Business Division (for identifying which SMP template to use) is taken from the form name. Or it can be hardcoded in `setHiddenFields` method for the `division1` field (optionally).
 Country (which country to be preselected in country field) and language (to select the right language template) are taken from the relevant meta tag on LP ("DCSext.locale"):
 ```html
     <meta name="DCSext.locale" content="en_GB">
