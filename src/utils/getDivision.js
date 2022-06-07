@@ -1,8 +1,8 @@
 
 
-    export default {
+    export default function (name) {
 
-        divisions: {
+        const divisions = {
             AAD: 'AAD - Automotive Aftermarket',
             AASD: 'AASD - Automotive &amp; Aerospace Solutions Division',
             AdMD: 'AdMD - Advanced Materials Division',
@@ -38,5 +38,25 @@
             SPSD: 'SPSD - Separation and Purification Science Division',
             TSD: 'TSD - Transportation Safety Division',
             VAS: 'VAS - Visual Attention Services',        
+    };
+
+    
+    const divs = Object.keys(divisions);  
+
+    let division = null;
+
+    for (let div of divs) {       
+        if (name.indexOf(`${div}-`) != -1) {           
+            division =  divisions[div];
+            break;            
+        }  
     }
+
+    if (division === null) {
+        console.error('Division was identified incorrectly. Please specify it in setHiddenFields if default value (EMSD) is not relevant.');
+        division = divisions.EMSD;
+    }
+
+    return division;
+
 }

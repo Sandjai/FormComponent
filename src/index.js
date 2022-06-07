@@ -9,6 +9,7 @@ import baseFieldsTemplate from './configTemplates/noSMP/index.js'
 import ifMQLformType from './utils/ifMQLformType.js'
 import getLanguage from './utils/getLanguage.js'
 import getCountry from './utils/getCountry.js'
+import getDivision from './utils/getDivision.js'
 
 /**
  * Initializes settings for the form creation,
@@ -76,7 +77,7 @@ export class FormComponent {
             adobeECID: "",
             leadSourcePageTitleMostRecent1: "",
             language1: this._identifyLocale('language'),
-            division1: this._identifyDivision(),
+            division1: getDivision(this.name),
             eloquaFormURL: "",
             FormType: ifMQLformType(this.name) ? ifMQLformType(this.name) : '',
             SMPVersion: ""
@@ -88,11 +89,6 @@ export class FormComponent {
 
         //Using a variable from mmmSettings (do not use in normal usage)
         //this._addIn3MpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
-    }
-
-    _identifyDivision() {
-        const name = 'DCSext.CDC';
-        return document.getElementsByTagName('meta')[name].getAttribute("content");
     }
 
     _identifyLocale(par) {
@@ -559,7 +555,7 @@ export class FormComponent {
             settings: this.settings,
             selectedItems: this.selectedItems,
         });
-
+      
         form._busPhoneSettings(this._identifyLocale('countryCode'));
 
         form.render();

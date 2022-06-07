@@ -5,6 +5,7 @@ import afterform from "./afterform.pug";
  export default class FormAssetsCreator {
     static idGen = parseInt(Math.random() * 1000);
     static busPhoneExist = false;
+    static busPhoneNum = 1;
     
 
     constructor(data) {
@@ -53,27 +54,28 @@ import afterform from "./afterform.pug";
         if (this.settings.busPhone && !this.constructor.busPhoneExist) {
             
             this.constructor.busPhoneExist = true;
-
-  // edit to match the IDs on your page
-  window.busPhoneid = `#busPhoneID-${this.idGen}`; // Enter this for the first form on the page
-  window.countryselectid = `#countryID-${this.idGen}`; // Enter this for the first form on the page                
-    }
+  
+            window.busPhoneid = '#busPhoneID'; // Enter this for the first form on the page
+            window.countryselectid = '#countryID'; // Enter this for the first form on the page   
+ 
+        } else if (this.settings.busPhone && this.constructor.busPhoneExist) {
+            ++this.constructor.busPhoneNum;
+        }
 }
 
     
     render () {        
         this._addSettingsToFormTag();           
-        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems);
+        this._createFormTemplate (this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems, this.constructor.busPhoneNum);
         
-        //this._busPhoneSettings();        
     }
 
-    _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems) {      
+    _createFormTemplate (hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum) {      
         
         //this.el.insertAdjacentHTML('beforebegin', preform());
         this.el.insertAdjacentHTML('afterend', afterform({langTmpl}));  
 
-        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems}); 
+        this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum}); 
         
         
       
