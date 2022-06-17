@@ -101,17 +101,17 @@ New field declaration. (Adding a new declarated field to a form is managed via a
      * @param {Object} data - Includes settings of the new field:
      * label: '',       - Mandatory
      * errMessage: '',  - Mandatory
-     * type: '',        - Mandatory (possible values for type: 'text', 'textarea', checkbox', 'radio', 'select', 'header')
+     * type: '',        - Mandatory: (possible values for type: 'text', 'textarea', checkbox', 'radio', 'select', 'header')
      * options: '',     - only in case if type = 'select'
-     * name: '',        - Mandatory (should be matching of the HTML name field of the form)      
-     * className: '',   - Optional class for <li> wrapper of the field
-     * required:        - can be 'true' or 'false'. By default it's 'false'.
-     * condition:       - function in format, when it returns Boolean : function () {return (--your js condition here--)},
-     * triggerName: ''  - HTML name of the field, which impacts on the case if new field should be mandatory or optional
+     * name: '',        - Mandatory: (should be matching of the HTML name field of the form)      
+     * className: '',   - Optional: class for <li> wrapper of the field
+     * required:        - Optional: can be 'true' or 'false'. By default it's 'false'.
+     * condition:       - Optional: when this new field should depend on any other field in terms of Validation. function in format, when it returns Boolean : function () {return (--your js condition here--)},
+     * triggerName: ''  - Optional: HTML name of the field, which impacts on the case if new field should be mandatory or optional
 */
 ```
 **Examples:**
-1) Adding a text field, which must be mandatory:
+1) Adding a text field, which must be always mandatory:
 ```javascript
   form1.newField({
       label: 'Text field', 
