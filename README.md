@@ -23,106 +23,6 @@ AND:
 ## Generation of the form 
 ### (initilization of the FormComponent, including all its methods must NOT be included into the domReady)
 
-
-:red_circle: `selectedItems - (works for selects, checkboxes, radio buttons)`
-
-***Preselects option in <select> tag***
-
-***Add a key, equal to a fields' HTML name and store there a value of an option, which you'd like to have preselected***
-**Examples:**
-1) To make Germany be a preselected country
-```javascript
-form1.selectedItems.country = 'Germany';
-```
-
-2) To make Firefighter be a preselected jobRole
-```javascript
-form1.selectedItems.mmmJobRole1 = 'Firefighter';
-```
-
-**Make checkbox to be checked**
-Add a key, equal to a fields' HTML name and store there a value equal to: true
-
-```javascript
-/* make checkbox with HTML name 'app1' to be checked */
-  form1.selectedItems.app1 = true;
-```
-
-
-:red_circle: `updateSelectOpts(name, ...options)`
-Rewrite options in <select> field in provided order
-
-**Example:**
-Rewrite options in <select> field (HTML name === "mmmJobRole1") in provided order ("Firefighter","Safety Manager","Other"_)
-```javascript
- form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
-```
-
-:red_circle: `hideFields(...items)`
-**Preselect option in <select> tag**
-HTML name(s) of the field(s), needed to be hidden (by adding a CSS class 'MMM--isVisuallyHidden'). Also, this method makes a field to be optional in terms of Validation.
-```javascript
- /**
-     * 
-     * @param  {...string} items
-     */
-```
-
-**Examples:**
-1) To hide a field with HTML name 'EMSD_cust_type'
-```javascript
-form1.hideFields('EMSD_cust_type'); 
-```
-2) To hide fields with HTML names 'app1','app2',..., app13
-```javascript
- form1.hideFields('app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13');
-```
-
-<!--
-+ **Methods for Validation Rules**
-Validation Rules of the form is based on jQuery Validator.
-All methods should be included in a special function:
-
-```javascript
-form1.validationRules = (validation) => {
- /** Add Validation Methods HERE **/
-}
-```
-   - Validation Methods:
-      
-/**
-* Method for combining checkboxes into a group
-* @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
-* @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-* @param {string} errorMessage
-* @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
-* @param {number} numMin - minimum number of checkboxes to be checked (defaul = 1)
-* @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
-*/
-
-checkboxesGroups(data)
-
-........TO DO..............
-
-## How to use 
-
-
-
-____
-
-## Optional usage (in case if form on LP - is a static HTML form, when FormComponent constructor has not been used for the form generation)
-### *(initilization of the FormValidationRules, including all its methods must be included into the domReady)*
-#### FormValidationRules 
-This constructor (js class) is used for the Form Validation, based on Jquery Validator  
-
-```javascript
-let validation = new FormValidationRules(formName);
-```
-____
--->
-
-
-
 1. Call the 'FormComponent' class and pass it to a variable. In case if you have several forms on LP, each of them should be passed to a unique variable, like below:
 ```javascript
     var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");  /* Initializing Form #1 */
@@ -340,3 +240,98 @@ form1.setOptions('mmmIndustry1', [
 ]);
 ```
 
+:red_circle: `selectedItems - (works for selects, checkboxes, radio buttons)`
+Preselects option in select tag
+
+***Add a key, equal to a fields' HTML name and store there a value of an option, which you'd like to have preselected, like below***
+**Examples:**
+1) To make Germany be a preselected country
+```javascript
+form1.selectedItems.country = 'Germany';
+```
+
+2) To make Firefighter be a preselected jobRole
+```javascript
+form1.selectedItems.mmmJobRole1 = 'Firefighter';
+```
+
+**Make checkbox to be checked**
+Add a key, equal to a fields' HTML name and store there a value equal to: true
+
+```javascript
+/* make checkbox with HTML name 'app1' to be checked */
+  form1.selectedItems.app1 = true;
+```
+
+
+:red_circle: `updateSelectOpts(name, ...options)`
+Rewrite options in <select> field in provided order
+
+**Example:**
+Rewrite options in <select> field (HTML name === "mmmJobRole1") in provided order ("Firefighter","Safety Manager","Other"_)
+```javascript
+ form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
+```
+
+:red_circle: `hideFields(...items)`
+**Preselect option in <select> tag**
+HTML name(s) of the field(s), needed to be hidden (by adding a CSS class 'MMM--isVisuallyHidden'). Also, this method makes a field to be optional in terms of Validation.
+```javascript
+ /**
+     * 
+     * @param  {...string} items
+     */
+```
+
+**Examples:**
+1) To hide a field with HTML name 'EMSD_cust_type'
+```javascript
+form1.hideFields('EMSD_cust_type'); 
+```
+2) To hide fields with HTML names 'app1','app2',..., app13
+```javascript
+ form1.hideFields('app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13');
+```
+
+<!--
++ **Methods for Validation Rules**
+Validation Rules of the form is based on jQuery Validator.
+All methods should be included in a special function:
+
+```javascript
+form1.validationRules = (validation) => {
+ /** Add Validation Methods HERE **/
+}
+```
+   - Validation Methods:
+      
+/**
+* Method for combining checkboxes into a group
+* @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
+* @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
+* @param {string} errorMessage
+* @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
+* @param {number} numMin - minimum number of checkboxes to be checked (defaul = 1)
+* @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+*/
+
+checkboxesGroups(data)
+
+........TO DO..............
+
+## How to use 
+
+
+
+____
+
+## Optional usage (in case if form on LP - is a static HTML form, when FormComponent constructor has not been used for the form generation)
+### *(initilization of the FormValidationRules, including all its methods must be included into the domReady)*
+#### FormValidationRules 
+This constructor (js class) is used for the Form Validation, based on Jquery Validator  
+
+```javascript
+let validation = new FormValidationRules(formName);
+```
+____
+-->
