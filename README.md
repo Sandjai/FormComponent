@@ -103,7 +103,7 @@ New field declaration. (Adding a new declarated field to a form is managed via a
      * errMessage: '',  - Mandatory
      * type: '',        - Mandatory: (possible values for type: 'text', 'textarea', checkbox', 'radio', 'select', 'header')
      * options: '',     - only in case if type = 'select'
-     * name: '',        - Mandatory: (should be matching of the HTML name field of the form)      
+     * name: '',        - Mandatory: (should be matching with the HTML name field of the form)      
      * className: '',   - Optional: class for <li> wrapper of the field
      * required:        - Optional: can be 'true' or 'false'. By default it's 'false'.
      * condition:       - Optional: when this new field should depend on any other field in terms of Validation. function in format, when it returns Boolean : function () {return (--your js condition here--)},
