@@ -6,6 +6,8 @@ import afterform from "./afterform.pug";
     static idGen = parseInt(Math.random() * 1000);
     static busPhoneExist = false;
     static busPhoneNum = 1;
+
+    
     
 
     constructor(data) {
@@ -19,6 +21,7 @@ import afterform from "./afterform.pug";
         this.idGen = ++this.constructor.idGen;    
         this.settings = data.settings;
         this.selectedItems = data.selectedItems;
+        this.customFormClasses = data.customFormClasses;
         
     }
 
@@ -29,14 +32,14 @@ import afterform from "./afterform.pug";
 
     _addClasses(arr) {
         for (let cl of arr) {
-            this.el.classList.add(cl)
+            this.el.classList.add(cl);
         }           
     }  
 
     _addSettingsToFormTag() {
 
         if(this.settings.exclusiveCountry) {
-            this.addClass('eloquaExclusiveCountry')
+            this._addClasses(['eloquaExclusiveCountry']);
         }
 
         this._addClasses(this.settings.classes);
@@ -74,6 +77,7 @@ import afterform from "./afterform.pug";
         
         //this.el.insertAdjacentHTML('beforebegin', preform());
         this.el.insertAdjacentHTML('afterend', afterform({langTmpl}));  
+        this._addClasses(this.customFormClasses);
 
         this.el.innerHTML = template({hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum}); 
         

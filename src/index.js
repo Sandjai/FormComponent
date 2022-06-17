@@ -27,12 +27,15 @@ export class FormComponent {
 
     optionsForFilter = {};  // Object for options, which should be visible for <select> elements of default fields (Job Role, Industry,...) (pulled from LP) 
     addedClasses = {};      // Object for CSS classes, which should be customly added to <li> wrappers of fields or to a fieldset (pulled from LP) 
-    staticValidationRules = {}; // Fields, which should be always optional (pulled from LP)
+    customFormClasses = []; //Array for custom CSS classes added to a form tag
+    staticValidationRules = {}; // Fields, which should be always optional or mandatory (pulled from LP)
+    dynamicValidationRules = {};
     customFields = [];      // New added custom fields (pulled from LP)
     fieldsOrder = [];       // Order for new Added fields
     changedOrder = [];      // Is used in case if we need to change default fields order
     changedOrder__after = [];
     removedFields = [];
+    updatedTexts = []; 
 
 
     langTmpl;        // will be feeded by a a relevant 'language data template'
@@ -44,10 +47,12 @@ export class FormComponent {
     };
 
     settings = {        // Set of parameters of the <form> tag
-        vendor: 'elq-jsp', // Possible vendors: 'elq', 'elq-jsp', 'elq-direct', 'elq-psd', '3M', 'pdot'        
-        classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],
-        busPhone: false,
-        countryCode: this._identifyLocale('countryCode')
+        vendor: 'elq-jsp', // Possible vendors: 'elq', 'elq-jsp', 'elq-direct', 'elq-psd', '3M', 'pdot'
+        classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],       
+        get countryCode () {return this._identifyLocale('countryCode')},
+        leadgenBasic: false,
+        _busPhone: false, // do not change manually
+
     };
 
 
@@ -153,6 +158,19 @@ export class FormComponent {
         this.fieldsets[id] = arr;
     }
 
+    addClass(item, ...cls) {
+       
+        if (item === 'form') {
+            for (let cl of cls) {
+                this.customFormClasses.push(cl);
+            }
+        } else {
+            
+                this._addClass(item, cls.join(' ').toString());
+           
+        }
+    }
+
 
     /**
      * Adds CSS class, which should be customly added to <li> wrapper of the field (if HTMl name of the field is provided) or to a fieldset (if ID of the fieldset is provided)
@@ -160,8 +178,84 @@ export class FormComponent {
      * @param {string} cl class name
      */
 
-    addClass(item, cl) {
-        this.addedClasses[item] = cl;
+    _addClass(item, cl) {
+        if (this.addedClasses.hasOwnProperty(item)) {
+            this.addedClasses[item] += ' ' + cl;
+        } else {
+            this.addedClasses[item] = cl;
+        }
+
+        if (cl === 'MMM--isVisuallyHidden') {
+            this.staticValidationRules[item] = 'false';
+        }
+
+       
+         
+    }
+
+    /**
+     * 
+     * @param  {...string} items - HTML name(s) of the field(s), needed to be hidden (by adding a CSS class 'MMM--isVisuallyHidden')
+     */
+
+    hideFields(...items) {       
+
+    for (let i of items) {       
+        this._addClass(i, 'MMM--isVisuallyHidden');
+        this.staticValidationRules[i] = 'false';
+    }
+        
+    }
+    
+    updateSelectOpts (name, ...options) {
+        this.optionsForFilter[name] = options;
+    }
+
+    makeOptional (...fieldNames) {
+        this._setValidationRules('false', null, ...fieldNames);        
+    }
+
+    makeMandatory (...fieldNames) {
+        this._setValidationRules('true', null, ...fieldNames);        
+    }
+
+    mandatoryWhen (name, condition) {
+               
+        this._setValidationRules (true, condition, name);
+    }
+
+    _setValidationRules (value, condition, ...fieldNames) {
+
+        if (condition === null) {
+            for (let field of fieldNames) {
+                this.staticValidationRules[field] = value;
+            }
+        } else {
+            let condArr = [];
+     
+            
+        for (let name of fieldNames) {
+            
+            if (this.dynamicValidationRules.hasOwnProperty(name) && Array.isArray(this.dynamicValidationRules[name])) {
+               
+                this.dynamicValidationRules[name].push(condition);
+            }  else {      
+                               
+                condArr.push(condition);    
+                
+                this.dynamicValidationRules[name] = condArr;           
+            
+            }
+
+           
+        }
+          
+        
+     
+        }
+        
+       
+        
     }
 
     _scriptDynamicLoading(url, targetEl, ifAsync = true) {
@@ -215,6 +309,8 @@ export class FormComponent {
         }
 
     }
+
+   
 
     /**
      * Combine data of fieldsets (fields inside) from the 'fields template' and from LP (if provided), then update local 'language template'
@@ -302,8 +398,18 @@ export class FormComponent {
 
     _mergeFieldsTmpl(arr) {
         for (let objName of arr) {
-            const obj = { ...this.fieldsTmpl[objName], ...this[objName] };
-            this.fieldsTmpl[objName] = obj;
+            if (objName === 'addedClasses') {
+                let arr = [...Object.keys(this.fieldsTmpl[objName]), ...Object.keys(this[objName])];
+                for (let key of arr) {                
+                this.fieldsTmpl[objName][key] = (this.fieldsTmpl[objName].hasOwnProperty(key) ? this.fieldsTmpl[objName][key] + " " : ' ') + (this[objName].hasOwnProperty(key) ? this[objName][key] + " " : ' ');
+                
+                }
+                
+            } else {
+                const obj = { ...this.fieldsTmpl[objName], ...this[objName] };
+                this.fieldsTmpl[objName] = obj;
+            }
+                       
         }
     }
 
@@ -326,6 +432,90 @@ export class FormComponent {
 
     }
 
+    setTxt(name, data, target = null) {
+        this.updatedTexts.push([name, data, target]);
+    }
+
+    setTY (header, paragraph) {
+        
+        this.updatedTexts.push(['submissionSuccess_1', header]);
+        this.updatedTexts.push(['submissionSuccess_2', paragraph]);
+    }
+
+    _getObject(property, val) {
+        let _val = {};
+        _val[property] = val;
+        return _val;
+    }
+
+    /**
+     * setLabel
+     * Sets a new text for label of the field
+     * @param {string} name - HTM name of the field
+     * @param {string} val - new Text for the label 
+     */
+
+    setLabel(name, val) {
+        this.updatedTexts.push([name, this._getObject('label', val)]);
+    }
+
+
+    /**
+     * setOptions
+     * Sets new options in select field
+     * @param {string} name - HTM name of the field
+     * @param {Array of Arrays} val - // [[Backend value, Frontend value], [Backend value, Frontend value], [Backend value, Frontend value], [...]] 
+     */
+
+    setOptions(name, val) {
+        this.updatedTexts.push([name, this._getObject('options', val)]);
+    }
+
+
+    /**
+     * setErrMessage
+     * Sets a new text for the error message of the field
+     * @param {string} name  - HTM name of the field
+     * @param {string} val  - new Text for the error message
+     */
+
+    setErrMessage(name, val) {
+        this.updatedTexts.push([name, this._getObject('errMessage', val)]);
+    }
+
+   
+
+     /**
+      * @param {string} item[0] - HTML name of the field
+      * @param {Object} item[1] - new text
+      * @param {string, null} item[1] - target, to which Object property new text should be added ()
+      */
+
+    _updateTextField () {
+        for (let item of this.updatedTexts) {
+                       
+            if (typeof item[1] === 'string') {
+                this.langTmpl[item[0]] = item[1];
+            }
+
+            if ((typeof item[1] === 'object') && (typeof item[1] !== null)) {
+                for (let key of Object.keys(item[1])) {
+                       
+                   let targetPath = (this.langTmpl.hasOwnProperty(item[0]) && this.langTmpl[item[0]].hasOwnProperty(this.division_cropped)) ? 
+                   this.langTmpl[item[0]][this.division_cropped] : 
+                   (this.langTmpl.hasOwnProperty(item[0])) ?  
+                   this.langTmpl[item[0]] : 
+                   this.langTmpl[this.division_cropped][item[0]];
+              
+                   targetPath[key] = item[1][key];                        
+                }
+            }
+
+        
+  
+        }
+    }
+
     /**
      * Sets an array with names of fields for adding 'optional' to label
      */
@@ -335,7 +525,7 @@ export class FormComponent {
         for (let key of Object.keys(this.fieldsTmpl.staticValidationRules)) {
 
             if ((this.fieldsTmpl.staticValidationRules[key] === 'false') || (this.fieldsTmpl.staticValidationRules[key] == false)) {
-                this.optionalNames.push(key);
+                this.optionalNames.push(key);               
             }
 
         }
@@ -367,7 +557,13 @@ export class FormComponent {
      * required:        - can be 'true' or 'false'
      */
 
-    newField(data = { label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: 'false' }) {
+    newField(data = { label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: '', condition:'', value: '' }) {
+       
+        
+        if (data.type === "checkbox" || data.type === "radio") {
+            data.value = "on";
+        }
+
         const obj = {
             name: data.name,
             label: data.label,
@@ -375,10 +571,30 @@ export class FormComponent {
             type: data.type,
             options: data.options,
             classToLiWrapper: data.className,
-            required: data.required,
+            required: data.required ? data.required : 'false',
+            condition: data.condition ? data.condition : null,
+            triggerName: data.triggerName ? data.triggerName : null,
+            value: data.value
         }
-        if (data.name === 'false') {
+
+      /*  if (obj.required === 'false') {
             this.optionalNames.push(data.name);
+        } */
+        
+
+        if (obj.condition !== null) {
+            obj.required = 'false';
+
+
+            
+            this.mandatoryWhen(obj.name, obj.condition);
+        }
+        
+        this._displayRules = function(display) {
+            display.addOptionalToLabel ({
+                labelOptionalNames: [obj.name],                     
+                triggerName: data.triggerName,
+            })
         }
 
         this.customFields.push(obj);
@@ -443,12 +659,14 @@ export class FormComponent {
                 initFields = new Promise((resolve) => {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
                     this._scriptDynamicLoading(smpTmplUrl, document.head, false).onload = () => {
-                        this.fieldsTmpl = __globScopeSMPtemplate__;
+                        this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
+                      
                         resolve();
                     }
                 })
             } else {
-                this.fieldsTmpl = __globScopeSMPtemplate__;
+                this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
+                
                 resolve();
             }
 
@@ -495,7 +713,7 @@ export class FormComponent {
         const dynamicVariable = '__load_Validation-Display_Rules__' + this.constructor.instance;
         domReady[dynamicVariable] = () => {
 
-            this.display = new DisplayFormFields(this.el);  // init Display Rules
+            this.display = new DisplayFormFields(this.el, this.langTmpl.optionalText);  // init Display Rules
 
             // Final Optional Fields init (After Display was initialized and custome adding methods were used)
             this._setOptionalNamesArr();
@@ -505,7 +723,12 @@ export class FormComponent {
 
                 this.displayRules(this.display);
             }
+            if (typeof this._displayRules === 'function') {                          
 
+                this._displayRules(this.display);
+            }
+
+            
 
             this.validation = new FormValidationRules(this.el, this.elId);  // init Validation Rules
 
@@ -514,7 +737,22 @@ export class FormComponent {
                 this.validationRules(this.validation);
             }
 
-
+            for (let name of Object.keys(this.dynamicValidationRules)) {
+                
+                if (Array.isArray(this.dynamicValidationRules[name])) {
+                 
+                    for (let condition of this.dynamicValidationRules[name]) {
+                      
+                        this.validation.addDependencyRule ([name], condition);
+                       
+                    } 
+                }else {
+                        this.validation.addDependencyRule ([name], this.dynamicValidationRules[name]);
+                    }
+               
+               
+            }
+                   
             // Add 'Optional' to labels of optional fields              
             this.display.makeOptional(this.optionalNames, this.langTmpl.optionalText);
 
@@ -535,6 +773,7 @@ export class FormComponent {
         //Merging data from templates with what was provided on LP customly
         this._mergeFilterOptions();
         this._mergeLangTmpl();
+        this._updateTextField();
         this._mergeFieldsets();
         this._addCustomFields();
         this._removeFields();
@@ -542,7 +781,7 @@ export class FormComponent {
         this._mergeFieldsTmpl(['staticValidationRules', 'addedClasses']);
 
         if (this._getFieldsetID('busPhone')) {
-            this.settings.busPhone = true;
+            this.settings._busPhone = true;
         }
 
         const form = new FormAssetsCreator({
@@ -554,6 +793,7 @@ export class FormComponent {
             name: this.name,
             settings: this.settings,
             selectedItems: this.selectedItems,
+            customFormClasses: this.customFormClasses,
         });
       
         form._busPhoneSettings(this._identifyLocale('countryCode'));

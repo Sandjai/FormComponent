@@ -30,7 +30,7 @@
     }
     </style>
 
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>
+      <form name="TEST-MULTI-202202-en_EMEA-CON-testLeadGen_emsd"></form>
 
   </div>
 </div>
@@ -40,7 +40,7 @@
 <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
 <script>
-  var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
+  var form1 = new window.FormComponent("TEST-MULTI-202202-en_EMEA-CON-testLeadGen_emsd");
   
   form1.setHiddenFields({          
   sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
@@ -48,16 +48,56 @@
   sFDCLastCampaignStatus: "Optional",
   leadSourceMostRecent1: "Website",
   CTA: "Contact Us",
- // division1: 'EMSD - Electronics Materials Division'  
+  //division1: 'EMSD - Electronics Materials Division'  
   })  
 
- // form1.settings.vendor = 'elq-direct'; // Possible vendors: 'elq', 'elq-jsp', 'elq-direct'
+  //form1.settings.leadgenBasic = true;
+
+  form1.selectedItems.country = 'Germany';
+  form1.selectedItems.app1 = true;
+
+ //form1.settings.vendor = 'elq-direct'; // Possible vendors: 'elq', 'elq-jsp', 'elq-direct'
 
   
+ form1.setLabel('country', 'Updated Country');
+ form1.setLabel('app13', 'Updated Country');
+form1.setLabel('mmmIndustry1', 'Hi');
+form1.setTY('one', 'two');
+/* form1.updateTextField ({
+    label: "",
+    errMessage: "",
+    options: ""
+ })
+ */
+ form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
+ 
 
 
 
+  form1.addClass('form', 'formTESTclass');
+  form1.addClass('form', 'SECONDformTESTclass');
+  form1.addClass('leadgen', 'SECONDleadgenTESTclass');
+  form1.addClass('leadgen', 'THIRDleadgenTESTclass');
+ 
+        
+  form1.addClass('CA', 'classForCA secondCA');
+ // form1.hideFields('firstName', 'EMSD_cust_type');
+  form1.hideFields('app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13');
+form1.addClass('firstName', 'firstNameClass');
 
+//form1.mandatoryWhen('firstName', function () {return $('[name="country"]').val() === 'United Kingdom'})
+
+form1.newField({
+      label: 'Custom field txt', 
+      errMessage: 'Please specify', 
+      type: 'text', 
+      name: 'testCustomField', 
+     // required: false,
+      condition: function () {return ($('[name="salesRequest"]').is(':checked'))},
+      triggerName: 'salesRequest'
+}) 
+
+  form1.addField('testCustomField', 'firstName');
 
 /*
 
@@ -84,7 +124,8 @@
       name: 'testChbx', 
       value: 'on', 
       //className: '', 
-      //required: 'false'   // - To Do: to make required only for leadgen  
+      //required: 'false',
+      dependableFrom: 
     }); 
 
       form1.addField('testChbx');

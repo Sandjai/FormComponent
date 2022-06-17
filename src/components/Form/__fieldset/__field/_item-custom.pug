@@ -14,11 +14,16 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     data-msg-required=langPath[item].errMessage
                     aria-required="true")
                     
-            when 'checkbox'        
+            when 'checkbox'
+                if (selectedItems.hasOwnProperty(item))
+                    -var _ifChecked = true        
+                else 
+                    -var _ifChecked = false
                 input(
                     type='checkbox'
                     value=langPath[item].value
                     name=item
+                    checked =  _ifChecked
                     id=item + 'ID-' + idGen
                     data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "false"
                     data-msg-required=langPath[item].errMessage
@@ -27,11 +32,16 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     style="font-weight:normal"
                     for=item + 'ID-' + idGen)=langPath[item].label  
 
-            when 'radio'        
+            when 'radio' 
+                if (selectedItems.hasOwnProperty(item))
+                    -var _ifChecked = true        
+                else 
+                    -var _ifChecked = false       
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=langPath[item].label
                 input.MMM--textInput.MMM--defaultFields(
                     id=item + 'ID-' + idGen
+                    checked =  _ifChecked
                     type='text'
                     name=item
                     data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "false"

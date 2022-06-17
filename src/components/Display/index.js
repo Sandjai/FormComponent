@@ -8,15 +8,17 @@
 
           static instance = 0;
 
-          // Just Default value
-        optionalText = "optional";
+      
+        
 
-          constructor (el) {
+          constructor (el, optionalText) {
               this.el = el;
               this.depChbxGrId = 0;
               this.rules = [];
+              this.optionalText = optionalText;
         
             this.constructor.instance++;
+            
               this.initEvent();            
           }
         
@@ -148,14 +150,14 @@
              * To add 'optional' in label for Contact Acquisition Form and removing 'optional' from label in a lead gen one
              * @param {Object} data
              * @param {Array} data.labelOptionalNames
-             * @param {string} data.optionalText
+             * @param {string} optionalText
              * @param {string} data.triggerName
              * @param {string} data.val
              */
         
               
             addOptionalToLabel (data) { 
-              const optionalText =  data.optionalText ? ` (${data.optionalText.toLowerCase()})` : ` (${this.optionalText.toLowerCase()})`;
+              const optionalText =  this.optionalText ? ` (${this.optionalText.toLowerCase()})` : ` (${this.optionalText.toLowerCase()})`;
              
               let element = $(this.el).find("[name=\"".concat(data.triggerName, "\"]")); 
               

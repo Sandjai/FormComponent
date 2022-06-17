@@ -113,7 +113,7 @@
 
     
     addDependencyRule(fields, condition) {
-        
+       
 
         $(fields).each((i, item) => {            
             if ($(this.el).find(`[name="${item}"]`)) {                
@@ -122,8 +122,7 @@
                     this.rules[item] = {
                         required: {
                             depends: (element) => {
-                                if (!$(element).closest('li').hasClass('MMM--isVisuallyHidden')) {
-                                    
+                                if (!$(element).closest('li').hasClass('MMM--isVisuallyHidden')) {                                    
                                     return this._isRequired(item);
                                 } else return false;
                                 
@@ -133,7 +132,8 @@
 
                     
                 } else {
-                    this._multiRules[item] = condition;
+                    this._multiRules[item] = condition;   
+                  //  alert(this._multiRules[item]);                 
                     this.rules[item] = {
                         required: {
                             depends: function depends(element) {
@@ -145,6 +145,8 @@
                         }
                     }
                 }
+
+               
         }
 
         })
