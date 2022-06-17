@@ -244,7 +244,7 @@ form1.setOptions('mmmIndustry1', [
 
 ***Preselects option in <select> tag***
 
-Add a key, equal to a fields' HTML name and store there a value of an option, which you'd like to have preselected
+***Add a key, equal to a fields' HTML name and store there a value of an option, which you'd like to have preselected***
 
 **Examples:**
 1) To make Germany be a preselected country
