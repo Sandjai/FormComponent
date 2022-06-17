@@ -234,7 +234,19 @@ Set a new text for the error message of the field
 ```javascript
 form1.setErrMessage('EMSD_app_purp_other', 'Please specify your application type');
 ```
-
+:red_circle: `setTY(header, paragraph)`
+Sets a new text for TY message
+```javascript
+ /**
+     * @param {string} header - text №1
+     * @param {string} paragraph - text №2
+     */
+    setTY(header, paragraph)
+```
+**Example:**
+```javascript
+form1.setTY('Thanks', 'Your form was sumbitted');
+```
 
 :red_circle: `setOptions(name, val)`
 Set new options in select field
