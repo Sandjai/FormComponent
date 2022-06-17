@@ -240,30 +240,7 @@ form1.setOptions('mmmIndustry1', [
 ]);
 ```
 
-:red_circle: `selectedItems - (works for selects, checkboxes, radio buttons)`
 
-***Preselects option in <select> tag***
-
-***Add a key, equal to a fields' HTML name and store there a value of an option, which you'd like to have preselected***
-
-**Examples:**
-1) To make Germany be a preselected country
-```javascript
-form1.selectedItems.country = 'Germany';
-```
-
-2) To make Firefighter be a preselected jobRole
-```javascript
-form1.selectedItems.mmmJobRole1 = 'Firefighter';
-```
-
-**Make checkbox to be checked**
-Add a key, equal to a fields' HTML name and store there a value equal to: true
-
-```javascript
-/* make checkbox with HTML name 'app1' to be checked */
-  form1.selectedItems.app1 = true;
-```
 
 
 :red_circle: `updateSelectOpts(name, ...options)`
