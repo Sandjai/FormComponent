@@ -158,6 +158,15 @@ export class FormComponent {
         this.fieldsets[id] = arr;
     }
 
+    /**
+     * Adds CSS class, which can be added according to 1 of the 3 scenarios: 
+        1) To a fieldset (if ID of the fieldset is provided, as 'item' parameter. On lead gen forms there are 2 fieldsets: with ID = "CA" and with ID = "leadgen")
+        2) To li, which is a  wrapper of the field (if HTMl name of the field is provided as 'item' parameter) 
+        3) form  tag (if parameter 'item' is equal to 'form')
+     * @param {string} item - item shoud be equal to: ID of fieldset, HTML name of the field, or 'form'
+     * @param  {...any} cls 
+     */
+
     addClass(item, ...cls) {
        
         if (item === 'form') {
@@ -173,7 +182,7 @@ export class FormComponent {
 
 
     /**
-     * Adds CSS class, which should be customly added to <li> wrapper of the field (if HTMl name of the field is provided) or to a fieldset (if ID of the fieldset is provided)
+     * 
      * @param {string} item HTML name of the field or ID of the fieldset
      * @param {string} cl class name
      */

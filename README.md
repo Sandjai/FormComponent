@@ -61,7 +61,7 @@ Render a form ( :heavy_exclamation_mark: This method must always be the last one
 
 ### There are optional methods, used for manipulations with the form directly from LP:
 
-:red_circle: `SETTINGS` - Allow to set some parameters of the <form> tag, apply custom (different from default) settings needed for the form generation
+:red_circle: `settings` - Allow to set some parameters of the form tag, apply custom (different from default) settings needed for the form generation
 
 #### To change from internal TY page (which is by default) to external:
 
@@ -109,6 +109,9 @@ New field declaration. (Adding a new declarated field to a form is managed via a
      * condition:       - Optional: when this new field should depend on any other field in terms of Validation. function in format, when it returns Boolean : function () {return (--your js condition here--)},
      * triggerName: ''  - Optional: HTML name of the field, which impacts on the case if new field should be mandatory or optional
 */
+
+newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: 'false' })
+
 ```
 **Examples:**
 1) Adding a text field, which must be always mandatory:
@@ -144,6 +147,9 @@ Adds a new field to LP
      * @param {string} placeBefore - HTML name of the form field, before which a new field should be added. 
      * If this variable is absent, new field is being added to the very end of the form. 
 */
+
+addField(name, placeBefore)
+
 ```
 **Example:**
 ```javascript
@@ -157,6 +163,7 @@ Removes a field from the form
 /**
     * @param {string} name - HTML name of the form
 */
+removeField(name)
 ```
 **Example:**
 ```javascript
@@ -164,13 +171,18 @@ Removes a field from the form
 ```    
 
 :red_circle: `addClass(item, cl)`
-Adds CSS class, which should be customly added to <li> wrapper of the field (if HTMl name of the field is provided) or to a fieldset (if ID of the fieldset is provided), or to a <form> tag
+Adds CSS class, which can be added according to 1 of the 3 scenarios: 
+1) To a fieldset (if ID of the fieldset is provided, as 'item' parameter. On lead gen forms there are 2 fieldsets: with ID = "CA" and with ID = "leadgen")
+2) To li, which is a  wrapper of the field (if HTMl name of the field is provided as 'item' parameter) 
+3) form  tag (if parameter 'item' is equal to 'form')
+ 
 ```javascript
 /**
-     * @param {string} item HTML name of the field or ID of the fieldset
+     * @param {string} item - item shoud be equal to: ID of fieldset, HTML name of the field, or 'form'
      * @param {string} cl class name
      *      
 */
+addClass(item, cl)
 ```
 **Examples:**
 1) Adding a CSS class 'MMM--gapTopMed'  to a fieldset
@@ -179,16 +191,18 @@ Adds CSS class, which should be customly added to <li> wrapper of the field (if 
 form1.addClass('leadgen', 'MMM--gapTopMed');
 
 ```
-2) Adding a CSS class 'inputLiClass'  to a <li> wrapper of the field with HTML name 'firstName' like this:
+2) Adding a CSS class 'inputLiClass'  to a li, which is a  wrapper of the field with HTML name 'firstName' like this:
+```html
 <li class="inputLiClass">
     <input name = "firstName" ...>
 </li>
- with ID 'leadgen':
+```
+
 ```javascript
 form1.addClass('firstName', 'inputLiClass');
 ```
 
-3) Adding a CSS class 'formTESTclass'  to a <form> tag:
+3) Adding a CSS class 'formTESTclass'  to a form tag:
 ```javascript
 form1.addClass('form', 'formTESTclass');
 ```
@@ -200,6 +214,7 @@ Sets a new text for label of the field
      * @param {string} name - HTM name of the field
      * @param {string} val - new Text for the label 
      */
+    setLabel(name, val)
 ```
 **Example:**
 ```javascript
@@ -213,6 +228,7 @@ Set a new text for the error message of the field
      * @param {string} name  - HTM name of the field
      * @param {string} val  - new Text for the error message  
      */
+    setErrMessage(name, val)
 ```
 **Example:**
 ```javascript
@@ -227,6 +243,7 @@ Set new options in select field
      * @param {string} name - HTM name of the field
      * @param {Array of Arrays} val - // [[Backend value, Frontend value], [Backend value, Frontend value], [Backend value, Frontend value], [...]] 
      */
+    setOptions(name, val)
 ```
 **Example:**
 ```javascript
@@ -265,22 +282,23 @@ Add a key, equal to a fields' HTML name and store there a value equal to: true
 
 
 :red_circle: `updateSelectOpts(name, ...options)`
-Rewrite options in <select> field in provided order
+Rewrite options in select field in provided order
 
 **Example:**
-Rewrite options in <select> field (HTML name === "mmmJobRole1") in provided order ("Firefighter","Safety Manager","Other"_)
+Rewrite options in select field (HTML name === "mmmJobRole1") in provided order ("Firefighter","Safety Manager","Other"_)
 ```javascript
  form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
 ```
 
 :red_circle: `hideFields(...items)`
-**Preselect option in <select> tag**
+**Preselect option in select tag**
 HTML name(s) of the field(s), needed to be hidden (by adding a CSS class 'MMM--isVisuallyHidden'). Also, this method makes a field to be optional in terms of Validation.
 ```javascript
  /**
      * 
-     * @param  {...string} items
+     * @param  {...string} items - Strings of items, separated by comma
      */
+    hideFields(...items)
 ```
 
 **Examples:**
