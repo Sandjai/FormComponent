@@ -241,7 +241,9 @@ form1.setOptions('mmmIndustry1', [
 ```
 
 :red_circle: `selectedItems - (works for selects, checkboxes, radio buttons)`
-**Preselect option in <select> tag**
+
+Preselects option in <select> tag
+
 Add a key, equal to a fields' HTML name and store there a value of an option, which you'd like to have preselected
 
 **Examples:**
