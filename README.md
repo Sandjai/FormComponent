@@ -291,7 +291,6 @@ Rewrites options in select field (HTML name === "mmmJobRole1") in provided order
 ```
 
 :red_circle: `hideFields(...items)`
-**Preselect option in select tag**
 HTML name(s) of the field(s), needed to be hidden (by adding a CSS class 'MMM--isVisuallyHidden'). Also, this method makes a field to be optional in terms of Validation.
 ```javascript
  /**
