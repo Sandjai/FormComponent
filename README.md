@@ -282,10 +282,10 @@ Add a key, equal to a fields' HTML name and store there a value equal to: true
 
 
 :red_circle: `updateSelectOpts(name, ...options)`
-Rewrite options in select field in provided order
+Rewrites options in select field in provided order
 
 **Example:**
-Rewrite options in select field (HTML name === "mmmJobRole1") in provided order ("Firefighter","Safety Manager","Other"_)
+Rewrites options in select field (HTML name === "mmmJobRole1") in provided order ("Firefighter","Safety Manager","Other"_)
 ```javascript
  form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
 ```
