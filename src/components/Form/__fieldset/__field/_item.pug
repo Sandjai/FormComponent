@@ -4,7 +4,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
         
     case item 
         when 'emailAddress'    
-            li(class = addedClasses[item] ? addedClasses[item] : "")    
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')    
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -19,7 +19,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'firstName'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -32,7 +32,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")
 
         when 'lastName'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -45,7 +45,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'salutation'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -62,7 +62,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug
 
         when 'company'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -75,7 +75,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'city'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -88,7 +88,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'zipPostal'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -101,7 +101,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'busPhone'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=(busPhoneNum === 1) ? ( item + 'ID') : item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -114,7 +114,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'address1'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -127,7 +127,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'address2'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 input.MMM--textInput.MMM--defaultFields(
@@ -140,7 +140,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'country'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=(busPhoneNum === 1) ? ( item + 'ID') : item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -157,7 +157,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                                 include select\select__option.pug  
 
         when 'elqGlobalLanguage'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel#elqLanguageLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -172,7 +172,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             )=langTmpl.defaultSelect                     
 
         when 'stateProv'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -187,7 +187,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                         )=langTmpl.defaultSelect
 
         when 'mmmJobRole1'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -204,7 +204,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug
 
         when 'mmmIndustry1'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -221,7 +221,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug                        
 
         when 'salesRequest'
-            li(class = addedClasses[item] ? addedClasses[item] : "")
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 10px')
                 input(
                     type='checkbox'
                     value=langTmpl[item].value
@@ -230,11 +230,12 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
                     ) 
-                label.MMM--blockLabel.MMM--checkboxLabel(
+                label.MMM--blockLabel.MMM--checkboxLabel.MMM--txt_md_4(
+                    style="display: inline; margin-left: 10px;"
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
 
         when 'salesRequest1'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -251,7 +252,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug 
 
         when 'custEnq'
-            li(class = addedClasses[item] ? addedClasses[item] : "")        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(

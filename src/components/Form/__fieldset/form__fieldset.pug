@@ -4,6 +4,9 @@ mixin addFieldset(fieldset, langTmpl, div, addedClasses, selectedItems)
     fieldset(id=id class=cl1)    
         ul.MMM--blockFormList(style="display:block")
             each item in fieldset[1]
-                include ./__field/_item.pug
+                if typeof item === 'string'
+                    include ./__field/_item.pug
+                if Array.isArray(item)
+                    include ./__field/_wrappedUl.pug
                            
 +addFieldset(fieldset, langTmpl, div, addedClasses, selectedItems)

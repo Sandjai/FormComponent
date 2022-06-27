@@ -51,112 +51,31 @@
   //division1: 'EMSD - Electronics Materials Division'  
   })  
 
-  //form1.settings.leadgenBasic = true;
 
-  form1.selectedItems.country = 'Germany';
-  form1.selectedItems.app1 = true;
-
- //form1.settings.vendor = 'elq-direct'; // Possible vendors: 'elq', 'elq-jsp', 'elq-direct'
-
-  
- form1.setLabel('country', 'Updated Country');
- form1.setLabel('app13', 'Updated Country');
-form1.setLabel('mmmIndustry1', 'Hi');
-form1.setTY('one', 'two');
-/* form1.updateTextField ({
-    label: "",
-    errMessage: "",
-    options: ""
- })
- */
- form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
- 
-
-
-
-  form1.addClass('form', 'formTESTclass');
-  form1.addClass('form', 'SECONDformTESTclass');
-  form1.addClass('leadgen', 'SECONDleadgenTESTclass');
-  form1.addClass('leadgen', 'THIRDleadgenTESTclass');
- 
-        
-  form1.addClass('CA', 'classForCA secondCA');
- // form1.hideFields('firstName', 'EMSD_cust_type');
-  form1.hideFields('app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13');
-form1.addClass('firstName', 'firstNameClass');
-
-//form1.mandatoryWhen('firstName', function () {return $('[name="country"]').val() === 'United Kingdom'})
-
-form1.newField({
-      label: 'Custom field txt', 
-      errMessage: 'Please specify', 
-      type: 'text', 
-      name: 'testCustomField', 
-     // required: false,
-      condition: function () {return ($('[name="salesRequest"]').is(':checked'))},
-      triggerName: 'salesRequest'
-}) 
-
-  form1.addField('testCustomField', 'firstName');
-
-/*
-
-
-
- form1.addClass('CA', 'testCSSclass');
- 
-
-  form1.newField({
-      label: 'Custom field txt', 
-      errMessage: 'Please specify', 
-      type: 'text', 
-      name: 'testCustomField', 
-      required: 'false',
-      value: ''}); 
-
-  form1.addField('testCustomField', 'custEnq');
-
-
-  form1.newField({
-      label: 'Last custom checkbox', 
-      errMessage: 'Please specify', 
-      type: 'checkbox', 
-      name: 'testChbx', 
-      value: 'on', 
-      //className: '', 
-      //required: 'false',
-      dependableFrom: 
-    }); 
-
-      form1.addField('testChbx');
-
-  form1.removeField('address1');
-
- form1.validationRules = (validation) => {
-
-        //Conditions
-        var leadGenCondition = function () {return ($('[name="salesRequest"]').is(':checked'))};   
-        validation.addDependencyRule (['testChbx'], leadGenCondition);
-      }
-
-/*form1.displayRules = (display) => {
-  ...
-}
-*/
-
-
-/*
-  form1.changeOrder(['salutation','firstName','lastName','EMSD_cust_type']);
- form1.changeOrder(['city','zipPostal'], 'after');
-
- */
-
+//form1.settings.leadGenType = "Basic";
   form1.render();
 
 
 </script>
 
+	
+<!-- START of code added for phone number validation -->
+<link rel="stylesheet" href="https://img04.en25.com/Web/3MCompanyGlobal/{f77caf4c-e036-42f5-bc54-cb04586a9798}_intlTelInput.css?update=8">
+<script src="https://img04.en25.com/Web/3MCompanyGlobal/{443ec907-e8eb-46f4-984a-7166c37b2d9b}_intlTelInput.js?update=8"></script>
 
+<script>
+// edit to match the IDs on your page
+var busPhoneid = "#busPhoneID"; // Enter this for the first form on the page
+var countryselectid = "#countryID"; // Enter this for the first form on the page
+
+// adjust as needed
+var prefCountries = ['gb', 'ie']; // these will appear at the top of the list the first must match the pre-selected country in the form
+var placeholderphoneformat = "FIXED_LINE"; // can be "MOBILE" or "FIXED_LINE"
+var validationtype = "SOFT"; // can be "SOFT" or "HARD" - Soft = form will submit with a missing or invalid number.  Hard = form will not submit with a missing or invalid number.
+</script>
+
+<script src="https://img04.en25.com/Web/3MCompanyGlobal/{80439e2b-4bf7-49b4-ac6b-713f2f163347}_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8"></script>
+<!-- END of code added for phone number validation -->   
 <!--div class="mix-MMM--hdg_spaced MMM--bodyCopy">
   <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
     <style type="text/css">
@@ -234,23 +153,6 @@ form1.newField({
   
 </script-->
 
-<!-- START of code added for phone number validation -->
-<link rel="stylesheet" href="https://img04.en25.com/Web/3MCompanyGlobal/{f77caf4c-e036-42f5-bc54-cb04586a9798}_intlTelInput.css?update=8">
-<script src="https://img04.en25.com/Web/3MCompanyGlobal/{443ec907-e8eb-46f4-984a-7166c37b2d9b}_intlTelInput.js?update=8"></script>
-
-<script>
-// edit to match the IDs on your page
-var busPhoneid = "#busPhoneID"; // Enter this for the first form on the page
-var countryselectid = "#countryID"; // Enter this for the first form on the page
-
-// adjust as needed
-var prefCountries = ['gb']; // these will appear at the top of the list the first must match the pre-selected country in the form
-var placeholderphoneformat = "FIXED_LINE"; // can be "MOBILE" or "FIXED_LINE"
-var validationtype = "SOFT"; // can be "SOFT" or "HARD" - Soft = form will submit with a missing or invalid number.  Hard = form will not submit with a missing or invalid number.
-</script>
-
-<script src="https://img04.en25.com/Web/3MCompanyGlobal/{80439e2b-4bf7-49b4-ac6b-713f2f163347}_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8"></script>
-<!-- END of code added for phone number validation -->   
 
          <!-- Scripts -->
 

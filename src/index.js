@@ -50,7 +50,7 @@ export class FormComponent {
         vendor: 'elq-jsp', // Possible vendors: 'elq', 'elq-jsp', 'elq-direct', 'elq-psd', '3M', 'pdot'
         classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],       
         get countryCode () {return this._identifyLocale('countryCode')},
-        leadgenBasic: false,
+        leadGenType: 'CA',
         _busPhone: false, // do not change manually
 
     };
@@ -194,7 +194,7 @@ export class FormComponent {
             this.addedClasses[item] = cl;
         }
 
-        if (cl === 'MMM--isVisuallyHidden') {
+        if (cl.includes('MMM--isVisuallyHidden')) {
             this.staticValidationRules[item] = 'false';
         }
 
@@ -668,13 +668,15 @@ export class FormComponent {
                 initFields = new Promise((resolve) => {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
                     this._scriptDynamicLoading(smpTmplUrl, document.head, false).onload = () => {
-                        this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
+                        //this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
+                      
+                        this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
                       
                         resolve();
                     }
                 })
             } else {
-                this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
+                this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
                 
                 resolve();
             }

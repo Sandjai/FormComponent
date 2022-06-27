@@ -2,16 +2,16 @@ var __globScopeSMPtemplate__ = {
 
     /**
      * leadgenCA - This property is for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
-     * This template is used if [form].settings.leadgenBasic === false;  - (by default)
+     * This template is used if [form].settings.leadGenType === 'CA';  - (by default)
      *  */ 
 
-    leadgenCA : {
+    leadGenType_CA : {
 
 
         SMPVersion: "2",
 
     fieldsets: {
-        CA: ['emailAddress','salutation','firstName','lastName','country','elqGlobalLanguage','stateProv','EMSD_cust_type','appHeader', 'app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13','EMSD_app_purp_other','mmmIndustry1','salesRequest'],
+        CA: ['emailAddress','salutation','firstName','lastName','country','elqGlobalLanguage','stateProv','EMSD_cust_type','appHeader', ['app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13'],'EMSD_app_purp_other','mmmIndustry1','salesRequest'],
         leadgen: ['mmmJobRole1','EMSD_jr_other','company','busPhone','address1','city','zipPostal','custEnq'],
     },
 
@@ -35,7 +35,9 @@ var __globScopeSMPtemplate__ = {
         leadgen: "MMM--isVisuallyHidden",
         EMSD_app_purp_other: "MMM--isVisuallyHidden", 
         mmmIndustry1: "MMM--isVisuallyHidden",
-        EMSD_jr_other: "MMM--isVisuallyHidden"
+        EMSD_jr_other: "MMM--isVisuallyHidden",    
+        salesRequest: "MMM--gapTopLrg"   
+        
     },
     
    validationRules: (validation) => {
@@ -103,15 +105,15 @@ var __globScopeSMPtemplate__ = {
 
        /**
      * leadgenBasic - This property is for the case when 'I want Sales Contact' checkbox is not needed.
-     * This template is used if [form].settings.leadgenBasic === true
+     * This template is used if [form].settings.leadGenType === 'Basic'
      *  */ 
 
-     leadgenBasic: {
+leadGenType_Basic: {
 
         SMPVersion: "2",
 
         fieldsets: {
-            CA: ['emailAddress', 'salutation', 'firstName', 'lastName', 'country', 'elqGlobalLanguage', 'stateProv', 'EMSD_cust_type', 'appHeader', 'app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13', 'EMSD_app_purp_other', 'mmmIndustry1', 'mmmJobRole1', 'EMSD_jr_other', 'company', 'busPhone', 'address1', 'city', 'zipPostal', 'custEnq'],
+            CA: ['emailAddress', 'salutation', 'firstName', 'lastName', 'country', 'elqGlobalLanguage', 'stateProv', 'EMSD_cust_type', 'appHeader', ['app1', 'app3', 'app9', 'app4', 'app6', 'app5', 'app7', 'app8', 'app10', 'app2', 'app11', 'app12', 'app13'], 'EMSD_app_purp_other', 'mmmIndustry1', 'mmmJobRole1', 'EMSD_jr_other', 'company', 'busPhone', 'address1', 'city', 'zipPostal', 'custEnq'],
 
         },
 

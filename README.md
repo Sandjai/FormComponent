@@ -66,13 +66,13 @@ Render a form ( :heavy_exclamation_mark: This method must always be the last one
 #### To change from internal TY page (which is by default) to external:
 
 ```javascript
-settings.vendor = 'elq-direct'; 
+form1.settings.vendor = 'elq-direct'; 
 ```
 
 #### To change leadgen form from the option with checkbox "I want Sales Contact" (which is by default) to an option without that checkbox (+all leadgen fields are visible)
 
 ```javascript
-settings.leadgenBasic = true;
+form1.settings.leadGenType = "Basic";
 ```
 
 :red_circle: `changeOrder(arr)` 

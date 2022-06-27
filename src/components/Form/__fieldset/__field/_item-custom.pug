@@ -1,7 +1,7 @@
 mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems)
     - var langPath = langTmpl[div];
     - var li_Class = addedClasses[item] ? addedClasses[item] : ""
-    li(class = li_Class)
+    li(class = li_Class, style = 'list-style-type: none')
         case langPath[item].type
             when 'text'        
                 label.MMM--blockLabel(
@@ -29,7 +29,7 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     data-msg-required=langPath[item].errMessage
                     ) 
                 label.MMM--blockLabel.MMM--checkboxLabel(
-                    style="font-weight:normal"
+                    style="font-weight:normal; display: inline; margin-left: 10px;"
                     for=item + 'ID-' + idGen)=langPath[item].label  
 
             when 'radio' 
@@ -76,7 +76,7 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                             include select\select__option.pug
 
             when 'header' 
-                h3.MMM--blockLabel(
+                h3.MMM--blockLabel.MMM--gapTopMed(
                     for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
