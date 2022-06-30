@@ -6,7 +6,7 @@ mixin wrappedUl(item, langTmpl, div, addedClasses, staticValidationRules, idGen,
         each subitem in item
             - var langPath = langTmpl[div];
             - var li_Class = addedClasses[subitem] ? addedClasses[subitem] : ""
-            li(class = li_Class, style = 'list-style-type: none; display: inline-block')
+            li(class = li_Class, style = 'list-style-type: none; display: inline-block; margin-left: 0px; margin-right: 0px')
                 case langPath[subitem].type
                     when 'text'        
                         label.MMM--blockLabel(

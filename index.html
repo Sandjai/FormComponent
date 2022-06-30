@@ -30,7 +30,11 @@
     }
     </style>
 
-      <form name="TEST-MULTI-202202-en_EMEA-CON-testLeadGen_emsd"></form>
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>
+
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2"></form>
+
+      
 
   </div>
 </div>
@@ -40,20 +44,35 @@
 <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
 <script>
-  var form1 = new window.FormComponent("TEST-MULTI-202202-en_EMEA-CON-testLeadGen_emsd");
+
+(function() {
+        var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
   
-  form1.setHiddenFields({          
-  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
-  sFDCLastCampaignID: "7012K00000169GbQAI",
-  sFDCLastCampaignStatus: "Optional",
-  leadSourceMostRecent1: "Website",
-  CTA: "Contact Us",
-  //division1: 'EMSD - Electronics Materials Division'  
-  })  
+	 form1.setHiddenFields({          
+	  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+	  sFDCLastCampaignID: "7012K00000169GbQAI",
+	  sFDCLastCampaignStatus: "Optional",
+	  leadSourceMostRecent1: "Website",
+	  CTA: "Contact Us"  
+	  })
+      
+		form1.render();
+    })();
 
 
-//form1.settings.leadGenType = "Basic";
-  form1.render();
+    (function() {
+        var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2");
+  
+	 form1.setHiddenFields({          
+	  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+	  sFDCLastCampaignID: "7012K00000169GbQAI",
+	  sFDCLastCampaignStatus: "Optional",
+	  leadSourceMostRecent1: "Website",
+	  CTA: "Contact Us"  
+	  })
+      
+		form1.render();
+    })();
 
 
 </script>

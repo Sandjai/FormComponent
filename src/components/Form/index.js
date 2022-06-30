@@ -54,14 +54,14 @@ import afterform from "./afterform.pug";
 
    _busPhoneSettings(country) {
 
-        if (this.settings.busPhone && !this.constructor.busPhoneExist) {
-            
+        if (this.settings._busPhone && !this.constructor.busPhoneExist) {
+           
             this.constructor.busPhoneExist = true;
   
             window.busPhoneid = '#busPhoneID'; // Enter this for the first form on the page
             window.countryselectid = '#countryID'; // Enter this for the first form on the page   
  
-        } else if (this.settings.busPhone && this.constructor.busPhoneExist) {
+        } else if (this.settings._busPhone && this.constructor.busPhoneExist) {
             ++this.constructor.busPhoneNum;
         }
 }
