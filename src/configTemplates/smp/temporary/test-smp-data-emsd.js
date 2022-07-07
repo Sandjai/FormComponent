@@ -1,5 +1,5 @@
 var __globScopeSMPtemplate__ = {
-
+// Number of leadGenTypes: 2
     /**
      * leadgenCA - This property is for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
      * This template is used if [form].settings.leadGenType === 'CA';  - (by default)
@@ -27,7 +27,7 @@ var __globScopeSMPtemplate__ = {
 
     
     optionsForFilter: {
-        mmmJobRole1: ["Chief Executive Officer","Distributor","Fabricator","Firefighter","Healthcare Professional","Industrial Hygienist","Installer","Law Enforcement","Machinist/Operator","Maintenance Mgr/Facilities Mgmt","Military Officer","Occupational Health Manager","Painter/Paint Professional","President/Owner","Production Manager","Project Manager","Purchasing/Procurement/Buyer","Safety Consultant","Engineer-Safety","Safety Manager","Sales","Trainer/Training","Welder","Other",],
+        mmmJobRole1: ["Consultant", "Engineer-Fire Protection", "Engineer-General", "Marketing", "Purchasing/Procurement/Buyer", "Research & Development", "Sales", "Manager/Supervisor", "Other"],
         mmmIndustry1: ["Transp-Aerospace Mfg", "Transp-Automotive Mfg", "Industrial-Bearings &amp; Gears Mfg", "Industrial-Chemical Mfg", "Construction-Commercial", "Comms-Telecommunications", "Comms-Data Center", "Industrial-Electrical Equip Mfg", "Industrial-Fire Protection &amp; Suppr", "Industrial-Indust Machinery &amp; Equip Mfg", "Industrial-Medical Devices Mfg", "Industrial-Paints &amp; Coatings Mfg", "Utilities-Power Dist &amp; Transmission", "Utilities-Power Generation", "Electronics-Semicon &amp; Circuit Boards", "Industrial-Turbine &amp; Engine Mfg"],
     },
 
@@ -125,7 +125,7 @@ leadGenType_Basic: {
 
 
         optionsForFilter: {
-            mmmJobRole1: ["Chief Executive Officer", "Distributor", "Fabricator", "Firefighter", "Healthcare Professional", "Industrial Hygienist", "Installer", "Law Enforcement", "Machinist/Operator", "Maintenance Mgr/Facilities Mgmt", "Military Officer", "Occupational Health Manager", "Painter/Paint Professional", "President/Owner", "Production Manager", "Project Manager", "Purchasing/Procurement/Buyer", "Safety Consultant", "Engineer-Safety", "Safety Manager", "Sales", "Trainer/Training", "Welder", "Other",],
+            mmmJobRole1: ["Consultant", "Engineer-Fire Protection", "Engineer-General", "Marketing", "Purchasing/Procurement/Buyer", "Research & Development", "Sales", "Manager/Supervisor", "Other"],
             mmmIndustry1: ["Transp-Aerospace Mfg", "Transp-Automotive Mfg", "Industrial-Bearings &amp; Gears Mfg", "Industrial-Chemical Mfg", "Construction-Commercial", "Comms-Telecommunications", "Comms-Data Center", "Industrial-Electrical Equip Mfg", "Industrial-Fire Protection &amp; Suppr", "Industrial-Indust Machinery &amp; Equip Mfg", "Industrial-Medical Devices Mfg", "Industrial-Paints &amp; Coatings Mfg", "Utilities-Power Dist &amp; Transmission", "Utilities-Power Generation", "Electronics-Semicon &amp; Circuit Boards", "Industrial-Turbine &amp; Engine Mfg"],
         },
 

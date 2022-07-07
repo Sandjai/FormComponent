@@ -45,8 +45,7 @@ import afterform from "./afterform.pug";
         this._addClasses(this.settings.classes);
         this.el.method="POST";
         this.el.id=this.name;
-        this.el.setAttribute("novalidate", "novalidate");
-        this.el.style="max-width:767px";
+        this.el.setAttribute("novalidate", "novalidate");       
       
         this.el.setAttribute("data-options", `{"submitHandler":"elqFormHandler", "vendor":"${this.settings.vendor}"}`);    
         

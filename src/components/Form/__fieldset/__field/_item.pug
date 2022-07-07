@@ -140,7 +140,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'country'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; max-width:767px')        
                 label.MMM--blockLabel(
                     for=(busPhoneNum === 1) ? ( item + 'ID') : item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -172,7 +172,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             )=langTmpl.defaultSelect                     
 
         when 'stateProv'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none;  max-width:767px')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -187,7 +187,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                         )=langTmpl.defaultSelect
 
         when 'mmmJobRole1'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; max-width:767px')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
@@ -204,7 +204,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug
 
         when 'mmmIndustry1'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; max-width:767px')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(

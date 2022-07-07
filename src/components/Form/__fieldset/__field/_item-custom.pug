@@ -1,7 +1,7 @@
 mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems)
     - var langPath = langTmpl[div];
     - var li_Class = addedClasses[item] ? addedClasses[item] : ""
-    li(class = li_Class, style = 'list-style-type: none')
+    li(class = li_Class, style = 'list-style-type: none; max-width:767px')
         case langPath[item].type
             when 'text'        
                 label.MMM--blockLabel(
