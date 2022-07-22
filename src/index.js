@@ -757,7 +757,7 @@ export class FormComponent {
                         this.validation.addDependencyRule ([name], condition);
                        
                     } 
-                }else {
+                } else {
                         this.validation.addDependencyRule ([name], this.dynamicValidationRules[name]);
                     }
                

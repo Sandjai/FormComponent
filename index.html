@@ -2,7 +2,7 @@
   <head>
 
 <meta name="DCSext.CDC" content="EMSD - Electronics Materials Solutions Division">
-<meta name="DCSext.locale" content="en_GB">
+<meta name="DCSext.locale" content="fr_GB">
 
    <!-- STYLESHEET -->
 <link rel="stylesheet" href="//www.3m.com/3m_theme_assets/themes/3MTheme/assets/css/build/unicorn.css">
@@ -30,9 +30,7 @@
     }
     </style>
 
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>
-
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2"></form>
+      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd"></form>   
 
       
 
@@ -54,26 +52,39 @@
 	  sFDCLastCampaignStatus: "Optional",
 	  leadSourceMostRecent1: "Website",
 	  CTA: "Contact Us"  
-	  })
+	  });
+
+
+    form1.displayRules = function (display) {
+
+      display.addOptionalToLabel({
+      labelOptionalNames: ['salutation'],                     
+      triggerName: 'country',
+      val: ['Austria', 'Germany', 'Switzerland'],
+    });
       
-		form1.render();
-    })();
+      display.addOptionalToLabel({
+      labelOptionalNames: ['firstName', 'lastName'],                     
+      triggerName: 'country',
+      val: ['Austria', 'Germany', 'Switzerland'],
+      reverseAction: true,
+    });
 
+    const scheme2 = new Map([
 
-    (function() {
-        var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2");
+  //Values of options to be shown              //Array of values of options of the field 1                        
+  ['Consultant',        		                  ['VAR', 'Consultancy', 'End User']],
+  ['Engineer-Fire Protection',                ['Government', 'OEM']],
+  ['Marketing',      	                        ['Tier']],                 
+                                  
+  ])
+
+    display.complexDepFromSelect ('mmmJobRole1', 'EMSD_cust_type', scheme2);
+
   
-	 form1.setHiddenFields({          
-	  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
-	  sFDCLastCampaignID: "7012K00000169GbQAI",
-	  sFDCLastCampaignStatus: "Optional",
-	  leadSourceMostRecent1: "Website",
-	  CTA: "Contact Us"  
-	  })
-      
+  }
 		form1.render();
     })();
-
 
 </script>
 

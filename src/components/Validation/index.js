@@ -1,5 +1,5 @@
 /**
- * Class for the Form Validation, based on Jquery Validator
+ * Class for the Form Validation, based on jQuery Validator
  * @param {Object} el - Form element
  */
 
@@ -52,7 +52,7 @@
                     } else {
                         return false;
                     }
-                }, item.errorMessage);
+                }, $(this.el).find($(`.${index}`)).attr('data-msg-required') ? $(this.el).find($(`.${index}`)).attr('data-msg-required') : item.errorMessage);
               
         })       
 

@@ -6,10 +6,7 @@
 
         export default class DisplayFormFields {    
 
-          static instance = 0;
-
-      
-        
+          static instance = 0;       
 
           constructor (el, optionalText) {
               this.el = el;
@@ -106,6 +103,13 @@
               this.rules.push([source, handler]);
             }
         
+            /**
+             * Shows/hides element(ex: fieldset) depending on a field 1.
+             * 
+             * @param {string} f1_name - HTML name of the field 1
+             * @param {string} f2_id - ID of the dependable element (fieldset)
+             * @param {string} val - if tag name of field1 is 'SELECT', val - is a value which should trigger field2
+             */
         
             
             dependIdFromName (f1_name, f2_id, val) {
@@ -139,7 +143,7 @@
                     }
         
                     if (!ifTrue) {
-                      $(depend).addClass('MMM--isVisuallyHidden')         
+                      $(depend).addClass('MMM--isVisuallyHidden');         
                     }              
                   }
                 }
@@ -149,37 +153,72 @@
             /**
              * To add 'optional' in label for Contact Acquisition Form and removing 'optional' from label in a lead gen one
              * @param {Object} data
-             * @param {Array} data.labelOptionalNames
-             * @param {string} optionalText
-             * @param {string} data.triggerName
-             * @param {string} data.val
+             * @param {Array} data.labelOptionalNames - array of HTML names (/name) of the dependable fields 
+             * @param {string} data.triggerName - field which should trigger an action
+             * @param {string, Array} data.val - value or values of options which should trigger an event (in case of SELECT)
+             * @param {boolean} data.reverseAction - make it true for changing a behaviour to an opposite one (by default it is false)
              */
         
               
             addOptionalToLabel (data) { 
-              const optionalText =  this.optionalText ? ` (${this.optionalText.toLowerCase()})` : ` (${this.optionalText.toLowerCase()})`;
-             
-              let element = $(this.el).find("[name=\"".concat(data.triggerName, "\"]")); 
+
+              (data.reverseAction === true) ? (data.reverseAction === true) : (data.reverseAction === false);
+              
+              const optionalText =  this.optionalText ? ` (${this.optionalText.toLowerCase()})` : ` (${this.optionalText.toLowerCase()})`;             
+              const element = $(this.el).find("[name=\"".concat(data.triggerName, "\"]")); 
               
               const handler = () => {
-                $(data.labelOptionalNames).each((i,name) => {        
+            
+                $(data.labelOptionalNames).each((i,name) => {       
+                   
                   var targetEl = $(this.el).find("[name=\"".concat(name, "\"]"));   
                   var _id = $(targetEl).attr('id');
                   var labelText = $('label[for="' + _id + '"].MMM--blockLabel').text();
+
+                  var rem_add = () => {
+                    if (!data.reverseAction) {
+                      this._removeOptionalText(_id, name, labelText, optionalText);
+                    } else {
+                      this._addOptionalText(_id, name, labelText, optionalText);
+                    }  
+                  }
+
+                  var add_rem = () => {
+                    if (!data.reverseAction) {
+                      this._addOptionalText(_id, name, labelText, optionalText);                      
+                    } else {
+                      this._removeOptionalText(_id, name, labelText, optionalText);                      
+                    }  
+                  }
         
-                  if (($(element).attr('type') === 'checkbox') && ($(element).is(':checked'))) {this._removeOptionalText(_id, name, labelText, optionalText)}
-                  else if (($(element).prop("tagName") === 'SELECT') && ((!data.val) || ($(element).val() === data.val))) {            
-                    this._removeOptionalText(_id, name, labelText, optionalText)}
-                else {this._addOptionalText(_id, name, labelText, optionalText)};
-                  
+                  if (($(element).attr('type') === 'checkbox') && ($(element).is(':checked'))) {
+                    rem_add();                 
+                  }
+                  else if (($(element).prop("tagName") === 'SELECT') && (($(element).val() === data.val)) && (!Array.isArray(data.val))) {            
+                    rem_add(); 
+                  }
+                  else if (($(element).prop("tagName") === 'SELECT') && (Array.isArray(data.val))) {  
+                   
+                    if (data.val.includes($(element).val())) {
+                      rem_add();                   
+                      }
+                     else {
+                      add_rem();
+                    }
+                  }      
+                    
+                  else {
+                    add_rem();
+                   }                 
                   })
               }
               
-              this.rules.push([element, handler]);
-         
+              this.rules.push([element, handler]); 
                 
         
           }
+
+      
 
           /**
            * @param {Array} names - Array of HTML names
@@ -206,6 +245,12 @@
           }
         
           _addOptionalText (_id, name, labelText,optionalText) {
+           
+            // for handling a case of country+busPhone triggering twice
+           if ($('label[for="' + _id + '"].MMM--blockLabel').text().includes(optionalText)) {
+            return;
+           }
+
               $('label[for="' + $(this.el).find("[name=\"".concat(name, "\"]")).attr('id') + '"].MMM--blockLabel').text(labelText + optionalText); 
               $("#".concat(_id, "-error")).hide();
               $(this.el).find("[name=\"".concat(name, "\"]")).removeClass('error');
@@ -213,11 +258,7 @@
 
           _removeOptionalText (_id, name, labelText,optionalText) {
             $('label[for="' + _id + '"].MMM--blockLabel').text(labelText.replace(optionalText, ""));
-        }
-      
-
-
-          
+        }          
          
         _findInScheme(scheme, name, arrOfOpts) {
           scheme.forEach((value, key) => {  
@@ -265,17 +306,28 @@
           
           else {           
             $(this.el).find(`[name="${fNameToShow}"]`).closest('li').removeClass('MMM--isVisuallyHidden');
-        }
-
-    
+        }   
           
         }
         
+         /**
+         * complexDepFromCheckboxes - Shows SELECT field and generates a relevant list of options depending on a scheme of chosen checkboxes
+         * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
+         * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT, on the right hand: an array of HTML names of checkboxes.      
+         */
         
         complexDepFromCheckboxes (fNameToShow, scheme) {           
           this._addComplexDependency ([], fNameToShow, scheme);
         }
         
+        /**
+          * complexDepFromSelect - Shows SELECT field and generates a relevant list of options depending on a scheme of chosen option
+        * @param {string} fNameToShow - HTML name of the field1
+        * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
+        * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT to be shown, on the right hand: an array of values of relevant options from the field 1.      
+        */
+
+
         complexDepFromSelect (fName1, fNameToShow, scheme) { 
           this._addComplexDependency (fName1, fNameToShow, scheme);
         }
@@ -356,9 +408,7 @@
           
         }
         
-      }
- 
-        
+      }  
         
         
         updateHidden (f1Name, f2Name, scheme) {

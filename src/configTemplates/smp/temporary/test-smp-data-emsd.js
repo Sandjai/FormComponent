@@ -73,7 +73,7 @@ var __globScopeSMPtemplate__ = {
             
             display.addOptionalToLabel ({
                     labelOptionalNames: ['firstName','lastName','salutation'],                     
-                    triggerName: 'salesRequest'
+                    triggerName: 'salesRequest',
                 })
             
            
