@@ -1,7 +1,7 @@
 # Validation Class
 ## This class is responsible for Validation Rules only
 
-:red_circle: `To group checkboxes with different HTML names` 
+:red_circle: `To group checkboxes with different HTML names and provide a one common error message for them` 
 
 ```javascript
  checkboxesGroups(data) 
@@ -10,10 +10,10 @@
      * Method for combining checkboxes into a group
      * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
      * @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-     * @param {string} errorMessage
-     * @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
+     * @param {string} errorMessage   
      * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
      * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+     * @param {Function} condition - advanced method, optional (just in case if you want to rewrite totally the normal behaviour of validation for checkboxes. Only if you have any complicated logic, different from the default one). Should return true or false.
      */
 
    
@@ -22,7 +22,7 @@
 **Example: **
 
 ```javascript
-  //Set Group(s) of checkboxes and Validation Rules for them
+
         validation.checkboxesGroups([
 
             {namesOfgroup: 'app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13',
@@ -43,7 +43,7 @@ addDependencyRule(fields, condition)
 
   /** 
      *  @param {Array} fields
-     *  @param {Function} condition
+     *  @param {Function} condition - should retutn {boolean}: true or false
      *
      */
  ```        

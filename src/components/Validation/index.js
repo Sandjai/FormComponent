@@ -24,7 +24,7 @@
      * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
      * @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
      * @param {string} errorMessage
-     * @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
+     * @param {Function} condition - in case if needed to rewrite a normal condition.If not - don't use this method. Should return true or false. 
      * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
      * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
      */
@@ -36,16 +36,15 @@
 
             this._addClass(index, item);
             this._createChbxGroup(index, item);
-            
+          
                 $.validator.addMethod(index, function (value) {                 
                     
-                    if (!item.condition) {item.condition = ()=>{return true}}
+                    if (!item.condition) {item.condition = ()=>{return false}}
                     if (!item.numMin) {item.numMin = 1} 
                   	if (!item.numMax) {item.numMax = $(`.${index}`).size()} 
                   
-                  	if (!item.condition()) {
-                          return true;       
-                                     
+                  	if (item.condition()) {                        
+                          return true;                                     
                     }                  
                     else if ($(`.${index}`).is(':checked')) {
                         return (($(`.${index}:checked`).size() >= (item.numMin)) && ($(`.${index}:checked`).size() <= item.numMax));
