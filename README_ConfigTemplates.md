@@ -1,23 +1,32 @@
-# Working with Configuration Templates
-## Each form consumes 2 Configuration Templates: 
-### First one (Template of fields) is responsible for providing relevant (for the current division, SMP) set of fields, dependencies of their displaying and Validation Rules
-### Second one (Language Template): for providing relevant (for the current locale) translations.
+## Working with Configuration Templates
+### Each form consumes 2 Configuration Templates: 
+#### First one (Template of fields) is responsible for providing relevant (for the current division, SMP) set of fields, dependencies of their displaying and Validation Rules
+#### Second one (Language Template): for providing relevant (for the current locale) translations.
 
 1. Template of fields 
 
-([example:](https://images.engage.3m.com/Web/3MCompanyGlobal/%7Bb8c535bc-4579-47b4-a485-ce507735b8ae%7D_smp-emsd-data.js))
+([example](https://images.engage.3m.com/Web/3MCompanyGlobal/%7Bb8c535bc-4579-47b4-a485-ce507735b8ae%7D_smp-emsd-data.js))
 
 This template provides an Object '__globScopeSMPtemplate__', which has some other Objects as its properties, number of which depends on the number of lead generation templates according to the SMP of particular division. For example, for EMSD we have 2 properties:
 * leadGenType_CA - It provides settings for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
 * leadGenType_Basic  - It provides settings for the case when 'I want Sales Contact' checkbox is not needed.
 
-#### There is the list of Object properties below, by means of which settings of each type of template is being realized:
+####
+ There is the list of Object properties below, by means of which settings of each type of template is being realized:
+
+:bangbang: **Important note!**
+In case of necessity you can easily rewrite the settings, reflected in the template, by means of adding appropriate properties directly on your LP. For example, in template for EMSD firstName should be optional in CA form, but you can use `staticValidationRules` property (described below) on your instance of the form for making it mandatory, if needed. If your form instance is in variable 'form1', your code will look like this:
+```javascript
+form1.staticValidationRules = {
+    firstName: 'true',
+}
+```
 
 :red_circle: `SMPVersion` 
 
 + SMP Version to be reflected in the form hidden field
 
-**Example: **
+**Example:**
 
 ```javascript
 SMPVersion: "2",
@@ -27,7 +36,7 @@ SMPVersion: "2",
 
 + All HTML field names to be included in the form, divided into fieldsets.
 
-**Example: **
+**Example:**
 
 ```javascript
 fieldsets: {
@@ -35,11 +44,28 @@ fieldsets: {
         leadgen: ['mmmJobRole1','EMSD_jr_other','company','busPhone','address1','city','zipPostal','custEnq'],
     },
 ```
+
+:red_circle: `staticValidationRule` 
+
++ Fields, which should be optional, have a value: 'false'. Mandatory ones should have a value 'true'. By default all fields are mandatory.
+
+**Example:**
+
+```javascript
+    staticValidationRules: {
+        firstName: 'false',
+        lastName: 'false',
+        salutation: 'false',
+        mmmIndustry1: 'false',
+        salesRequest: 'false',     
+    },
+```
+
 :red_circle: `optionsForFilter` 
 
 + List of options (their values) in the particular SELECT field, relevant for the current SMP
 
-**Example: **
+**Example:**
 
 ```javascript
 optionsForFilter: {
@@ -55,7 +81,7 @@ optionsForFilter: {
 + CSS classes to be added to a <li> wrapper of the field, HTML name of which is provided (as a key)
 + Or: CSS classes to be added to a fieldset, ID of which is provided (as a key)
 
-**Example: **
+**Example:**
 
 ```javascript
    addedClasses: {
@@ -71,11 +97,12 @@ optionsForFilter: {
 
 + This is responsible for setting up Validation Rules
 
-**Example: **
+**Example:**
 
 ```javascript
 validationRules: (validation) => {
-    // code for validation is here
+     // Paste your code here
+    // API information for Displaying Rules:https://github.com/gsemakin/FormComponent/blob/master/README_Validation.md
 }
 ```
 
@@ -83,21 +110,23 @@ validationRules: (validation) => {
 
 + This is responsible for setting up Displaying Rules
 
-**Example: **
+**Example:**
 
 ```javascript
 displayRules: (display) => {
-    // code for Displaying Rules is here
+    // Paste your code here
+    // API information for Displaying Rules: https://github.com/gsemakin/FormComponent/blob/master/README_Display.md   
+    
 }
 ```
 
 
 2. Language Template
 
-([example:](https://images.engage.3m.com/Web/3MCompanyGlobal/{543cc81d-516e-4fd9-a565-7f7d4d5ef6f9}_language-data-en.js))
+([example](https://images.engage.3m.com/Web/3MCompanyGlobal/{543cc81d-516e-4fd9-a565-7f7d4d5ef6f9}_language-data-en.js))
 
 This template provides an Object '__globScopeLanguageTemplate__', by means of which relevant translations (text in labels, error messages, options) are reflected in the form. Default fields are placed in the properties of the Object's first nesting level, 
-**Example: **
+**Example:**
 
 ```javascript
 company: {
@@ -112,7 +141,7 @@ company: {
 ```
 
 and specific for the particular Division fields are combined within a property with an object key, matching with the particular short name of Division 
-**Example: **
+**Example:**
 
 ```javascript
 EMSD: {
@@ -143,7 +172,7 @@ EMSD: {
 
 In case if we need to have different texts for the default fields within different divisions, just add it inside a property of an appropriate HTML name of the field, using a key, matching with a division short name
 
-**Example: **
+**Example:**
 
 ```javascript
     mmmIndustry1: {

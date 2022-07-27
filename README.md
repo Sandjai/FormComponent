@@ -322,45 +322,6 @@ form1.hideFields('EMSD_cust_type');
  form1.hideFields('app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13');
 ```
 
-<!--
-+ **Methods for Validation Rules**
-Validation Rules of the form is based on jQuery Validator.
-All methods should be included in a special function:
-
-```javascript
-form1.validationRules = (validation) => {
- /** Add Validation Methods HERE **/
-}
-```
-   - Validation Methods:
-      
-/**
-* Method for combining checkboxes into a group
-* @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
-* @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-* @param {string} errorMessage
-* @param {boolean} condition - set condition for making mandatory, if needed. If not - don't use this parameter. Should return true or false. 
-* @param {number} numMin - minimum number of checkboxes to be checked (defaul = 1)
-* @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
-*/
-
-checkboxesGroups(data)
-
-........TO DO..............
-
-## How to use 
-
-
-
-____
-
-## Optional usage (in case if form on LP - is a static HTML form, when FormComponent constructor has not been used for the form generation)
-### *(initilization of the FormValidationRules, including all its methods must be included into the domReady)*
-#### FormValidationRules 
-This constructor (js class) is used for the Form Validation, based on Jquery Validator  
-
-```javascript
-let validation = new FormValidationRules(formName);
-```
-____
--->
+### Methods, described above should cover the most common demand of the form creation.
+However, there is a way of more fine tuning by means of setting the configuration templates:
+https://github.com/gsemakin/FormComponent/blob/master/README_ConfigTemplates.md
