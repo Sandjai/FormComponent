@@ -7,9 +7,10 @@
 
     static instance = 0;
 
-    constructor(el, elId = $(el).attr('id')) {
+    constructor(el, elId = $(el).attr('id'), staticValidationRules) {
         this.elId = elId;
         this.el = el;
+        this.staticValidationRules = staticValidationRules;
        
         this.groups = {};
         this.rules = {};
@@ -34,9 +35,24 @@
         $(data).each((i, item) => {
             let index = 'js_checkboxGroup_'+ this.constructor.instance + '-' + i;         
 
-            this._addClass(index, item);
-            this._createChbxGroup(index, item);
-          
+                    
+
+                let arrGroup = item.namesOfgroup.split(' ');
+                let newArrGroup = [];
+                for (let item of arrGroup) {
+                  
+                    if ((this.staticValidationRules[item] !== 'false') && (this.staticValidationRules[item] !== false)) {
+                      
+                        newArrGroup.push(item);
+                    }
+                }
+
+                item.namesOfgroup = newArrGroup.join(' ');
+                if (item.namesOfgroup != '') {
+                    this._addClass(index, item);    
+                    this._createChbxGroup(index, item);
+
+                              
                 $.validator.addMethod(index, function (value) {                 
                     
                     if (!item.condition) {item.condition = ()=>{return false}}
@@ -52,6 +68,9 @@
                         return false;
                     }
                 }, $(this.el).find($(`.${index}`)).attr('data-msg-required') ? $(this.el).find($(`.${index}`)).attr('data-msg-required') : item.errorMessage);
+
+                }      
+
               
         })       
 
@@ -112,10 +131,11 @@
 
     
     addDependencyRule(fields, condition) {
-       
+
 
         $(fields).each((i, item) => {            
-            if ($(this.el).find(`[name="${item}"]`)) {                
+            if (($(this.el).find(`[name="${item}"]`))  && (this.staticValidationRules[item] !== 'true') && (this.staticValidationRules[item] !== true)) {
+
                 if (this.rules[item]) {
                     this._addDependencyRule (item, condition);                   
                     this.rules[item] = {
@@ -131,8 +151,7 @@
 
                     
                 } else {
-                    this._multiRules[item] = condition;   
-                  //  alert(this._multiRules[item]);                 
+                    this._multiRules[item] = condition;                       
                     this.rules[item] = {
                         required: {
                             depends: function depends(element) {
@@ -239,5 +258,5 @@
 
 }
 
-
+// It's in Global just for the case of separate usage. Generally this can be deleted.
 window.FormValidationRules = FormValidationRules;

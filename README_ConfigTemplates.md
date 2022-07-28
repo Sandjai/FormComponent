@@ -7,7 +7,7 @@
 
 ([example](https://images.engage.3m.com/Web/3MCompanyGlobal/%7Bb8c535bc-4579-47b4-a485-ce507735b8ae%7D_smp-emsd-data.js))
 
-This template provides an Object '__globScopeSMPtemplate__', which has some other Objects as its properties, number of which depends on the number of lead generation templates according to the SMP of particular division. For example, for EMSD we have 2 properties:
+This template provides an Object __globScopeSMPtemplate__, which has some other Objects as its properties, number of which depends on the number of lead generation templates according to the SMP of particular division. For example, for EMSD we have 2 properties:
 * leadGenType_CA - It provides settings for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
 * leadGenType_Basic  - It provides settings for the case when 'I want Sales Contact' checkbox is not needed.
 
@@ -125,7 +125,7 @@ displayRules: (display) => {
 
 ([example](https://images.engage.3m.com/Web/3MCompanyGlobal/{543cc81d-516e-4fd9-a565-7f7d4d5ef6f9}_language-data-en.js))
 
-This template provides an Object '__globScopeLanguageTemplate__', by means of which relevant translations (text in labels, error messages, options) are reflected in the form. Default fields are placed in the properties of the Object's first nesting level, 
+This template provides an Object __globScopeLanguageTemplate__, by means of which relevant translations (text in labels, error messages, options) are reflected in the form. Default fields are placed in the properties of the Object's first nesting level, 
 **Example:**
 
 ```javascript

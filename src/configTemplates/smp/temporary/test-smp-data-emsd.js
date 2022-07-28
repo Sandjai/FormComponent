@@ -56,7 +56,8 @@ var __globScopeSMPtemplate__ = {
         //Set Group(s) of checkboxes and Validation Rules for them
         validation.checkboxesGroups([
 
-            {namesOfgroup: 'app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13',          
+            {namesOfgroup: 'app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13',
+            errorMessage: 'Please choose at least one application type'
             },
                            
 

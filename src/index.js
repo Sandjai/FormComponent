@@ -92,7 +92,7 @@ export class FormComponent {
         this.constructor.instance++;
 
 
-        //Using a variable from mmmSettings (do not use in normal usage)
+        //Using a variable from mmmSettings (do not use in normal usage, only in case of unexpected behaviour due to some internal changes in work of 3M platform)
         //this._addIn3MpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
     }
 
@@ -367,7 +367,7 @@ export class FormComponent {
             return i === startItem;
         });
 
-        if (place != 'after') {
+        if ((place != 'after')) {
             filteredArr.splice((startIndex), 0, ...arr);
         } else {
             filteredArr.splice((startIndex + 1), 0, ...arr);
@@ -382,9 +382,16 @@ export class FormComponent {
             for (let arr of this.fieldsOrder) {
                 if (arr[1]) {
                     const fieldsetID = this._getFieldsetID(arr[1]);
+                   
                     const index = this._getIndexByName(arr[1], fieldsetID);
+                  
+                    if (!Array.isArray(index)) {
+                        this.fieldsTmpl.fieldsets.get(fieldsetID).splice((index), 0, arr[0]);
+                    } else {
+                        this.fieldsTmpl.fieldsets.get(fieldsetID)[index[0]].splice((index[1]), 0, arr[0]);
+                    }
 
-                    this.fieldsTmpl.fieldsets.get(fieldsetID).splice((index), 0, arr[0]);
+                    
                 } else {
                     const lastFieldsetID = [...this.fieldsTmpl.fieldsets.keys()][(this.fieldsTmpl.fieldsets.size) - 1];
                     this.fieldsTmpl.fieldsets.get(lastFieldsetID).push(arr[0]);
@@ -397,7 +404,17 @@ export class FormComponent {
         for (let field of this.removedFields) {
             const fieldsetID = this._getFieldsetID(field);
             const index = this._getIndexByName(field, fieldsetID);
-            this.fieldsTmpl.fieldsets.get(fieldsetID).splice([index], 1);
+
+         
+            if (!Array.isArray(index)) {
+                this.fieldsTmpl.fieldsets.get(fieldsetID).splice([index], 1);
+            } else {
+                this.fieldsTmpl.fieldsets.get(fieldsetID)[index[0]].splice((index[1]), 1);
+            }
+
+
+
+            
         }
     }
 
@@ -406,12 +423,12 @@ export class FormComponent {
      */
 
     _mergeFieldsTmpl(arr) {
+       
         for (let objName of arr) {
             if (objName === 'addedClasses') {
-                let arr = [...Object.keys(this.fieldsTmpl[objName]), ...Object.keys(this[objName])];
+                let arr = Array.from(new Set([...Object.keys(this.fieldsTmpl[objName]), ...Object.keys(this[objName])]));
                 for (let key of arr) {                
-                this.fieldsTmpl[objName][key] = (this.fieldsTmpl[objName].hasOwnProperty(key) ? this.fieldsTmpl[objName][key] + " " : ' ') + (this[objName].hasOwnProperty(key) ? this[objName][key] + " " : ' ');
-                
+                this.fieldsTmpl[objName][key] = (this.fieldsTmpl[objName].hasOwnProperty(key) ? this.fieldsTmpl[objName][key] + " " : ' ') + (this[objName].hasOwnProperty(key) ? this[objName][key] + " " : ' ');               
                 }
                 
             } else {
@@ -533,7 +550,7 @@ export class FormComponent {
 
         for (let key of Object.keys(this.fieldsTmpl.staticValidationRules)) {
 
-            if ((this.fieldsTmpl.staticValidationRules[key] === 'false') || (this.fieldsTmpl.staticValidationRules[key] == false)) {
+            if ((this.fieldsTmpl.staticValidationRules[key] === 'false') || (this.fieldsTmpl.staticValidationRules[key] === false)) {
                 this.optionalNames.push(key);               
             }
 
@@ -546,11 +563,40 @@ export class FormComponent {
         console.log(this.fieldsTmpl.fieldsets);
     }
 
+
     _getIndexByName(name, fieldsetID) {
 
-        return this.fieldsTmpl.fieldsets.get(fieldsetID).findIndex((i) => {
+        
+        let index = this.fieldsTmpl.fieldsets.get(fieldsetID).findIndex((i) => {          
             return i === name;
         })
+
+        if (index !== -1) {
+            return index;
+        }  
+        
+        let indexInner = -1;
+        let arrOfIndexes = -1;
+
+        this.fieldsTmpl.fieldsets.get(fieldsetID).forEach((item, i) => {
+            if ( Array.isArray(item) ) {
+                indexInner = item.findIndex((innerI) => {
+                    return innerI === name;
+                })
+
+              
+
+            if (indexInner !== -1) {                  
+                arrOfIndexes = [i, indexInner];             
+                return arrOfIndexes;
+            }
+
+            }
+        })
+
+      return arrOfIndexes;
+        
+        
     }
 
     /**
@@ -618,10 +664,12 @@ export class FormComponent {
 
     addField(name, placeBefore) {
         if (placeBefore) {
-            this.fieldsOrder.push([name, placeBefore]);
+            this.fieldsOrder.push([name, placeBefore]);            
         } else {
             this.fieldsOrder.push([name]);
         }
+
+        this.staticValidationRules[name] = 'false';
 
     }
 
@@ -639,7 +687,17 @@ export class FormComponent {
             if (fieldset.includes(name)) {
                 return id;
             }
+
+            for (let item of fieldset) {
+                if (Array.isArray(item)) {
+                    if (item.includes(name)) {
+                        return id;
+                    }
+                }
+            }
         }
+
+
     }
 
     render() {
@@ -741,7 +799,7 @@ export class FormComponent {
 
             
 
-            this.validation = new FormValidationRules(this.el, this.elId);  // init Validation Rules
+            this.validation = new FormValidationRules(this.el, this.elId, this.staticValidationRules);  // init Validation Rules
 
             this.fieldsTmpl.validationRules(this.validation);   // pulled from template
             if (typeof this.validationRules === 'function') {   // pulled from LP

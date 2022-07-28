@@ -68,7 +68,8 @@
 <script>
 
 (function() {
-        var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
+  
+   var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
   
 	 form1.setHiddenFields({          
 	  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
@@ -78,44 +79,17 @@
 	  CTA: "Contact Us"  
 	  });
 
-    form1.addedClasses = {
-        leadgen: "test2 test3",
-        salesRequest: "MMM--gapTopLrg Test"   
-    }
 
+    form1.addField('address2', 'city');
+    //form1.removeField('app13');
 
+    form1.hideFields('app1','app2','app3','app4','app5');
 
-
-    form1.displayRules = function (display) {
-
-      display.addOptionalToLabel({
-      labelOptionalNames: ['salutation'],                     
-      triggerName: 'country',
-      val: ['Austria', 'Germany', 'Switzerland'],
-    });
-      
-      display.addOptionalToLabel({
-      labelOptionalNames: ['firstName', 'lastName'],                     
-      triggerName: 'country',
-      val: ['Austria', 'Germany', 'Switzerland'],
-      reverseAction: true,
-    });
-
-    const scheme2 = new Map([
-
-  //Values of options to be shown              //Array of values of options of the field 1                        
-  ['Consultant',        		                  ['VAR', 'Consultancy', 'End User']],
-  ['Engineer-Fire Protection',                ['Government', 'OEM']],
-  ['Marketing',      	                        ['Tier']],                 
-                                  
-  ])
-
-    display.complexDepFromSelect ('mmmJobRole1', 'EMSD_cust_type', scheme2);
-
-  
-  }
+    
 		form1.render();
+
     })();
+    
 
 </script>
 
