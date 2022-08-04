@@ -3,7 +3,7 @@
 #### First one (Template of fields) is responsible for providing relevant (for the current division, SMP) set of fields, dependencies of their displaying and Validation Rules
 #### Second one (Language Template): for providing relevant (for the current locale) translations.
 
-1. Template of fields 
+## Template of fields 
 
 ([example](https://images.engage.3m.com/Web/3MCompanyGlobal/%7Bb8c535bc-4579-47b4-a485-ce507735b8ae%7D_smp-emsd-data.js))
 
@@ -111,7 +111,7 @@ optionsForFilter: {
 ```
 
 
-2. Language Template
+## Language Template
 
 ([example](https://images.engage.3m.com/Web/3MCompanyGlobal/{543cc81d-516e-4fd9-a565-7f7d4d5ef6f9}_language-data-en.js))
 
