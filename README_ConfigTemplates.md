@@ -186,10 +186,12 @@ In case if we need to have different texts for the default fields within differe
 
 ## Existing templates:
 
-1. Template of Fields:
+#### Template of Fields:
+
 EMSD: 'http://localhost:8080/src/configTemplates/smp/temporary/test-smp-data-emsd.js',
 
-2. Language templates:
+#### Language templates:
+
 Bulgarian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{a8bd3b35-0670-4cde-99da-4ce6acd9c9a1}_language-data-bg.js',
 Croatian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{d81cafa0-938d-4062-b8b4-fbd41e98836e}_language-data-hr.js',
 Czech: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{4ad7d5cd-17a7-4378-8a1a-966670a52270}_language-data-cs.js',
