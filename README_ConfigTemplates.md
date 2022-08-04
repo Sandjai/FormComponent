@@ -11,16 +11,8 @@ This template provides an Object __globScopeSMPtemplate__, which has some other 
 * leadGenType_CA - It provides settings for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
 * leadGenType_Basic  - It provides settings for the case when 'I want Sales Contact' checkbox is not needed.
 
-####
- There is the list of Object properties below, by means of which settings of each type of template is being realized:
+#### There is the list of Object properties below, by means of which settings of each type of template is being realized:
 
-:bangbang: **Important note!**
-In case of necessity you can easily rewrite the settings, reflected in the template, by means of adding appropriate properties directly on your LP. For example, in template for EMSD firstName should be optional in CA form, but you can use `staticValidationRules` property (described below) on your instance of the form for making it mandatory, if needed. If your form instance is in variable 'form1', your code will look like this:
-```javascript
-form1.staticValidationRules = {
-    firstName: 'true',
-}
-```
 
 :red_circle: `SMPVersion` 
 
@@ -44,6 +36,7 @@ fieldsets: {
         leadgen: ['mmmJobRole1','EMSD_jr_other','company','busPhone','address1','city','zipPostal','custEnq'],
     },
 ```
+*In example above you may notice, that checkboxes 'app1', 'app2', 'app3', ... are placed inside an array - this is for having them in 2 columns layout (relevant for checkboxes only). In this case checkboxes are wrapped with an additional <ul> tag with a class 'app_group' (name of the class is generated automatically my means of concatenation of the HTML name of the first checkbox (without a number) and a string '_group')*
 
 :red_circle: `staticValidationRule` 
 
