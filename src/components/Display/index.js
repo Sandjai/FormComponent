@@ -217,6 +217,7 @@
                 
         
           }
+          
 
       
 
@@ -322,7 +323,7 @@
         
         /**
           * complexDepFromSelect - Shows SELECT field and generates a relevant list of options depending on a scheme of chosen option
-        * @param {string} fNameToShow - HTML name of the field1
+        * @param {string} fName1 - HTML name of the field1
         * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
         * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT to be shown, on the right hand: an array of values of relevant options from the field 1.      
         */
@@ -375,6 +376,8 @@
               })
             } else {
                $(this.el).find(`[name="${fNameToShow}"]`).closest('li').addClass('MMM--isVisuallyHidden');
+               let dependId = $(this.el).find(`[name="${fNameToShow}"]`).attr('id');
+               $("#".concat(dependId, "-error")).hide();
               	$(this.el).find(`[name="${fNameToShow}"]`).val('');
             }
           }
@@ -384,6 +387,8 @@
      		$(targetFields).each((i,targetField) => {
             this.rules.push([targetField, handler]);
             })
+
+            handler();
             
         }
       
@@ -405,11 +410,19 @@
       
           const targetField = $(this.el).find("[name=\"".concat(fName1, "\"]"));
           this.rules.push([targetField, handler]);
+
+          handler();
           
         }
         
       }  
         
+      /**
+       * 
+       * @param {string} f1Name - HTML name of the SELECT field
+       * @param {string} f2Name - HTML name of the Hidden field, value to which we need to pass (dependable from a chosen option in SELECT field)
+       * @param {Map} scheme - Map of dependencies
+       */
         
         updateHidden (f1Name, f2Name, scheme) {
         
@@ -431,5 +444,5 @@
          this.rules.push([field1, handler]);
         }
          }
-
-window.DisplayFormFields = DisplayFormFields;
+// Show in Global just for the case of separate usage. 
+//window.DisplayFormFields = DisplayFormFields;

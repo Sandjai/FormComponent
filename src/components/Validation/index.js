@@ -134,14 +134,16 @@
 
 
         $(fields).each((i, item) => {            
-            if (($(this.el).find(`[name="${item}"]`))  && (this.staticValidationRules[item] !== 'true') && (this.staticValidationRules[item] !== true)) {
+            if (($(this.el).find(`[name="${item}"]`))) {
 
                 if (this.rules[item]) {
                     this._addDependencyRule (item, condition);                   
                     this.rules[item] = {
                         required: {
                             depends: (element) => {
-                                if (!$(element).closest('li').hasClass('MMM--isVisuallyHidden')) {                                    
+                                if (!$(element).closest('li').hasClass('MMM--isVisuallyHidden') 
+                                && !$(element).closest('ul').hasClass('MMM--isVisuallyHidden') 
+                                && !$(element).closest('fieldset').hasClass('MMM--isVisuallyHidden')) {                                    
                                     return this._isRequired(item);
                                 } else return false;
                                 
@@ -155,7 +157,9 @@
                     this.rules[item] = {
                         required: {
                             depends: function depends(element) {
-                                if (!$(element).closest('li').hasClass('MMM--isVisuallyHidden')) {
+                                if (!$(element).closest('li').hasClass('MMM--isVisuallyHidden') 
+                                && !$(element).closest('ul').hasClass('MMM--isVisuallyHidden') 
+                                && !$(element).closest('fieldset').hasClass('MMM--isVisuallyHidden')) {
                                     return condition();
                                 } else return false;
                                 
@@ -193,7 +197,7 @@
 
 
         _isRequired(item) {
-
+            
             let trueOrFalse = false;            
 
         $(this._multiRules[item]).each((i, func) => {                    
@@ -258,5 +262,5 @@
 
 }
 
-// It's in Global just for the case of separate usage. Generally this can be deleted.
-window.FormValidationRules = FormValidationRules;
+// Show in Global just for the case of separate usage. 
+//window.FormValidationRules = FormValidationRules;

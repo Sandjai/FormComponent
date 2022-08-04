@@ -30,8 +30,8 @@ const langRouting = {
         Turkish: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{e8e95aaf-1535-4a35-8870-9d921d0a1107}_language-data-tr.js',
         Ukrainian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{b90aa56f-150f-4ea5-8ac0-77e3887b4c38}_language-data-uk.js',
     } 
-
- /*    const langRouting = {      
+/*
+    const langRouting = {      
         
         Bulgarian: 'http://localhost:8080/src/configTemplates/language/temporary/language-data-bg.js',
         Croatian: 'http://localhost:8080/src/configTemplates/language/temporary/language-data-hr.js',
@@ -62,8 +62,8 @@ const langRouting = {
         Turkish: 'http://localhost:8080/src/configTemplates/language/temporary/language-data-tr.js',
         Ukrainian: 'http://localhost:8080/src/configTemplates/language/temporary/language-data-uk.js',
        
-    } */
-
+    } 
+*/
     const langTmpl = `${langRouting[language]}`;
     
 

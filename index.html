@@ -76,16 +76,44 @@
 	  sFDCLastCampaignID: "7012K00000169GbQAI",
 	  sFDCLastCampaignStatus: "Optional",
 	  leadSourceMostRecent1: "Website",
-	  CTA: "Contact Us"  
+	  CTA: "Contact Us",
+    hiddenField1: '',  
 	  });
+
+    //form1.settings.leadGenType = "Basic";
 
 
     form1.addField('address2', 'city');
     //form1.removeField('app13');
+    form1.removeField('address1');
+   // form1.removeClasses('mmmIndustry1');
+//form1.staticValidationRules.EMSD_jr_other = 'false';
+   // form1.hideFields('app1','app2','app3','app4','app5');
+   // form1.selectedItems.app1 = true;
+    form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
+    form1.selectedItems.mmmJobRole1 = 'Engineer-Fire Protection';
+    form1.removeField('company');
 
-    form1.hideFields('app1','app2','app3','app4','app5');
 
-    
+    let customScheme = new Map([
+                  
+                  ['Transp-Aerospace Mfg',        				'value1'],
+                  ['Transp-Automotive Mfg',     					'value2'],
+                  ['Industrial-Bearings &amp; Gears Mfg',      	'value3'],
+                  ['Industrial-Chemical Mfg',      				'value4'],
+                  ['Comms-Data Center',      						'value5'],
+                  ['Industrial-Electrical Equip Mfg',      		'value6'],
+                  ['Industrial-Fire Protection &amp; Suppr',      'value7'],                            
+              ])
+      
+       form1.updateHidden ('mmmIndustry1', 'hiddenField1', customScheme);    
+  
+
+
+
+
+
+
 		form1.render();
 
     })();

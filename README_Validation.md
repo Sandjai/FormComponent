@@ -10,7 +10,7 @@
      * Method for combining checkboxes into a group
      * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
      * @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-     * @param {string} errorMessage   
+     * @param {string} errorMessage - Secondary source of error message (1st prioritet is value in 'data-msg-required')
      * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
      * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
      * @param {Function} condition - advanced method, optional (just in case if you want to rewrite totally the normal behaviour of validation for checkboxes. Only if you have any complicated logic, different from the default one). Should return true or false.

@@ -30,12 +30,17 @@ export class FormComponent {
     customFormClasses = []; //Array for custom CSS classes added to a form tag
     staticValidationRules = {}; // Fields, which should be always optional or mandatory (pulled from LP)
     dynamicValidationRules = {};
+    _validationFunctions = [];
+    _displayFunctions = [];
     customFields = [];      // New added custom fields (pulled from LP)
     fieldsOrder = [];       // Order for new Added fields
     changedOrder = [];      // Is used in case if we need to change default fields order
     changedOrder__after = [];
     removedFields = [];
+    removedClasses = [];
     updatedTexts = []; 
+
+    arrayOfCheckboxesGroup = [];
 
 
     langTmpl;        // will be feeded by a a relevant 'language data template'
@@ -180,6 +185,19 @@ export class FormComponent {
         }
     }
 
+    removeClasses(fName) {        
+        this.removedClasses.push(fName);
+    }
+
+    _removeCSSclasses() {
+        for (let item of this.removedClasses) {
+            if (Object.keys(this.fieldsTmpl.addedClasses).includes(item)) {
+                this.fieldsTmpl.addedClasses[item] = "";
+            }
+        }
+        
+    }
+    
 
     /**
      * 
@@ -656,22 +674,34 @@ export class FormComponent {
     }
 
     /**
-     * Adds a new field to LP
      * @param {string} name - HTML name of the new form field 
      * @param {string} placeBefore - HTML name of the form field, before which a new field should be added. 
+     * @param {boolean} ifMandatory - by default it's 'false'. Place 'true' if this fields needs to be mandatory.
+     * @param {Function} condition - should return true or false
      * If this variable is absent, new field is being added to the very end of the form. 
-     */
+*/
 
-    addField(name, placeBefore) {
+    addField(name, placeBefore, ifMandatory, condition = () => {return true}) {
         if (placeBefore) {
             this.fieldsOrder.push([name, placeBefore]);            
         } else {
             this.fieldsOrder.push([name]);
         }
 
-        this.staticValidationRules[name] = 'false';
+        this.staticValidationRules[name] = ((ifMandatory === 'true') || (ifMandatory === true)) ? 'true' : 'false';
+
+        if ((this.staticValidationRules[name] === 'true') || (this.staticValidationRules[name] === true)) {
+            let validationAPI = (validation) => {              
+                validation.addDependencyRule ([name], condition);               
+          };
+    
+          this.validationRules  = validationAPI;
+        }
+
+        
 
     }
+    
 
     /**
      * Removes a field from the form
@@ -696,9 +726,209 @@ export class FormComponent {
                 }
             }
         }
+    }    
 
-
+    get validationRules () {    
+       for (let func of this._validationFunctions) {       
+            func.call(this, this.validation);
+       }
     }
+    set validationRules (func) {
+        this._validationFunctions.push(func);    
+    }
+
+    get displayRules () {    
+        
+        for (let func of this._displayFunctions) {       
+             func.call(this, this.display);
+             
+        }
+     }
+     set displayRules (func) {
+      
+         this._displayFunctions.push(func);    
+         
+        
+     }
+
+/**
+ * 
+ * @param {string} names HTML names separated by space
+ */
+
+ /**
+     * Method for combining checkboxes into a group
+     * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
+     * @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
+     * @param {string} errorMessage
+     * @param {Function} condition - in case if needed to rewrite a normal condition.If not - don't use this method. Should return true or false. 
+     * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
+     * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+     */
+
+    checkboxesGroup (names, data = {}) {
+        let dataToSend = {namesOfgroup: names};
+     
+        if (data.errorMessage !== undefined) {dataToSend.errorMessage = data.errorMessage};
+        if (data.numMin !== undefined) {dataToSend.numMin = data.numMin};
+        if (data.numMax !== undefined) {dataToSend.numMax = data.numMax};
+
+        this.arrayOfCheckboxesGroup.push(dataToSend);
+        
+        let validationAPI = (validation) => {
+            validation.checkboxesGroups(this.arrayOfCheckboxesGroup);
+     };
+
+     this.validationRules  = validationAPI;
+    }
+     
+
+    
+
+    /**
+     * 
+     * @param {Object} data 
+     * mandatory, condition, fieldset, firstOptional, triggerName, optionValue
+     */
+
+    addDependency(data) {
+        
+        let condition = data.condition ? data.condition :  
+            function () {
+                return ($(`[name="${data.triggerName}"]`).is(':checked') || 
+                    ($(`[name="${data.triggerName}"]`).val() === data.optionValue))
+            };
+        
+            let validationAPI = (validation) => {
+                validation.addDependencyRule (data.mandatory, condition);            
+              }                
+
+         
+            let displayAPI = (display) => {      
+
+                display.dependIdFromName (data.triggerName, data.fieldset, data.optionValue = '');
+            
+                display.addOptionalToLabel ({
+                    labelOptionalNames: data.firstOptional,                     
+                    triggerName: data.triggerName,
+                })
+
+                
+                              
+          } 
+          
+          this._displayValidationRules (displayAPI, validationAPI);
+       
+        }
+
+        _staticValidationRulesCombine (name) {
+
+            if ((this.fieldsTmpl.staticValidationRules[name] === 'false') || 
+            (this.staticValidationRules[name] === 'false') || (this.staticValidationRules[name] != undefined)) {
+                return false
+            } else return true;
+
+        }
+
+        /**
+         * 
+         * @param {string} fName1 - HTML name of the field (checkbox or SELECT)
+         * @param {string} fName2 - HTML name of the dependable field        
+         * @param {string} opt - Default value = "Other". Value of option in Select (fName1) field, which should trigger fName2 to appear
+         * @param {Function} condition 
+         */
+        
+
+        showOther (fName1, fName2, opt="Other", condition = () => {return false}) {
+           
+            let displayAPI = (display) => {
+                display.showOther(fName1, fName2);
+            }
+
+            if (this._staticValidationRulesCombine(fName2)) {    
+    
+                condition = function () {                                          
+                    return ($(`[name="${fName1}"]`).is(':checked') || ($(`[name="${fName1}"]`).val() === opt));                     
+                };
+                
+                   
+            }   
+            
+            let validationAPI = (validation) => {              
+                validation.addDependencyRule ([fName2], condition);               
+          };
+            
+          this._displayValidationRules (displayAPI, validationAPI);
+        }        
+
+          _displayValidationRules (displayAPI, validationAPI) {
+            this.displayRules  = displayAPI;
+            this.validationRules  = validationAPI;
+          }
+
+          /**
+           * 
+           * @param {string} fName - HTML name of the SELECT field to be shown
+           * @param {Map} scheme - mandatory (scheme of dependency)
+           * @param {Function} condition - optional
+           */
+
+          addDependencyFromCheckboxes (fName, scheme, condition = () => {return true}) {
+           
+            let displayAPI = (display) => {            
+                display.complexDepFromCheckboxes (fName, scheme);    
+            }
+
+            if (this._staticValidationRulesCombine(fName)) {
+                let validationAPI = (validation) => {              
+                    validation.addDependencyRule ([fName], condition);               
+              };
+
+              this.validationRules  = validationAPI;
+            }            
+            
+            this.displayRules  = displayAPI;            
+          }
+
+            /**
+          * addDependencyFromSelect - Shows SELECT field and generates a relevant list of options depending on a scheme of chosen option
+        * @param {string} fName1 - HTML name of the field1
+        * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
+        * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT to be shown, on the right hand: an array of values of relevant options from the field 1.      
+        */
+
+          addDependencyFromSelect (fName1, fNameToShow, scheme, condition = () => {return true}) {
+           
+            let displayAPI = (display) => {             
+        
+                display.complexDepFromSelect (fName1, fNameToShow, scheme);
+    
+            }
+
+            if (this._staticValidationRulesCombine(fNameToShow)) {
+                let validationAPI = (validation) => {              
+                    validation.addDependencyRule ([fNameToShow], condition);               
+              };
+
+              this.validationRules  = validationAPI;
+            }
+
+            this.displayRules  = displayAPI;
+          }
+
+
+          updateHidden (f1Name, f2Name, scheme) {
+            let displayAPI = (display) => {
+                display.updateHidden (f1Name, f2Name, scheme);
+            }
+
+            this.displayRules  = displayAPI;
+
+          }
+         
+    
+
+   
 
     render() {
 
@@ -787,25 +1017,28 @@ export class FormComponent {
             // Final Optional Fields init (After Display was initialized and custome adding methods were used)
             this._setOptionalNamesArr();
 
-            this.fieldsTmpl.displayRules(this.display);         // pulled from template             
-            if (typeof this.displayRules === 'function') {   // pulled from LP                          
+            if (typeof this.fieldsTmpl.displayRules === 'function') {
+                this.fieldsTmpl.displayRules(this.display);         // pulled from template          
+            }              
 
-                this.displayRules(this.display);
+            this.validation = new FormValidationRules(this.el, this.elId, this.staticValidationRules);  // init Validation Rules
+
+            if (typeof this.fieldsTmpl.validationRules === 'function') {   // pulled from template
+                this.fieldsTmpl.validationRules(this.validation)
             }
-            if (typeof this._displayRules === 'function') {                          
 
-                this._displayRules(this.display);
+            if (typeof this.fieldsTmpl.displayValidationRules === 'function') {   // pulled from template
+                this.fieldsTmpl.displayValidationRules(this);
             }
 
             
 
-            this.validation = new FormValidationRules(this.el, this.elId, this.staticValidationRules);  // init Validation Rules
+                this.displayRules;
+                this.validationRules;
+                
+           
 
-            this.fieldsTmpl.validationRules(this.validation);   // pulled from template
-            if (typeof this.validationRules === 'function') {   // pulled from LP
-                this.validationRules(this.validation);
-            }
-
+       
             for (let name of Object.keys(this.dynamicValidationRules)) {
                 
                 if (Array.isArray(this.dynamicValidationRules[name])) {
@@ -848,6 +1081,7 @@ export class FormComponent {
         this._removeFields();
 
         this._mergeFieldsTmpl(['staticValidationRules', 'addedClasses']);
+        this._removeCSSclasses();
 
         if (this._getFieldsetID('busPhone')) {
             this.settings._busPhone = true;

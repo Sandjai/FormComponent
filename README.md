@@ -29,6 +29,16 @@ AND:
     var form2 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-SUB-testSubscribe");     /* Initializing Form #2 */
     /* ... etc ...*/
 ```
+Or, as another variant (preferable): is to use one the same variable (like 'form1') for all instances of the form, but being wrapped with a self invoked function, like below:
+```javascript
+    (function() {  
+        var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
+    })()
+    (function() {  
+        var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-SUB-testSubscribe");
+    })()
+    /* ... etc ...*/
+```
 2. Provide settings for the hidden fields. Use method `setHiddenFields()`, called on a relevant form's variable (in example below variable is 'form1')
 ```javascript
     form1.setHiddenFields({          
@@ -139,22 +149,24 @@ form1.newField({
 
 :red_circle: `addField(name)`
 OR
-`addField(name, placeBefore)`
+`addField(name, placeBefore, ifMandatory)`
 Adds a new field to LP
 ```javascript
  /**
      * @param {string} name - HTML name of the new form field 
      * @param {string} placeBefore - HTML name of the form field, before which a new field should be added. 
+     * @param {boolean} ifMandatory - by default it's 'false'. Place 'true' if this fields needs to be mandatory.
      * If this variable is absent, new field is being added to the very end of the form. 
 */
 
-addField(name, placeBefore)
+addField(name, placeBefore, ifMandatory)
 
 ```
 **Example:**
 ```javascript
-  form1.addField('testChbx'); /* Adds field 'testChbx' to the very end of the form */
-  form1.addField('testCustomField', 'custEnq'); /* Adds field 'testCustomField' right before the 'custEnq' field */ 
+  form1.addField('testChbx'); /* Adds optional field 'testChbx' to the very end of the form */
+  form1.addField('testCustomField', 'custEnq'); /* Adds optional field 'testCustomField' right before the 'custEnq' field */ 
+  form1.addField('address2', 'city', 'true'); /* Adds mandatory field 'address2' right before the 'city' field */ 
 ```   
 
 :red_circle: `removeField(name)`
@@ -207,6 +219,25 @@ form1.addClass('firstName', 'inputLiClass');
 form1.addClass('form', 'formTESTclass');
 ```
 
+:red_circle: `removeClasses(item)`
+Removes all CSS classes from:
+1) A fieldset (if ID of the fieldset is provided, as 'item' parameter. On lead gen forms there are 2 fieldsets: with ID = "CA" and with ID = "leadgen")
+2) A li, which is a  wrapper of the field (if HTMl name of the field is provided as 'item' parameter) 
+3) form  tag (if parameter 'item' is equal to 'form')
+ 
+```javascript
+/**
+     * @param {string} item - item shoud be equal to: ID of fieldset, HTML name of the field     * 
+     *      
+*/
+removeClasses(fName)
+```
+**Examples:**
+
+```javascript
+form1.removeClasses('mmmIndustry1');
+
+```
 :red_circle: `setLabel(name, val)`
 Sets a new text for label of the field
 ```javascript
@@ -279,9 +310,9 @@ Preselects option in select tag
 form1.selectedItems.country = 'Germany';
 ```
 
-2) To make Firefighter be a preselected jobRole
+2) To make 'Fire Protection Engineer' be a preselected jobRole
 ```javascript
-form1.selectedItems.mmmJobRole1 = 'Firefighter';
+form1.selectedItems.mmmJobRole1 = 'Engineer-Fire Protection';
 ```
 
 **Make checkbox to be checked**
@@ -322,6 +353,204 @@ form1.hideFields('EMSD_cust_type');
  form1.hideFields('app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13');
 ```
 
-### Methods, described above should cover the most common demand of the form creation.
-However, there is a way of more fine tuning by means of setting the configuration templates:
-https://github.com/gsemakin/FormComponent/blob/master/README_ConfigTemplates.md
+:red_circle: `staticValidationRules`
+Special Object for storing changes in static validation rules.
+
+**Examples:**
+```javascript
+form1.staticValidationRules: {     
+        firstName: 'false',
+        lastName: 'false',
+        salutation: 'false',
+        mmmIndustry1: 'true',
+        salesRequest: 'false',     
+    },
+```
+OR the same:
+
+```javascript
+form1.staticValidationRules.firstName = 'false';
+form1.staticValidationRules.lastName = 'false';
+form1.staticValidationRules.salutation = 'false';
+form1.staticValidationRules.mmmIndustry1 = 'true';
+form1.staticValidationRules.salesRequest = 'false';
+```
+
+:red_circle: `showOther (fName1, fName2)`
+
+```javascript
+ /**
+         * 
+         * @param {string} fName1 - HTML name of the field (checkbox or SELECT)
+         * @param {string} fName2 - HTML name of the dependable field        
+         * @param {string} opt - Optional. Default value = "Other". Value of option in Select (fName1) field, which should trigger fName2 to appear 
+         */
+    showOther(fName1, fName2, opt)
+```
+
+**Examples:**
+1) To show mandatory field 'EMSD_app_purp_other' if checkbox 'app13' is checked
+```javascript
+form1.showOther ('app13','EMSD_app_purp_other');        
+```
+2) To show optional field 'EMSD_jr_other' if 'mmmJobRole1' is equal to 'Other' (which is a default value)
+```javascript
+form1.staticValidationRules.EMSD_jr_other = 'false'; // to make 'Other Job Role' field to be optional
+form1.showOther ('mmmJobRole1', 'EMSD_jr_other');
+
+```
+2) To show optional field 'textField' if 'distributor' is equal to 'Some Dealer'
+```javascript
+form1.staticValidationRules.EMSD_jr_other = 'false'; // to make 'Other Job Role' field to be optional
+form1.showOther ('distributor', 'textField', 'Some Dealer');
+
+```
+
+:red_circle: `checkboxesGroup (namesOfgroup)`
+
+```javascript
+/**
+     * Method for combining checkboxes into a group
+     * @param {string} namesOfgroup - (mandatory) HTML names of checkboxes in format: 'chbx chbx2 chbx3' (separated by space)
+     * @param {Array} data - (optional)  Object of settings   
+     * @param {number} data.numMin - (optional) minimum number of checkboxes to be checked (default = 1)
+     * @param {number} data.numMax - (optional) maximum number of checkboxes to be checked (default = all checkboxes)
+     * @param {string} data.errorMessage - (optional) Secondary source of error message (1st prioritet is value in 'data-msg-required')
+     */
+form1.checkboxesGroup (namesOfgroup, {data});
+
+```
+
+**Examples:**
+1) To combine checkboxes with different names into a one validation group
+
+```javascript
+form1.checkboxesGroup ('app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13');        
+```
+```javascript
+form1.checkboxesGroup ('app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13', {numMax: 3})
+```
+
+
+
+:red_circle: `addDependencyFromCheckboxes('fNameToShow', scheme)`
+To show/hide relevant options in SELECT field, which is dependable of checked checboxes
+
+```javascript
+   
+         /**
+         * Shows SELECT field and generates a relevant list of options depending on a scheme of chosen checkboxes
+         * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
+         * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT, on the right hand: an array of HTML names of checkboxes.      
+         */
+        
+
+form1.addDependencyFromCheckboxes (fNameToShow, scheme);
+
+```
+
+**Examples:**
+1) To show relevant Industries in SELECT field depending on a chosen checkboxes (Applications)
+
+```javascript
+
+    let schemeForIndustry = new Map([
+                  
+            ['Transp-Aerospace Mfg',        				['app1', 'app2', 'app3', 'app4', 'app7', 'app8', 'app11', 'app12', 'app13']],
+            ['Transp-Automotive Mfg',     					['app1', 'app2', 'app4', 'app7', 'app8', 'app11', 'app12', 'app13']],
+            ['Industrial-Bearings &amp; Gears Mfg',      	['app11', 'app13']],
+            ['Industrial-Chemical Mfg',      				['app5', 'app9', 'app11', 'app13']],
+            ['Comms-Data Center',      						['app2', 'app3', 'app4', 'app6', 'app13']],
+            ['Industrial-Electrical Equip Mfg',      		['app5', 'app7','app11', 'app13']],
+            ['Industrial-Fire Protection &amp; Suppr',      ['app3', 'app13']],
+            ['Industrial-Indust Machinery &amp; Equip Mfg', ['app2', 'app4', 'app6', 'app7', 'app11', 'app12', 'app13']],
+            ['Industrial-Medical Devices Mfg',      		['app1', 'app2', 'app4', 'app7', 'app11', 'app12', 'app13',]],
+            ['Industrial-Paints &amp; Coatings Mfg',      	['app8', 'app11', 'app13']],
+            ['Utilities-Power Dist &amp; Transmission',     ['app4', 'app5', 'app13']],
+            ['Utilities-Power Generation',      			['app4', 'app5', 'app13']],
+            ['Electronics-Semicon &amp; Circuit Boards',    ['app1', 'app2', 'app4', 'app6', 'app8', 'app10', 'app11', 'app12', 'app13']],
+            ['Industrial-Turbine &amp; Engine Mfg',      	['app4', 'app6', 'app11', 'app13']],
+            ['Construction-Commercial',      	            ['app3', 'app9', 'app13']],
+            ['Comms-Telecommunications',      	            ['app2', 'app4', 'app6', 'app8', 'app12', 'app13']],
+                            
+        ])
+
+ form1.addDependencyFromCheckboxes('mmmIndustry1', schemeForIndustry);        
+```
+
+:red_circle: `addDependencyFromCheckboxes('fNameToShow', scheme)`
+To show/hide relevant options in SELECT field, which is dependable of checked checboxes
+
+```javascript
+   
+         /**
+         * Shows SELECT field and generates a relevant list of options depending on a scheme of chosen checkboxes
+         * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
+         * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT, on the right hand: an array of HTML names of checkboxes.      
+         */
+        
+
+form1.addDependencyFromSelect (fName1, fNameToShow, scheme);
+
+```
+
+**Examples:**
+1) To show relevant Industries in SELECT field depending on a chosen option in field1
+
+```javascript
+
+    let schemeForIndustry = new Map([
+                  
+            ['Transp-Aerospace Mfg',        				['option1', 'option3', 'option5']],
+            ['Transp-Automotive Mfg',     					['option1', 'option4']],
+            ['Industrial-Bearings &amp; Gears Mfg',      	['option1', 'option2']],
+            ['Industrial-Chemical Mfg',      				['option3', 'option5']],
+            ['Comms-Data Center',      						['option2', 'option3', 'option4', 'option5']],
+            ['Industrial-Electrical Equip Mfg',      		['option2', 'option3']],
+            ['Industrial-Fire Protection &amp; Suppr',      ['option1']],                            
+        ])
+
+ form1.addDependencyFromSelect('mmmIndustry1', schemeForIndustry);        
+```
+
+
+:red_circle: `updateHidden (f1Name, f2Name, scheme)`
+To pass a relevant value to a hidden field, dependable from a chosen option in the SELECT field
+
+```javascript
+   
+    /**
+     * 
+     * @param {string} f1Name - HTML name of the SELECT field
+     * @param {string} f2Name - HTML name of the Hidden field, value to which we need to pass (dependable from a chosen option in SELECT field)
+     * @param {Map} scheme - Map of dependencies
+     */
+    
+    form1.updateHidden (f1Name, f2Name, scheme)
+
+```
+
+**Examples:**
+
+```javascript
+
+    let customScheme = new Map([
+                  
+            ['Transp-Aerospace Mfg',        				'value1'],
+            ['Transp-Automotive Mfg',     					'value2'],
+            ['Industrial-Bearings &amp; Gears Mfg',      	'value3'],
+            ['Industrial-Chemical Mfg',      				'value4'],
+            ['Comms-Data Center',      						'value5'],
+            ['Industrial-Electrical Equip Mfg',      		'value6'],
+            ['Industrial-Fire Protection &amp; Suppr',      'value7'],                            
+        ])
+
+ form1.updateHidden ('mmmIndustry1', 'hiddenField1', customScheme);        
+```
+
+
+
+
+    
+
+         
