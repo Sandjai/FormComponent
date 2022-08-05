@@ -114,38 +114,23 @@ New field declaration. (Adding a new declarated field to a form is managed via a
      * type: '',        - Mandatory: (possible values for type: 'text', 'textarea', checkbox', 'radio', 'select', 'header')
      * options: '',     - only in case if type = 'select'
      * name: '',        - Mandatory: (should be matching with the HTML name field of the form)      
-     * className: '',   - Optional: class for <li> wrapper of the field
-     * required:        - Optional: can be 'true' or 'false'. By default it's 'false'.
-     * condition:       - Optional: when this new field should depend on any other field in terms of Validation. function in format, when it returns Boolean : function () {return (--your js condition here--)},
-     * triggerName: ''  - Optional: HTML name of the field, which impacts on the case if new field should be mandatory or optional
+     * className: '',   - Optional: class for <li> wrapper of the field         
+     
 */
 
-newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: 'false' })
+newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: ''})
 
 ```
 **Examples:**
-1) Adding a text field, which must be always mandatory:
+1) create a text field
 ```javascript
   form1.newField({
       label: 'Text field', 
       errMessage: 'This field is mandatory', 
       type: 'text', 
-      name: 'txtField',       
-      required: 'true'     
+      name: 'txtField',
     });
 ```
-2) Adding a text field, which should be mandatory only in case if field with HTML name "salesRequest" is checked:
-```javascript
-form1.newField({
-      label: 'Custom field txt', 
-      errMessage: 'Please specify', 
-      type: 'text', 
-      name: 'testCustomField',      
-      condition: function () {return ($('[name="salesRequest"]').is(':checked'))},
-      triggerName: 'salesRequest'
-}) 
-```
-
 
 :red_circle: `addField(name)`
 OR
