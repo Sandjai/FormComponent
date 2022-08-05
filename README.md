@@ -358,7 +358,7 @@ Special Object for storing changes in static validation rules.
 
 **Examples:**
 ```javascript
-form1.staticValidationRules: {     
+form1.staticValidationRules = {     
         firstName: 'false',
         lastName: 'false',
         salutation: 'false',

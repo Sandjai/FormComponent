@@ -249,7 +249,25 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             value="" disabled="disabled" selected="selected"
                         )=langTmpl.defaultSelect                    
                         each opt in langTmpl[item].options
-                            include select\select__option.pug 
+                            include select\select__option.pug
+
+        when 'selDist'
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+                label.MMM--blockLabel(
+                    for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                    id=item + 'ID-' + idGen
+                    name=item
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
+                    data-msg-required=langTmpl[item].errMessage
+                    data-lookup=""
+                    aria-required="true")  
+                        option(
+                            value="" disabled="disabled" selected="selected"
+                        )=langTmpl.defaultSelect                    
+                        each opt in langTmpl[item].options
+                            include select\select__option.pug  
+                            
 
         when 'custEnq'
             li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        

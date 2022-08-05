@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en">
   <head>
 
-<meta name="DCSext.CDC" content="EMSD - Electronics Materials Solutions Division">
+
 <meta name="DCSext.locale" content="en_GB">
 
 
@@ -56,44 +56,25 @@
 </div>
 
 </div>
-
-
-
-
-
-
 <script src="./dist/app.js"></script>
 <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
 
 <script>
+
+
 
 (function() {
   
    var form1 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd");
   
 	 form1.setHiddenFields({          
-	  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
+	  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",       
 	  sFDCLastCampaignID: "7012K00000169GbQAI",
 	  sFDCLastCampaignStatus: "Optional",
 	  leadSourceMostRecent1: "Website",
-	  CTA: "Contact Us",
-    hiddenField1: '',  
-	  });
-
-    //form1.settings.leadGenType = "Basic";
-
-
-    form1.addField('address2', 'city');
-    //form1.removeField('app13');
-    form1.removeField('address1');
-   // form1.removeClasses('mmmIndustry1');
-//form1.staticValidationRules.EMSD_jr_other = 'false';
-   // form1.hideFields('app1','app2','app3','app4','app5');
-   // form1.selectedItems.app1 = true;
-    form1.updateSelectOpts ("mmmJobRole1", "Firefighter","Safety Manager","Other");
-    form1.selectedItems.mmmJobRole1 = 'Engineer-Fire Protection';
-    form1.removeField('company');
-
+	  CTA: "Contact Us",    
+    hiddenField1: ""
+	  });     
 
     let customScheme = new Map([
                   
@@ -106,17 +87,14 @@
                   ['Industrial-Fire Protection &amp; Suppr',      'value7'],                            
               ])
       
-       form1.updateHidden ('mmmIndustry1', 'hiddenField1', customScheme);    
-  
-
-
-
-
-
-
+       form1.updateHidden ('mmmIndustry1', 'hiddenField1', customScheme);
+       form1.selectedItems.country = '';
 		form1.render();
 
     })();
+
+
+   
     
 
 </script>
@@ -139,83 +117,6 @@ var validationtype = "SOFT"; // can be "SOFT" or "HARD" - Soft = form will submi
 
 <script src="https://img04.en25.com/Web/3MCompanyGlobal/{80439e2b-4bf7-49b4-ac6b-713f2f163347}_AJ_HELPER_intlTelInput__STRIPPED__Minified.js?update=8"></script>
 <!-- END of code added for phone number validation -->   
-<!--div class="mix-MMM--hdg_spaced MMM--bodyCopy">
-  <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
-    <style type="text/css">
-    .eloquaForm .MMM--blockFormList > li {
-      margin: 15px 0;
-    }
-    ul.MMM--tableBlock-li-inner .eloquaForm li {
-      float:none;
-    }
-    </style>
-
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2"></form>
-
-  </div>
-</div-->
-
-<!--script>
-  var form2 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd2");
-  
-  form2.setHiddenFields({          
-  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
-  sFDCLastCampaignID: "7012K00000169GbQAI",
-  sFDCLastCampaignStatus: "Optional",
-  leadSourceMostRecent1: "Website",   
-  FormType: "Sample Request",
-  CTA: "Request a Sample"
-  
-  })  
-
- 
-  
-  form2.render();
-</script-->
-
-
-
-<!--div class="mix-MMM--hdg_spaced MMM--bodyCopy">
-  <div class="MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear">
-    <style type="text/css">
-    .eloquaForm .MMM--blockFormList > li {
-      margin: 15px 0;
-    }
-    ul.MMM--tableBlock-li-inner .eloquaForm li {
-      float:none;
-    }
-    </style>
-
-      <form name="TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd3"></form>
-
-  </div>
-</div-->
-
-<!--script>
-
-
-  var form3 = new window.FormComponent("TEST-EMSD-202202-en_EMEA-CON-testLeadGen_emsd3");
-  
-  form2.setHiddenFields({          
-  sFDCLastCampaignName: "EMSD-2002-EMEA-GLC-MUL-Lead_gen_test_campaign-A",
-  sFDCLastCampaignID: "7012K00000169GbQAI",
-  sFDCLastCampaignStatus: "Optional",
-  leadSourceMostRecent1: "Website",   
-  FormType: "Sample Request",
-  CTA: "Request a Sample"
-  
-  })  
-
- 
-  
-  form3.render();
-
-
-
-
-  
-</script-->
-
 
          <!-- Scripts -->
 

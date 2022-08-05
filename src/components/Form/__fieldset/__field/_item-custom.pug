@@ -76,8 +76,10 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                             include select\select__option.pug
 
             when 'header' 
-                h3.MMM--blockLabel.MMM--gapTopMed(
+                <!-- className of the item below is equal to an HTML name provided -->
+                h3.MMM--blockLabel.MMM--gapTopMed(class=item 
                     for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""
+                    
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
             default 

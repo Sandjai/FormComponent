@@ -53,8 +53,8 @@
     }
 
     if (division === null) {
-        console.error('Division was identified incorrectly. Please specify it in setHiddenFields if default value (EMSD) is not relevant.');
-        division = divisions.EMSD;
+        //console.error('Division was identified incorrectly. Please specify it in division1 hidden field via setHiddenFields');
+        return null;
     }
 
     return division;
