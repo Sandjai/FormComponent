@@ -798,18 +798,39 @@ export class FormComponent {
                 return ($(`[name="${data.triggerName}"]`).is(':checked') || 
                     ($(`[name="${data.triggerName}"]`).val() === data.optionValue))
             };
+
+            let mandatory = [];
+
+            if (Array.isArray(data.mandatory)) {
+                for (let name of data.mandatory) {
+                    if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'false') {
+                        mandatory.push(name);
+                    }
+                }
+            }
         
             let validationAPI = (validation) => {
-                validation.addDependencyRule (data.mandatory, condition);            
+                validation.addDependencyRule (mandatory, condition);            
               }                
 
          
             let displayAPI = (display) => {      
 
                 display.dependIdFromName (data.triggerName, data.fieldset, data.optionValue = '');
-            
+
+                let firstOptional = [];
+              
+                if (Array.isArray(data.firstOptional)) {
+                    for (let name of data.firstOptional) {
+                        if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'false') {
+                            firstOptional.push(name);
+                        }
+                    }
+                }
+                
+                
                 display.addOptionalToLabel ({
-                    labelOptionalNames: data.firstOptional,                     
+                    labelOptionalNames: firstOptional,                     
                     triggerName: data.triggerName,
                 })
 

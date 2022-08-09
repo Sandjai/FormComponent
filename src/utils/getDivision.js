@@ -17,7 +17,7 @@
             DMSD: 'DMSD - Display Materials &amp; Systems Division',
             EAR: 'EAR - Aearo Technologies LLC',
             EMD: 'EMD - Electrical Markets Division',
-            EMSD: 'EMSD - Electronics Materials Division',
+            EMSD: 'EMSD - Electronics Materials Solutions Division',
             FSD: 'FSD - Food Safety',
             GOV: 'GOV - Government Markets',
             HCD: 'HCD - Home Care Division',

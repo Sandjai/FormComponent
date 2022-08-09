@@ -45,7 +45,7 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     aria-required="true")  
 
         when 'salutation'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+            li(class = addedClasses[item] ? addedClasses[item] : "",  style = 'list-style-type: none; max-width:767px')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
                 select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
