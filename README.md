@@ -398,8 +398,8 @@ form1.showOther ('distributor', 'textField', 'Some Dealer');
 ```
 
 
-:red_circle: `addDependency(data)` Add dependency for a fieldset to be shown/hidden
-To show/hide relevant options in SELECT field, which is dependable of checked checboxes
+:red_circle: `addDependency(data)` Shows/hides fieldset depending on a made choice in checkbox or 
+     SELECT field ('Yes' AND 'on' are default values)
 
 ```javascript
    
