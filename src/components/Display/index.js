@@ -67,11 +67,12 @@
            * Sets dependencies between field №1 and hidden field №2 to be shown
            * @param {string} f1_name - HTML name of the field 1
            * @param {string} f2_name - HTML name of the dependable field
-           * @param {string} value - if tag name of field1 is 'SELECT', val - is a value which should trigger field2 (= "Other" by default)
+           * @param {Array} value - if tag name of field1 is 'SELECT', val - is value(s) which should trigger field2
            * 
            */
           
-          showOther(f1_name, f2_name, val = "Other") {        
+          showOther(f1_name, f2_name, val) {              
+
               let source = $(this.el).find("[name=\"".concat(f1_name, "\"]"));
               let depend = $(this.el).find("[name=\"".concat(f2_name, "\"]"));
               let handler;
@@ -92,7 +93,7 @@
                 handler = () => {
                   $("#".concat(dependId, "-error")).hide();
           
-                  if ($(source).val() === val) {
+                  if (val.includes($(source).val())) {
                     this._showEl($(depend).closest('li'));
                     return true;
                   } else {
@@ -116,6 +117,16 @@
               let source = $(this.el).find("[name=\"".concat(f1_name, "\"]"));
               let depend = $(this.el).find("[id=\"".concat(f2_id, "\"]"));
               let handler;
+
+              let optValues = [];
+
+              if (typeof val === 'string') {
+                optValues.push(val);
+              }
+      
+              if (Array.isArray(val)) {
+                  optValues = val.slice();
+              }
               
         
               if ($(source).attr('type') === 'checkbox') {
@@ -130,7 +141,7 @@
                   handler = () => {            
                     let valIsDeclared =  val ? true : false;
                     let selectIsBlank = !$(source).val() ? true : false;
-                    let valIsSelected = ($(source).val() === val) ? true : false;
+                    let valIsSelected = (val.includes($(source).val())) ? true : false;
                       
                     let ifTrue = valIsSelected || (!valIsDeclared && !selectIsBlank) ? true : false;           
                     

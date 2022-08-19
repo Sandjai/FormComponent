@@ -30,6 +30,7 @@ const langRouting = {
         Turkish: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{e8e95aaf-1535-4a35-8870-9d921d0a1107}_language-data-tr.js',
         Ukrainian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{b90aa56f-150f-4ea5-8ac0-77e3887b4c38}_language-data-uk.js',
     } 
+    
 /*
     const langRouting = {      
         

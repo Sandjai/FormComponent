@@ -85,6 +85,12 @@ form1.settings.vendor = 'elq-direct';
 form1.settings.leadGenType = "Basic";
 ```
 
+#### To change leadgen form to the option WITH checkbox "I want Sales Contact" 
+
+```javascript
+form1.settings.leadGenType = "CA";
+```
+
 :red_circle: `changeOrder(arr)` 
 OR
 `changeOrder(arr, 'after')`
@@ -361,7 +367,7 @@ form1.staticValidationRules.mmmIndustry1 = 'true';
 form1.staticValidationRules.salesRequest = 'false';
 ```
 
-:red_circle: `showOther (fName1, fName2)`
+:red_circle: `showOther (fName1, fName2, opt)`
 
 ```javascript
  /**
@@ -390,6 +396,64 @@ form1.staticValidationRules.EMSD_jr_other = 'false'; // to make 'Other Job Role'
 form1.showOther ('distributor', 'textField', 'Some Dealer');
 
 ```
+
+
+:red_circle: `addDependency(data)` Add dependency for a fieldset to be shown/hidden
+To show/hide relevant options in SELECT field, which is dependable of checked checboxes
+
+```javascript
+   
+         /**
+     * addDependency(data) - Shows/hides fieldset depending on a made choice in checkbox or 
+     * select field ('Yes' AND 'on' are default values)
+     * @param {Object} data 
+     * 
+     * @param {Array} data.mandatory - Array of HTML names of the fields, which 
+     * should be mandatory in case if trigger-event happends     * 
+     * @param {string} data.fieldset - ID of the dependable element (fieldset)
+     * @param {Array} data.firstOptional - HTML names of the fields, which should be optional first, and mandatory after
+     * the event has been triggered
+     * @param {string} data.triggerName - HTML name of the field, which should trigger an event (select or checkbox)
+     * @param {string, Array} data.optionValue - optional, just value(s) for a select field, which should trigger an event ('Yes' AND 'on' are default values)
+     * @param {Function} data.condition - optional, just for adding additional conditions (default one was being set up automatically).
+     * data.condition is a Function, which should return Boolean
+     */
+        
+
+form1.addDependency (data);
+
+```
+
+**Examples:**
+1) To show fieldset with ID "leadgen" with the fields included inside when 'salesRequest' is checked (in case of checkbox)
+or equal to 'Yes' or 'on' in case of a SELECT field. Mandatory fields: 'company', 'city', 'address1', 'busPhone'.
+Even though 'company' is in another fieldset, it will become mandatory if "leadgen" fieldset will be shown, and optional, in case 
+when "leadgen" fieldset is hidden. 
+
+```javascript
+
+   form1.addDependency({
+            mandatory: ['company', 'city', 'address1', 'busPhone'],          
+            fieldset: "leadgen",
+            firstOptional: ['company'],
+            triggerName: 'salesRequest',
+            
+        });
+```
+
+2) To show fieldset with ID "customFieldset" with the fields included inside when 'mmmJobRole1' is equal to 
+'Engineer-General' or 'Engineer-Fire Protection'. Mandatory fields: 'company', 'mmmIndustry1'.
+
+```javascript
+
+   form1.addDependency({
+            mandatory: ['company', 'mmmIndustry1'],          
+            fieldset: "customFieldset",            
+            triggerName: 'mmmJobRole1',
+            optionValue: ["Engineer-General", "Engineer-Fire Protection"]            
+        });
+```
+
 
 :red_circle: `checkboxesGroup (namesOfgroup)`
 

@@ -280,8 +280,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mmmIndustry1: {
-        label: "Industry",
-        errMessage: "Sélectionnez une valeur",
+        label: "Industrie",
+        errMessage: "Sélectionnez un type d'industrie",
         options:
             [
                 // [Backend value, Frontend value]
@@ -397,7 +397,7 @@ __globScopeLanguageTemplate__ = {
                 ["Other", "Autre"],
             ],
             EMSD: {
-                label: "Industry/ Market Segment",
+                label: "Industrie", // Original: Industry/ Market Segment
             }
 
 
@@ -703,8 +703,25 @@ __globScopeLanguageTemplate__ = {
         errMessage: "Veuillez saisir la région"
     },
 
-    //Specific fields for Division / SMP
+    sample: {
+        type: "select",
+        label: "Select a product sample",
+        errMessage: "Choose a sample",
+        options: [
+            // [Backend value, Frontend value]   
+            ['First', 'First'],
+            ['Second', 'Second'],
+            ['Third', 'Third'],               
+        ]
+    },
 
+    /** 
+     * Specific fields for Division / SMP below
+     * 1) EMSD
+     * 2) ASD
+    */
+
+    // 1) Specific fields for EMSD only
     EMSD: {
         appHeader: {
             type: "header",
@@ -819,6 +836,42 @@ __globScopeLanguageTemplate__ = {
         },
 
 
+    },
+
+    // 2) Specific fields for ASD only
+
+    ASD: {
+        processImprovement: {
+            type: "select",
+            label: "What would you most like to improve about your abrasive processes?",
+            errMessage: "Sélectionnez une valeur",
+            options: [
+                // [Backend value, Frontend value]   
+                ['Process speed', 'Process speed'],
+                ['Safety hazard mitigation', 'Safety hazard mitigation'],
+                ['Surface finishing consistency', 'Surface finishing consistency'],
+                ['Abrasive durability', 'Abrasive durability'],
+            ]
+        },
+        
+        NumberofOperators: {
+            type: "select",
+            label: "Nombre d'employés travaillant avec des abrasifs",
+            errMessage: "Sélectionnez une valeur",
+            options: [
+                // [Backend value, Frontend value]   
+                ['0-1', '0-1'],
+                ['2-5', '2-5'],
+                ['6-11', '6-11'],
+                ['11+', '11+'],
+            ]
+        },
+
+        optInHeader: {
+            type: "header",
+            label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
+        },
+        
     }
 }
 

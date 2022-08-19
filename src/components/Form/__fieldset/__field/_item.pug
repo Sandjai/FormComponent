@@ -1,9 +1,10 @@
-mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum)
+mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes)
     -var staticRulesArr = Object.keys(staticValidationRules)
     - var divPath = langTmpl[item];
-        
+    
     case item 
-        when 'emailAddress'    
+        when 'emailAddress'
+            
             li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')    
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
@@ -221,20 +222,83 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug                        
 
         when 'salesRequest'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px')
-                input(
-                    type='checkbox'
-                    value=langTmpl[item].value
-                    name=item
+            if (changedFieldTypes.salesRequest === 'select')
+                li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px; max-width:767px')        
+                    label.MMM--blockLabel(
+                        for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                    select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                        id=item + 'ID-' + idGen
+                        name=item
+                        data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
+                        data-msg-required=langTmpl[item].errMessage
+                        data-lookup=""
+                        aria-required="true")  
+                            option(
+                                value="" disabled="disabled" selected="selected"
+                            )=langTmpl.defaultSelect                    
+                            each opt in langTmpl[item].options
+                                include select\select__option.pug                
+            else 
+                li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px')
+                    input(
+                        type='checkbox'
+                        value=langTmpl[item].value
+                        name=item
+                        id=item + 'ID-' + idGen
+                        data-rule-required= "false"
+                        data-msg-required=langTmpl[item].errMessage
+                        ) 
+                    label.MMM--blockLabel.MMM--checkboxLabel.MMM--txt_md_4(
+                        style="display: inline; margin-left: 10px;"
+                        for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                
+
+        when 'selDist'
+            if (changedFieldTypes.selDist === 'text')
+                li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+                    label.MMM--blockLabel(
+                        for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                    input.MMM--textInput.MMM--defaultFields(
+                        id=item + 'ID-' + idGen
+                        type='text'
+                        name=item
+                        data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
+                        data-msg-required=langTmpl[item].errMessage
+                        data-lookup=""
+                        aria-required="true")
+            else
+                li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+                        label.MMM--blockLabel(
+                            for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                        select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                            id=item + 'ID-' + idGen
+                            name=item
+                            data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
+                            data-msg-required=langTmpl[item].errMessage
+                            data-lookup=""
+                            aria-required="true")  
+                                option(
+                                    value="" disabled="disabled" selected="selected"
+                                )=langTmpl.defaultSelect                    
+                                each opt in langTmpl[item].options
+                                    include select\select__option.pug
+                  
+                            
+
+        when 'custEnq'
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+                label.MMM--blockLabel(
+                    for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
                     id=item + 'ID-' + idGen
+                    type='textarea'                    
+                    name=item
                     data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                     data-msg-required=langTmpl[item].errMessage
-                    ) 
-                label.MMM--blockLabel.MMM--checkboxLabel.MMM--txt_md_4(
-                    style="display: inline; margin-left: 10px;"
-                    for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                    data-lookup=""
+                    aria-required="true")=''
 
-        when 'salesRequest1'
+        when 'sample'
             li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(
                     for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
@@ -250,41 +314,10 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                         )=langTmpl.defaultSelect                    
                         each opt in langTmpl[item].options
                             include select\select__option.pug
-
-        when 'selDist'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
-                label.MMM--blockLabel(
-                    for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
-                select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                    id=item + 'ID-' + idGen
-                    name=item
-                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
-                    data-msg-required=langTmpl[item].errMessage
-                    data-lookup=""
-                    aria-required="true")  
-                        option(
-                            value="" disabled="disabled" selected="selected"
-                        )=langTmpl.defaultSelect                    
-                        each opt in langTmpl[item].options
-                            include select\select__option.pug  
-                            
-
-        when 'custEnq'
-            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
-                label.MMM--blockLabel(
-                    for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
-                textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
-                    id=item + 'ID-' + idGen
-                    type='textarea'                    
-                    name=item
-                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
-                    data-msg-required=langTmpl[item].errMessage
-                    data-lookup=""
-                    aria-required="true")=''
                     
         default 
             include ./_item-custom.pug 
 
         
 
-+form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum)
++form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes)

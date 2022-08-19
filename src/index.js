@@ -39,6 +39,7 @@ export class FormComponent {
     removedFields = [];
     removedClasses = [];
     updatedTexts = []; 
+    rewritedParametersFromURL = {};    
 
     arrayOfCheckboxesGroup = [];
 
@@ -47,9 +48,7 @@ export class FormComponent {
     fieldsTmpl;             // will be feeded by a a relevant 'fields data template'
     static instance = 0;    // is used for generating a unique ID of every Form Instance on LP
 
-    selectedItems = {       // Is used to preselect any option in <select>
-        country: this._identifyLocale('country')
-    };
+    selectedItems = {};       // Is used to preselect any option in <select>
 
     settings = {        // Set of parameters of the <form> tag
         vendor: 'elq-jsp', // Possible vendors: 'elq', 'elq-jsp', 'elq-direct', 'elq-psd', '3M', 'pdot'
@@ -57,23 +56,30 @@ export class FormComponent {
         get countryCode () {return this._identifyLocale('countryCode')},
         leadGenType: 'CA',
         _busPhone: false, // do not change manually
-
+        changedFieldTypes: {},
+        salesRequestFieldType: '', // Possible values: 'checkbox' (default) OR 'select'
+        selDistFieldType: '', // Possible values: 'select' (default) OR 'text'
     };
-
-
 
     /**
      * @param {string} name - HTML name of the form
      */
 
     constructor(name) {
-        this.name = name;
-        this.el = document.querySelector(`[name="${name}"]`);
-        this.elId = name;
+
+        this.el = document.querySelector(`[name="${name}"]`);        
+
+        // in case if url parameter(s) is(are) matching with:
+        // formName, sFDCLastCampaignID, lang, country, relevant fields will be overwritten/defined
+        
+        this.rewriteFromURL(name);
+
+
+        this.elId = this.name;                
 
         this.hiddenFields = {        // Set of hidden fields of the form
 
-            elqFormName: name,
+            elqFormName: this.name,
             elqSiteId: "837031577",
             elqCampaignId: "",
             traditionalMarketingOptIn: "",
@@ -89,17 +95,72 @@ export class FormComponent {
             language1: this._identifyLocale('language'),
             division1: getDivision(this.name),
             eloquaFormURL: "",
-            FormType: ifMQLformType(this.name) ? ifMQLformType(this.name) : '',
+            formType: ifMQLformType(this.name) ? ifMQLformType(this.name) : '',
             SMPVersion: ""
         };
 
+        if (this.hiddenFields.formType === 'SAM') {
+           this.settings.leadGenType = 'Basic';
+        }
+
+        this._identifyLocale("country");
 
         this.constructor.instance++;
+        this.prioritizedDomReadyKey = '__prioritizedScripts__' + this.constructor.instance;
+
+        this.initDomReadyPrioritized();
 
 
         //Using a variable from mmmSettings (do not use in normal usage, only in case of unexpected behaviour due to some internal changes in work of 3M platform)
         //this._addIn3MpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
     }
+
+    rewriteFromURL (name) {
+
+        const urlAddress = new URL(location.href);
+
+        const urlformName = urlAddress.searchParams.get('formName');
+        if (urlformName !== null) {
+            this.name = urlformName;
+        } else {
+            this.name = name;
+        }
+
+        const urlLang = urlAddress.searchParams.get('lang');
+        if (urlLang !== null) {
+            this.rewritedParametersFromURL.lang = urlLang;
+        }
+
+        const urlCountry = urlAddress.searchParams.get('country');
+        if (urlCountry !== null) {            
+            this.rewritedParametersFromURL.country = urlCountry;            
+        }
+
+        const urlsFDCLastCampaignID = urlAddress.searchParams.get('sFDCLastCampaignID');
+        if (urlsFDCLastCampaignID !== null) {
+            this.rewritedParametersFromURL.sFDCLastCampaignID = urlsFDCLastCampaignID;
+        } else {
+            this.rewritedParametersFromURL.sFDCLastCampaignID = "";
+        }
+        
+    }
+
+    initDomReadyPrioritized () {        
+        domReady[this.prioritizedDomReadyKey] = () => {};
+    }
+
+    setDomReadyPrioritize(func) {
+      
+        const current = domReady[this.prioritizedDomReadyKey];
+        const result = func();
+     
+        domReady[this.prioritizedDomReadyKey] = () => {
+            current();
+            result();         
+          
+           
+        }
+      }
 
     _identifyLocale(par) {
 
@@ -107,13 +168,40 @@ export class FormComponent {
         const val = document.getElementsByTagName('meta')[name].getAttribute("content");
 
         if (par === 'country') {
-            return getCountry(val.slice(val.indexOf('_') + 1));
+
+            const countryCode = this.rewritedParametersFromURL.country;
+   
+            const country = getCountry(countryCode);
+            
+            if ((countryCode !== undefined) && (country !== undefined)) {
+                this.selectedItems.country = country;
+                
+                return country;
+            }
+
+            const computedCountry = getCountry(val.slice(val.indexOf('_') + 1));
+            this.selectedItems.country = computedCountry;
+            return computedCountry;
 
         }
         if (par === 'language') {
+
+            const lang = getLanguage(this.rewritedParametersFromURL.lang);
+            
+            if (this.rewritedParametersFromURL.hasOwnProperty('lang') && (lang !== undefined)) {                  
+                return getLanguage(this.rewritedParametersFromURL.lang);
+            }
+            
             return getLanguage(val.slice(0, val.indexOf('_')));
         }
         if (par === 'countryCode') {
+
+            const countryCode = this.rewritedParametersFromURL.country;
+            
+            if ((countryCode !== undefined) && (getCountry(countryCode) !== undefined)) {
+                return countryCode;
+            }
+
             return val.slice(val.lastIndexOf('_') + 1).toLocaleLowerCase();
 
         }
@@ -337,6 +425,28 @@ export class FormComponent {
 
     }
 
+    /**
+     * 
+     * @param {Object} source 
+     * @param {Array} namesToRemove 
+     */
+
+
+    _removeNames (source, namesToRemove) {
+        if (source) {
+            for (let key of Object.keys(source)) {
+              
+                for (let name of namesToRemove) {
+                    if (source[key].includes(name)) {
+                        let index = source[key].indexOf(name);                
+                        source[key].splice(index, 1);                      
+                    }
+                }
+                
+            }
+        }
+       }
+
    
 
     /**
@@ -344,6 +454,19 @@ export class FormComponent {
      */
 
     _mergeFieldsets() {
+
+        const formTypeSpecifics = Object.assign({}, this.fieldsTmpl.formTypeSpecifics, this.formTypeSpecifics);        
+        delete formTypeSpecifics[this.hiddenFields.formType];
+
+        let namesToRemove = [];
+
+        for (let val of Object.values(formTypeSpecifics)) {
+            namesToRemove = namesToRemove.concat(val);
+        }
+
+        this._removeNames (this.fieldsets, namesToRemove);
+        this._removeNames (this.fieldsTmpl.fieldsets, namesToRemove);  
+
 
         for (let [key, val] of Object.entries(this.fieldsets)) {
 
@@ -360,6 +483,7 @@ export class FormComponent {
 
 
         this.fieldsTmpl.fieldsets = new Map(Object.entries(this.fieldsTmpl.fieldsets));
+        
 
         for (let arr of this.changedOrder) {
             this._makeNewOrder(arr, null);
@@ -419,6 +543,7 @@ export class FormComponent {
     }
 
     _removeFields() {
+       
         for (let field of this.removedFields) {
             const fieldsetID = this._getFieldsetID(field);
             const index = this._getIndexByName(field, fieldsetID);
@@ -444,6 +569,7 @@ export class FormComponent {
        
         for (let objName of arr) {
             if (objName === 'addedClasses') {
+                if (!this.fieldsTmpl[objName]) {this.fieldsTmpl[objName] = {}};
                 let arr = Array.from(new Set([...Object.keys(this.fieldsTmpl[objName]), ...Object.keys(this[objName])]));
                 for (let key of arr) {                
                 this.fieldsTmpl[objName][key] = (this.fieldsTmpl[objName].hasOwnProperty(key) ? this.fieldsTmpl[objName][key] + " " : ' ') + (this[objName].hasOwnProperty(key) ? this[objName][key] + " " : ' ');               
@@ -786,18 +912,46 @@ export class FormComponent {
     
 
     /**
-     * 
+     * addDependency(data) - Shows/hides fieldset depending on a made choice in checkbox or 
+     * select field ('Yes' AND 'on' are default values)
      * @param {Object} data 
-     * mandatory, condition, fieldset, firstOptional, triggerName, optionValue
+     * 
+     * @param {Array} data.mandatory - Array of HTML names of the fields, which 
+     * should be mandatory in case if trigger-event happends     * 
+     * @param {string} data.fieldset - ID of the dependable element (fieldset)
+     * @param {Array} data.firstOptional - HTML names of the fields, which should be optional first, and mandatory after
+     * the event has been triggered
+     * @param {string} data.triggerName - HTML name of the field, which should trigger an event (select or checkbox)
+     * @param {string, Array} data.optionValue - optional, just value(s) for a select field, which should trigger an event ('Yes' AND 'on' are default values)
+     * @param {Function} data.condition - optional, just for adding additional conditions (default one was being set up automatically).
+     * data.condition is a Function, which should return Boolean
      */
 
+
     addDependency(data) {
+
+        let optValues = [];
+
+        if (typeof data.optionValue === 'string') {
+            optValues.push(data.optionValue);
+        }
+
+        if (Array.isArray(data.optionValue)) {
+            optValues = data.optionValue.slice();
+        }
+        
+        if (typeof data.optionValue === 'undefined') {
+            optValues = ['Yes', 'on'];
+        }
         
         let condition = data.condition ? data.condition :  
+        
             function () {
-                return ($(`[name="${data.triggerName}"]`).is(':checked') || 
-                    ($(`[name="${data.triggerName}"]`).val() === data.optionValue))
-            };
+                
+                return ($(`[name="${data.triggerName}"]`).is(':checked') || (($(`[name="${data.triggerName}"]`).prop("tagName") === 'SELECT') &&
+                    (optValues.includes($(`[name="${data.triggerName}"]`).val()))));
+                    
+            }
 
             let mandatory = [];
 
@@ -816,7 +970,7 @@ export class FormComponent {
          
             let displayAPI = (display) => {      
 
-                display.dependIdFromName (data.triggerName, data.fieldset, data.optionValue = '');
+                display.dependIdFromName (data.triggerName, data.fieldset, optValues);
 
                 let firstOptional = [];
               
@@ -860,18 +1014,33 @@ export class FormComponent {
          */
         
 
-        showOther (fName1, fName2, opt="Other", condition = () => {return false}) {
-           
+        showOther (fName1, fName2, opt, condition = () => {return false}) {
+
+            let optValues = [];
+
+              if (typeof opt === 'string') {
+                optValues.push(opt);
+              }
+      
+              if (Array.isArray(opt)) {
+                  optValues = val.slice();
+              }  
+              
+              if (typeof opt === 'undefined') {
+                    optValues.push('Other');
+              }
+
+          
             let displayAPI = (display) => {
-                display.showOther(fName1, fName2);
+                display.showOther(fName1, fName2, optValues);
             }
 
             if (this._staticValidationRulesCombine(fName2)) {    
     
                 condition = function () {                                          
-                    return ($(`[name="${fName1}"]`).is(':checked') || ($(`[name="${fName1}"]`).val() === opt));                     
+                    return ($(`[name="${fName1}"]`).is(':checked') || 
+                        ($(`[name="${fName1}"]`).prop("tagName") === 'SELECT' && (optValues.includes($(`[name="${fName1}"]`).val()))));                     
                 };
-                
                    
             }   
             
@@ -886,6 +1055,7 @@ export class FormComponent {
             this.displayRules  = displayAPI;
             this.validationRules  = validationAPI;
           }
+      
 
           /**
            * 
@@ -972,7 +1142,7 @@ export class FormComponent {
             resolve();
         }
 
-        if (this.hiddenFields.FormType != '') {
+        if (this.hiddenFields.formType != '') {
             if (typeof (__globScopeSMPtemplate__) === 'undefined') {
                 initFields = new Promise((resolve) => {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
@@ -1054,8 +1224,8 @@ export class FormComponent {
 
             
 
-                this.displayRules;
-                this.validationRules;
+                this.displayRules;   // pulled from LP
+                this.validationRules;   // pulled from LP
                 
            
 
@@ -1090,7 +1260,6 @@ export class FormComponent {
     _formRender() {
 
         this.division_cropped = this.hiddenFields.division1.slice(0, this.hiddenFields.division1.indexOf(' '));
-
         this.hiddenFields.SMPVersion = this.fieldsTmpl.SMPVersion;
 
         //Merging data from templates with what was provided on LP customly
@@ -1108,6 +1277,16 @@ export class FormComponent {
             this.settings._busPhone = true;
         }
 
+        if ((this.fieldsTmpl.salesRequestFieldType === 'select') && this.settings.changedFieldTypes.salesRequest !== 'checkbox') {
+            this.settings.changedFieldTypes.salesRequest = 'select';            
+        } 
+
+        if ((this.fieldsTmpl.selDistFieldType === 'text') && this.settings.changedFieldTypes.selDist !== 'select') {
+            this.settings.changedFieldTypes.selDist = 'text';            
+        } 
+
+
+
         const form = new FormAssetsCreator({
             el: this.el,
             hiddenFields: this.hiddenFields,
@@ -1119,11 +1298,18 @@ export class FormComponent {
             selectedItems: this.selectedItems,
             customFormClasses: this.customFormClasses,
         });
-      
-        form._busPhoneSettings(this._identifyLocale('countryCode'));
+
+        
+        this.setDomReadyPrioritize(() => {return form._busPhoneSettings.bind(form, this._identifyLocale('countryCode'))});
+
 
         form.render();
+        
+    }
 
+
+    changeFieldType(fieldName, newType) {
+        this.settings.changedFieldTypes[fieldName] = newType;
     }
 
     //Using a variable from mmmSettings (this can be a fast workaround in case of any issues with the correct order of scripts loading)
@@ -1131,7 +1317,7 @@ export class FormComponent {
         if (priorityModules) {
 
             priorityModules.push(langTmpl_link);
-            if (this.hiddenFields.FormType != '') {
+            if (this.hiddenFields.formType != '') {
                 priorityModules.push(smpTmpl_link);
             } else {
                 priorityModules.push(baseTmpl_link);

@@ -708,7 +708,25 @@ __globScopeLanguageTemplate__ = {
         errMessage: "Select a state"
     },
 
-    //Specific fields for Division / SMP
+    sample: {
+        type: "select",
+        label: "Select a product sample",
+        errMessage: "Choose a sample",
+        options: [
+            // [Backend value, Frontend value]   
+            ['First', 'First'],
+            ['Second', 'Second'],
+            ['Third', 'Third'],               
+        ]
+    },
+
+    /** 
+     * Specific fields for Division / SMP below
+     * 1) EMSD
+     * 2) ASD
+    */
+
+    // 1) Specific fields for EMSD only
 
     EMSD: {
         appHeader: {
@@ -800,6 +818,7 @@ __globScopeLanguageTemplate__ = {
             label: "Company Type",
             errMessage: "Please select one",
             options: [
+                // [Backend value, Frontend value]   
                 ['VAR', 'Converter/VAR'],
                 ['Consultancy', 'Consultancy'],
                 ['Channel Partner /\ Distributor', 'Distributor/Channel partner'],
@@ -822,6 +841,42 @@ __globScopeLanguageTemplate__ = {
             label: "Other Job role",
             errMessage: "Enter your job role"
         },
+    },
+
+    // 2) Specific fields for ASD only
+
+    ASD: {
+        processImprovement: {
+            type: "select",
+            label: "What would you most like to improve about your abrasive processes?",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['Process speed', 'Process speed'],
+                ['Safety hazard mitigation', 'Safety hazard mitigation'],
+                ['Surface finishing consistency', 'Surface finishing consistency'],
+                ['Abrasive durability', 'Abrasive durability'],
+            ]
+        },
+        
+        NumberofOperators: {
+            type: "select",
+            label: "Number of Abrasive Operators",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['0-1', '0-1'],
+                ['2-5', '2-5'],
+                ['6-11', '6-11'],
+                ['11+', '11+'],
+            ]
+        },
+
+        optInHeader: {
+            type: "header",
+            label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
+        },
+        
     }
 }
 
