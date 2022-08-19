@@ -86,6 +86,32 @@ optionsForFilter: {
     },
 ```
 
+:red_circle: `salesRequestFieldType` 
+
++ By default type of 'salesRequest' field is checkbox. It can be changed to SELECT type if needed:
+
+**Example:**
+
+```javascript
+salesRequestFieldType: 'select',
+```
+
+:red_circle: `formTypeSpecifics` 
+
++ Reflect the differences for fields to show depending on a Form Type:
+
+**Example:**
+
+```javascript
+   formTypeSpecifics: {
+            // FormType Short name | Array of html names to be shown only for the particular form type
+            SAM: ['sample', 'selDist', 'address1'],
+            DEM: ['custEnq'],
+            ASK: ['custEnq'],
+            CON: ['custEnq'],
+            LAR: ['custEnq'],
+        },
+
 :red_circle: `displayValidationRules` 
 
 + This is responsible for setting up custom Displaying & Validation Rules (setting up dependencies). Just use relevant methods inside (described in main Readme file). 
