@@ -111,6 +111,7 @@ salesRequestFieldType: 'select',
             CON: ['custEnq'],
             LAR: ['custEnq'],
         },
+```
 
 :red_circle: `displayValidationRules` 
 
