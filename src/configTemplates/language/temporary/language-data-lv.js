@@ -428,8 +428,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Izvēlētais izplatītājs",
+        errMessage: "Atlasiet izplatītāju",
         options: [
                 // [Backend value, Frontend value]    
                 ["Option 1", "Option 1"],

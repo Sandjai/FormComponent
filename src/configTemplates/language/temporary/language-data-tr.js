@@ -428,8 +428,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Seçilen Distribütör",
+        errMessage: "Bir Distribütör seçin",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
@@ -848,17 +848,17 @@ __globScopeLanguageTemplate__ = {
     ASD: {
         processImprovement: {
             type: "select",
-            label: "What would you most like to improve about your abrasive processes?",
-            errMessage: "Please select one",
+            label: "Aşındırıcı işlemlerinizle ilgili en çok neyi geliştirmek istersiniz?",
+            errMessage: "Bir değer seçin",
             options: [
                 // [Backend value, Frontend value]   
-                ['Process speed', 'Process speed'],
-                ['Safety hazard mitigation', 'Safety hazard mitigation'],
-                ['Surface finishing consistency', 'Surface finishing consistency'],
-                ['Abrasive durability', 'Abrasive durability'],
+                ['Process speed', 'Proses hızı'],
+                ['Safety hazard mitigation', 'Güvenlik tehlikelerinin azaltılması'],
+                ['Surface finishing consistency', 'Yüzey finisaj tutarlılığı'],
+                ['Abrasive durability', 'Aşındırıcı dayanıklılığı"'],
             ]
         },
-        
+
         NumberofOperators: {
             type: "select",
             label: "Aşındırıcı Kullanıcılarının Sayısı",

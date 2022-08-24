@@ -851,14 +851,14 @@ __globScopeLanguageTemplate__ = {
     ASD: {
         processImprovement: {
             type: "select",
-            label: "What would you most like to improve about your abrasive processes?",
+            label: "Cosa vorresti migliorare maggiormente dei tuoi processi abrasivi?",
             errMessage: "Seleziona un valore",
             options: [
                 // [Backend value, Frontend value]   
-                ['Process speed', 'Process speed'],
-                ['Safety hazard mitigation', 'Safety hazard mitigation'],
-                ['Surface finishing consistency', 'Surface finishing consistency'],
-                ['Abrasive durability', 'Abrasive durability'],
+                ['Process speed', 'Velocità di processo'],
+                ['Safety hazard mitigation', 'Riduzione dei rischi di sicurezza'],
+                ['Surface finishing consistency', 'Omogeneità della finitura superficiale'],
+                ['Abrasive durability', 'Durata dell\'abrasivo'],
             ]
         },
         

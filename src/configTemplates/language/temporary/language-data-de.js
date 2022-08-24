@@ -430,8 +430,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Ausgewählter Händler",
+        errMessage: "Händler auswählen",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
@@ -850,14 +850,14 @@ __globScopeLanguageTemplate__ = {
     ASD: {
         processImprovement: {
             type: "select",
-            label: "What would you most like to improve about your abrasive processes?",
+            label: "Was würden Sie bei Ihren Schleifprozessen am liebsten verbessern?",
             errMessage: "Bitte wählen Sie eine Option.",
             options: [
                 // [Backend value, Frontend value]   
-                ['Process speed', 'Process speed'],
-                ['Safety hazard mitigation', 'Safety hazard mitigation'],
-                ['Surface finishing consistency', 'Surface finishing consistency'],
-                ['Abrasive durability', 'Abrasive durability'],
+                ['Process speed', 'Prozessgeschwindigkeit'],
+                ['Safety hazard mitigation', 'Entschärfung von Sicherheitsgefährdungen'],
+                ['Surface finishing consistency', 'Konsistenz der Oberflächengüte'],
+                ['Abrasive durability', 'Haltbarkeit der Schleifmittel'],
             ]
         },
         

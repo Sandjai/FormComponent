@@ -120,7 +120,7 @@ leadGenType_Basic: {
             form1.showOther ('app13','EMSD_app_purp_other');
             form1.showOther ('mmmJobRole1', 'EMSD_jr_other');
     
-            form1.checkboxesGroups ('app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13');
+            form1.checkboxesGroup ('app1 app2 app3 app4 app5 app6 app7 app8 app9 app10 app11 app12 app13');
     
             let schemeForIndustry = new Map([
                       
@@ -147,6 +147,8 @@ leadGenType_Basic: {
     
         
          },
-    }
+    },
+
+    
 
 }

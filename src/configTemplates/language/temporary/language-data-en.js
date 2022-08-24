@@ -402,9 +402,9 @@ __globScopeLanguageTemplate__ = {
                 ["Industrial-Woodworking", "Woodworking"],
                 ["Other", "Other"],
             ],
-            EMSD: {
-                label: "Industry/ Market Segment",
-            },
+        EMSD: {
+            label: "Industry/ Market Segment",
+        },
 
 
     },
@@ -427,7 +427,7 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
+        label: "Preferred distributor",
         errMessage: "Specify a distributor",
         options: [
             // [Backend value, Frontend value]    

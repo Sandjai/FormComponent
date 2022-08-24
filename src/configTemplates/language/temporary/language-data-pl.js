@@ -430,8 +430,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Wybierz dystrybutora",
+        errMessage: "Wybrany dystrybutor",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
@@ -850,17 +850,17 @@ __globScopeLanguageTemplate__ = {
     ASD: {
         processImprovement: {
             type: "select",
-            label: "What would you most like to improve about your abrasive processes?",
+            label: "Co najbardziej chciałbyś ulepszyć w aktualnych procesach ściernych?",
             errMessage: "Wybierz wartość",
             options: [
                 // [Backend value, Frontend value]   
-                ['Process speed', 'Process speed'],
-                ['Safety hazard mitigation', 'Safety hazard mitigation'],
-                ['Surface finishing consistency', 'Surface finishing consistency'],
-                ['Abrasive durability', 'Abrasive durability'],
+                ['Process speed', 'Szybkość procesu'],
+                ['Safety hazard mitigation', 'Łagodzenie zagrożeń związanych z bezpieczeństwem'],
+                ['Surface finishing consistency', 'Jednolitość wykończenia powierzchni'],
+                ['Abrasive durability', 'Trwałość materiału ściernego'],
             ]
         },
-        
+
         NumberofOperators: {
             type: "select",
             label: "Liczba Operatorów używających materiałów ściernych",

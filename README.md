@@ -166,7 +166,7 @@ Removes a field from the form
 /**
     * @param {string} name - HTML name of the form
 */
-removeField(name)
+removeField(name);
 ```
 **Example:**
 ```javascript

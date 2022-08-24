@@ -222,7 +222,20 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                             include select\select__option.pug                        
 
         when 'salesRequest'
-            if (changedFieldTypes.salesRequest === 'select')
+            if (!changedFieldTypes.salesRequest)
+                li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px')
+                    input(
+                        type='checkbox'
+                        value=langTmpl[item].value
+                        name=item
+                        id=item + 'ID-' + idGen
+                        data-rule-required= "false"
+                        data-msg-required=langTmpl[item].errMessage
+                        ) 
+                    label.MMM--blockLabel.MMM--checkboxLabel.MMM--txt_md_4(
+                        style="display: inline; margin-left: 10px;"
+                        for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label                                
+            else 
                 li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px; max-width:767px')        
                     label.MMM--blockLabel(
                         for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
@@ -237,24 +250,11 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                                 value="" disabled="disabled" selected="selected"
                             )=langTmpl.defaultSelect                    
                             each opt in langTmpl[item].options
-                                include select\select__option.pug                
-            else 
-                li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px')
-                    input(
-                        type='checkbox'
-                        value=langTmpl[item].value
-                        name=item
-                        id=item + 'ID-' + idGen
-                        data-rule-required= "false"
-                        data-msg-required=langTmpl[item].errMessage
-                        ) 
-                    label.MMM--blockLabel.MMM--checkboxLabel.MMM--txt_md_4(
-                        style="display: inline; margin-left: 10px;"
-                        for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                                include select\select__option.pug      
                 
 
         when 'selDist'
-            if (changedFieldTypes.selDist === 'text')
+            if (!changedFieldTypes.selDist)
                 li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                     label.MMM--blockLabel(
                         for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
@@ -265,25 +265,23 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                         data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
                         data-msg-required=langTmpl[item].errMessage
                         data-lookup=""
-                        aria-required="true")
+                        aria-required="true")               
             else
                 li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
-                        label.MMM--blockLabel(
-                            for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
-                        select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                            id=item + 'ID-' + idGen
-                            name=item
-                            data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
-                            data-msg-required=langTmpl[item].errMessage
-                            data-lookup=""
-                            aria-required="true")  
-                                option(
-                                    value="" disabled="disabled" selected="selected"
-                                )=langTmpl.defaultSelect                    
-                                each opt in langTmpl[item].options
-                                    include select\select__option.pug
-                  
-                            
+                    label.MMM--blockLabel(
+                        for=item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                    select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                        id=item + 'ID-' + idGen
+                        name=item
+                        data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
+                        data-msg-required=langTmpl[item].errMessage
+                        data-lookup=""
+                        aria-required="true")  
+                            option(
+                                value="" disabled="disabled" selected="selected"
+                            )=langTmpl.defaultSelect                    
+                            each opt in langTmpl[item].options
+                                include select\select__option.pug                           
 
         when 'custEnq'
             li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        

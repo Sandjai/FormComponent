@@ -57,8 +57,6 @@ export class FormComponent {
         leadGenType: 'CA',
         _busPhone: false, // do not change manually
         changedFieldTypes: {},
-        salesRequestFieldType: '', // Possible values: 'checkbox' (default) OR 'select'
-        selDistFieldType: '', // Possible values: 'select' (default) OR 'text'
     };
 
     /**
@@ -128,12 +126,12 @@ export class FormComponent {
 
         const urlLang = urlAddress.searchParams.get('lang');
         if (urlLang !== null) {
-            this.rewritedParametersFromURL.lang = urlLang;
+            this.rewritedParametersFromURL.lang = urlLang.toLowerCase();           
         }
 
         const urlCountry = urlAddress.searchParams.get('country');
         if (urlCountry !== null) {            
-            this.rewritedParametersFromURL.country = urlCountry;            
+            this.rewritedParametersFromURL.country = urlCountry.toUpperCase();            
         }
 
         const urlsFDCLastCampaignID = urlAddress.searchParams.get('sFDCLastCampaignID');
@@ -501,6 +499,10 @@ export class FormComponent {
 
         const fieldsetID = this._getFieldsetID(startItem);
 
+        if (fieldsetID === undefined) {
+            return;
+        }
+
         arr.pop();
         let filteredArr = this.fieldsTmpl.fieldsets.get(fieldsetID).filter((item) => {
             return !arr.includes(item);
@@ -546,6 +548,9 @@ export class FormComponent {
        
         for (let field of this.removedFields) {
             const fieldsetID = this._getFieldsetID(field);
+            if (fieldsetID === undefined) {
+                return;
+            }
             const index = this._getIndexByName(field, fieldsetID);
 
          
@@ -906,6 +911,10 @@ export class FormComponent {
      };
 
      this.validationRules  = validationAPI;
+    }
+
+    checkboxesGroups (names, data = {}) {        
+        this.checkboxesGroup (names, data = {});
     }
      
 
@@ -1277,14 +1286,23 @@ export class FormComponent {
             this.settings._busPhone = true;
         }
 
-        if ((this.fieldsTmpl.salesRequestFieldType === 'select') && this.settings.changedFieldTypes.salesRequest !== 'checkbox') {
-            this.settings.changedFieldTypes.salesRequest = 'select';            
-        } 
+        if ((this.fieldsTmpl.salesRequestFieldType !== undefined) && 
+            (this.fieldsTmpl.salesRequestFieldType.toLowerCase() === 'select')) {
+            if (!this.settings.changedFieldTypes.salesRequest) {
+                this.settings.changedFieldTypes.salesRequest = true;
+            } else {                
+                this.settings.changedFieldTypes.salesRequest = false;
+            }
+        }
 
-        if ((this.fieldsTmpl.selDistFieldType === 'text') && this.settings.changedFieldTypes.selDist !== 'select') {
-            this.settings.changedFieldTypes.selDist = 'text';            
-        } 
-
+        if ((this.fieldsTmpl.selDistFieldType !== undefined) && 
+            (this.fieldsTmpl.selDistFieldType.toLowerCase() === 'select')) {
+            if (!this.settings.changedFieldTypes.selDist) {
+                this.settings.changedFieldTypes.selDist = true;
+            } else {
+                this.settings.changedFieldTypes.selDist = false;
+            }
+        }         
 
 
         const form = new FormAssetsCreator({
@@ -1308,8 +1326,8 @@ export class FormComponent {
     }
 
 
-    changeFieldType(fieldName, newType) {
-        this.settings.changedFieldTypes[fieldName] = newType;
+    changeFieldType(fieldName) {        
+        this.settings.changedFieldTypes[fieldName] = true;         
     }
 
     //Using a variable from mmmSettings (this can be a fast workaround in case of any issues with the correct order of scripts loading)

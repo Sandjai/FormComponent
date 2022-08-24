@@ -429,8 +429,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Kiválasztott forgalmazó",
+        errMessage: "Válasszon egy forgalmazót",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],

@@ -216,6 +216,7 @@ In case if we need to have different texts for the default fields within differe
 #### Template of Fields:
 
 - EMSD: 'https://images.engage.3m.com/Web/3MCompanyGlobal/%7Bb8c535bc-4579-47b4-a485-ce507735b8ae%7D_smp-emsd-data.js',
+- ASD: 'https://images.engage.3m.com/Web/3MCompanyGlobal/%7b2204e807-b1fc-48f9-9125-6ef8b6e975ae%7d_smp-asd-data.js'
 
 #### Language templates:
 

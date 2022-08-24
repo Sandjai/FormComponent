@@ -421,8 +421,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Distributeur sélectionné",
+        errMessage: "Sélectionnez un distributeur",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
@@ -843,14 +843,14 @@ __globScopeLanguageTemplate__ = {
     ASD: {
         processImprovement: {
             type: "select",
-            label: "What would you most like to improve about your abrasive processes?",
+            label: "Que souhaiteriez-vous améliorer en priorité dans vos processus abrasifs ?",
             errMessage: "Sélectionnez une valeur",
             options: [
                 // [Backend value, Frontend value]   
-                ['Process speed', 'Process speed'],
-                ['Safety hazard mitigation', 'Safety hazard mitigation'],
-                ['Surface finishing consistency', 'Surface finishing consistency'],
-                ['Abrasive durability', 'Abrasive durability'],
+                ['Process speed', 'Vitesse des processus'],
+                ['Safety hazard mitigation', 'Atténuation des risques pour la sécurité'],
+                ['Surface finishing consistency', 'Homogénéité de la finition de surface'],
+                ['Abrasive durability', 'Durabilité abrasive'],
             ]
         },
         

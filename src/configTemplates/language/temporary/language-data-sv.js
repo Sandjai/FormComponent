@@ -430,8 +430,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Vald återförsäljare",
+        errMessage: "Välj en återförsäljare",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
@@ -850,14 +850,14 @@ __globScopeLanguageTemplate__ = {
     ASD: {
         processImprovement: {
             type: "select",
-            label: "What would you most like to improve about your abrasive processes?",
+            label: "Vad skulle du helst vilja förbättra med dina slipprocesser?",
             errMessage: "Välj ett värde",
             options: [
                 // [Backend value, Frontend value]   
-                ['Process speed', 'Process speed'],
-                ['Safety hazard mitigation', 'Safety hazard mitigation'],
-                ['Surface finishing consistency', 'Surface finishing consistency'],
-                ['Abrasive durability', 'Abrasive durability'],
+                ['Process speed', 'Processhastighet'],
+                ['Safety hazard mitigation', 'Minskning av säkerhetsrisker'],
+                ['Surface finishing consistency', 'Enhetlig ytfinish'],
+                ['Abrasive durability', 'Slipmaterialets livslängd'],
             ]
         },
         

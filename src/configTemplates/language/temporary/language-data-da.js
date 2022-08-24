@@ -427,8 +427,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Valgt forhandler",
+        errMessage: "Vælg en forhandler",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
