@@ -899,11 +899,10 @@ __globScopeLanguageTemplate__ = {
             label: "Company Type",
             errMessage: "Please select one",
             options: [
-                // [Backend value, Frontend value]   
-                ['Professional', 'Professional'],
-                ['End-user', 'End-user'],
-                ['Distributor', 'Distributor'],
-                ['Consumer', 'Private Consumer'],
+                // [Backend value, Frontend value]
+                ['End User', 'Manufacturing Company or Tier'],
+                ['Distributor', 'Distributor/Converter'],
+                ['Consumer', 'Personal Consumer'],
             ]
         },
 
