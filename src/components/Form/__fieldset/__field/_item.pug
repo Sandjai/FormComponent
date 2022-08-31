@@ -101,6 +101,19 @@ mixin form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGe
                     data-lookup="C_Zip_Postal"
                     aria-required="true")  
 
+        when 'mobilePhone'
+            li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
+                label.MMM--blockLabel(
+                    for=(busPhoneNum === 1) ? ( item + 'ID') : item + 'ID-' + idGen)=(divPath[div] != undefined) ? divPath[div].label : divPath.label
+                input.MMM--textInput.MMM--defaultFields(
+                    id=(busPhoneNum === 1) ? ( item + 'ID') : item + 'ID-' + idGen
+                    type='text'
+                    name=item
+                    data-rule-required= staticValidationRules[item] ? staticValidationRules[item] : "true"
+                    data-msg-required=langTmpl[item].errMessage
+                    data-lookup="C_MobilePhone"
+                    aria-required="true")
+
         when 'busPhone'
             li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none')        
                 label.MMM--blockLabel(

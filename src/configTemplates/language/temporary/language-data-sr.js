@@ -60,6 +60,11 @@ __globScopeLanguageTemplate__ = {
         errMessage: "Unesite broj telefona na poslu",
     },
 
+    mobilePhone: {
+        label: "Mobile Phone",
+        errMessage: "Enter your mobile phone"
+    },
+
     address1: {
         label: "Adresa",
         errMessage: "Unesite svoju adresu",
@@ -850,7 +855,7 @@ __globScopeLanguageTemplate__ = {
         processImprovement: {
             type: "select",
             label: "What would you most like to improve about your abrasive processes?",
-            errMessage: "Izaberite vrednost",
+            errMessage: "Please select one",
             options: [
                 // [Backend value, Frontend value]   
                 ['Process speed', 'Process speed'],
@@ -862,8 +867,8 @@ __globScopeLanguageTemplate__ = {
         
         NumberofOperators: {
             type: "select",
-            label: "Broj abrazivnih rukovalaca",
-            errMessage: "Izaberite vrednost",
+            label: "Number of Abrasive Operators",
+            errMessage: "Please select one",
             options: [
                 // [Backend value, Frontend value]   
                 ['0-1', '0-1'],
@@ -873,11 +878,95 @@ __globScopeLanguageTemplate__ = {
             ]
         },
 
+        
+        TMC_numberOfOperators: {
+            type: "select",
+            label: "Substrate",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['0-5', '0-5'],
+                ['6-20', '6-20'],
+                ['>20', '>20'],
+            ]           
+        },
+
+        TMC_comp_type: {
+            type: "select",
+            label: "Company Type",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['Professional', 'Professional'],
+                ['End-user', 'End-user'],
+                ['Distributor', 'Distributor'],
+                ['Consumer', 'Private Consumer'],
+            ]
+        },
+
+        TMC_proc_type: {
+            type: "select",
+            label: "Process Type",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['Manual', 'Manual'],
+                ['Robotic', 'Robotic'],
+                ['Other', 'Other'],                
+            ]
+        },
+
+        TMC_app_type: {
+            type: "select",
+            label: "Application Type",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
+                ['Deburring', 'Deburring'],
+                ['Sanding', 'Sanding'],                
+                ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
+                ['Coating/Spraying', 'Coating/Spraying'],
+                ['Masking/Protecting', 'Masking/Protecting'],
+                ['Bonding & Assembly', 'Bonding & Assembly'],
+                ['Safety Equipments', 'Safety Equipments'],
+                ['Other', 'Other'],
+            ]
+        },
+
+        TMC_substrate: {
+            type: "select",
+            label: "Substrate",
+            errMessage: "Please select one",
+            options: [
+                // [Backend value, Frontend value]   
+                ['Mild Steel', 'Mild Steel'],
+                ['Stainless Steel', 'Stainless Steel'],
+                ['Aluminium', 'Aluminium'],
+                ['Pastic & Composites', 'Pastic & Composites'],
+                ['Glass', 'Glass'],
+                ['Wood', 'Wood'],
+                ['Other', 'Other'],
+            ]
+        },        
+
+        TMC_state: {
+            type: "text",
+            label: "State",
+            errMessage: "Enter your State"
+        },
+
+        TMC_province: {
+            type: "text",
+            label: "Province",
+            errMessage: "Enter your Province"
+        },        
+
         optInHeader: {
             type: "header",
             label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
         },
         
-    }
-}
+    },
 
+}

@@ -60,6 +60,11 @@ __globScopeLanguageTemplate__ = {
         errMessage: "Gelieve uw telefoonnummer in te voeren",
     },
 
+    mobilePhone: {
+        label: "Mobile Phone",
+        errMessage: "Enter your mobile phone"
+    },
+
     address1: {
         label: "Adres",
         errMessage: "Gelieve uw adres in te voeren",
@@ -842,40 +847,124 @@ __globScopeLanguageTemplate__ = {
         },
     },
 
-    // 2) Specific fields for ASD only
+   // 2) Specific fields for ASD only
 
-    ASD: {
-        processImprovement: {
-            type: "select",
-            label: "Wat zou u het liefst willen verbeteren aan uw schuurprocessen?",
-            errMessage: "Selecteer de waarde",
-            options: [
-                // [Backend value, Frontend value]   
-                ['Process speed', 'Processnelheid'],
-                ['Safety hazard mitigation', 'Beperking van veiligheidsrisico\'s'],
-                ['Surface finishing consistency', 'Consistentie oppervlakfinish'],
-                ['Abrasive durability', 'Duurzaamheid van de schuurmaterialen'],
-            ]
-        },
-        
-        NumberofOperators: {
-            type: "select",
-            label: "Aantal gebruikers van schuurmateriaal",
-            errMessage: "Selecteer de waarde",
-            options: [
-                // [Backend value, Frontend value]   
-                ['0-1', '0-1'],
-                ['2-5', '2-5'],
-                ['6-11', '6-11'],
-                ['11+', '11+'],
-            ]
-        },
+   ASD: {
+    processImprovement: {
+        type: "select",
+        label: "What would you most like to improve about your abrasive processes?",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['Process speed', 'Process speed'],
+            ['Safety hazard mitigation', 'Safety hazard mitigation'],
+            ['Surface finishing consistency', 'Surface finishing consistency'],
+            ['Abrasive durability', 'Abrasive durability'],
+        ]
+    },
+    
+    NumberofOperators: {
+        type: "select",
+        label: "Number of Abrasive Operators",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['0-1', '0-1'],
+            ['2-5', '2-5'],
+            ['6-11', '6-11'],
+            ['11+', '11+'],
+        ]
+    },
 
-        optInHeader: {
-            type: "header",
-            label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
-        },
-        
-    }
+    
+    TMC_numberOfOperators: {
+        type: "select",
+        label: "Substrate",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['0-5', '0-5'],
+            ['6-20', '6-20'],
+            ['>20', '>20'],
+        ]           
+    },
+
+    TMC_comp_type: {
+        type: "select",
+        label: "Company Type",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['Professional', 'Professional'],
+            ['End-user', 'End-user'],
+            ['Distributor', 'Distributor'],
+            ['Consumer', 'Private Consumer'],
+        ]
+    },
+
+    TMC_proc_type: {
+        type: "select",
+        label: "Process Type",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['Manual', 'Manual'],
+            ['Robotic', 'Robotic'],
+            ['Other', 'Other'],                
+        ]
+    },
+
+    TMC_app_type: {
+        type: "select",
+        label: "Application Type",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
+            ['Deburring', 'Deburring'],
+            ['Sanding', 'Sanding'],                
+            ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
+            ['Coating/Spraying', 'Coating/Spraying'],
+            ['Masking/Protecting', 'Masking/Protecting'],
+            ['Bonding & Assembly', 'Bonding & Assembly'],
+            ['Safety Equipments', 'Safety Equipments'],
+            ['Other', 'Other'],
+        ]
+    },
+
+    TMC_substrate: {
+        type: "select",
+        label: "Substrate",
+        errMessage: "Please select one",
+        options: [
+            // [Backend value, Frontend value]   
+            ['Mild Steel', 'Mild Steel'],
+            ['Stainless Steel', 'Stainless Steel'],
+            ['Aluminium', 'Aluminium'],
+            ['Pastic & Composites', 'Pastic & Composites'],
+            ['Glass', 'Glass'],
+            ['Wood', 'Wood'],
+            ['Other', 'Other'],
+        ]
+    },        
+
+    TMC_state: {
+        type: "text",
+        label: "State",
+        errMessage: "Enter your State"
+    },
+
+    TMC_province: {
+        type: "text",
+        label: "Province",
+        errMessage: "Enter your Province"
+    },        
+
+    optInHeader: {
+        type: "header",
+        label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
+    },
+    
+},
+
 }
-
