@@ -91,7 +91,7 @@ export default function (country) {
         TW: "Taiwan",
         TT: "Trinidad and Tobago",
         UG: "Uganda",
-        UK: "Ukraine",
+        UA: "Ukraine",
         US: "United States",
         UY: "Uruguay",
         UZ: "Uzbekistan",

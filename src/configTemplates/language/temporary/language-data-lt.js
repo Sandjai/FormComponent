@@ -855,7 +855,7 @@ __globScopeLanguageTemplate__ = {
     processImprovement: {
         type: "select",
         label: "What would you most like to improve about your abrasive processes?",
-        errMessage: "Please select one",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]   
             ['Process speed', 'Process speed'],
@@ -867,8 +867,8 @@ __globScopeLanguageTemplate__ = {
     
     NumberofOperators: {
         type: "select",
-        label: "Number of Abrasive Operators",
-        errMessage: "Please select one",
+        label: "Su abrazyvais dirbančių operatorių skaičius",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]   
             ['0-1', '0-1'],
@@ -881,8 +881,8 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Substrate",
-        errMessage: "Please select one",
+        label: "Su abrazyvais dirbančių operatorių skaičius",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]   
             ['0-5', '0-5'],
@@ -894,7 +894,7 @@ __globScopeLanguageTemplate__ = {
     TMC_comp_type: {
         type: "select",
         label: "Company Type",
-        errMessage: "Please select one",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]
             ['End User', 'Manufacturing Company or Tier'],
@@ -906,7 +906,7 @@ __globScopeLanguageTemplate__ = {
     TMC_proc_type: {
         type: "select",
         label: "Process Type",
-        errMessage: "Please select one",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]   
             ['Manual', 'Manual'],
@@ -918,7 +918,7 @@ __globScopeLanguageTemplate__ = {
     TMC_app_type: {
         type: "select",
         label: "Application Type",
-        errMessage: "Please select one",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]   
             ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
@@ -936,7 +936,7 @@ __globScopeLanguageTemplate__ = {
     TMC_substrate: {
         type: "select",
         label: "Substrate",
-        errMessage: "Please select one",
+        errMessage: "Pasirinkite reikšmę",
         options: [
             // [Backend value, Frontend value]   
             ['Mild Steel', 'Mild Steel'],
@@ -947,19 +947,7 @@ __globScopeLanguageTemplate__ = {
             ['Wood', 'Wood'],
             ['Other', 'Other'],
         ]
-    },        
-
-    TMC_state: {
-        type: "text",
-        label: "State",
-        errMessage: "Enter your State"
-    },
-
-    TMC_province: {
-        type: "text",
-        label: "Province",
-        errMessage: "Enter your Province"
-    },        
+    },       
 
     optInHeader: {
         type: "header",

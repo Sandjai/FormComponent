@@ -880,7 +880,7 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Substrate",
+        label: "Number of Abrasive Operators",
         errMessage: "Please select one",
         options: [
             // [Backend value, Frontend value]   
@@ -946,20 +946,8 @@ __globScopeLanguageTemplate__ = {
             ['Wood', 'Wood'],
             ['Other', 'Other'],
         ]
-    },        
-
-    TMC_state: {
-        type: "text",
-        label: "State",
-        errMessage: "Enter your State"
     },
-
-    TMC_province: {
-        type: "text",
-        label: "Province",
-        errMessage: "Enter your Province"
-    },        
-
+    
     optInHeader: {
         type: "header",
         label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
