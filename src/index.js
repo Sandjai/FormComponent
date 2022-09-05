@@ -137,9 +137,7 @@ export class FormComponent {
         const urlsFDCLastCampaignID = urlAddress.searchParams.get('sFDCLastCampaignID');
         if (urlsFDCLastCampaignID !== null) {
             this.rewritedParametersFromURL.sFDCLastCampaignID = urlsFDCLastCampaignID;
-        } else {
-            this.rewritedParametersFromURL.sFDCLastCampaignID = "";
-        }
+        } 
         
     }
 
@@ -166,40 +164,13 @@ export class FormComponent {
         const val = document.getElementsByTagName('meta')[name].getAttribute("content");
 
         if (par === 'country') {
-
-            const countryCode = this.rewritedParametersFromURL.country;
-   
-            const country = getCountry(countryCode);
-            
-            if ((countryCode !== undefined) && (country !== undefined)) {
-                this.selectedItems.country = country;
-                
-                return country;
-            }
-
-            const computedCountry = getCountry(val.slice(val.indexOf('_') + 1));
-            this.selectedItems.country = computedCountry;
-            return computedCountry;
-
+            return getCountry(val.slice(val.indexOf('_') + 1));
         }
-        if (par === 'language') {
-
-            const lang = getLanguage(this.rewritedParametersFromURL.lang);
-            
-            if (this.rewritedParametersFromURL.hasOwnProperty('lang') && (lang !== undefined)) {                  
-                return getLanguage(this.rewritedParametersFromURL.lang);
-            }
-            
+        if (par === 'language') {           
             return getLanguage(val.slice(0, val.indexOf('_')));
         }
+
         if (par === 'countryCode') {
-
-            const countryCode = this.rewritedParametersFromURL.country;
-            
-            if ((countryCode !== undefined) && (getCountry(countryCode) !== undefined)) {
-                return countryCode;
-            }
-
             return val.slice(val.lastIndexOf('_') + 1).toLocaleLowerCase();
 
         }
@@ -1125,12 +1096,32 @@ export class FormComponent {
             this.displayRules  = displayAPI;
 
           }
+
+          _queryString () {
+            if (this.rewritedParametersFromURL.hasOwnProperty('country')) {
+                this.selectedItems.country = getCountry(this.rewritedParametersFromURL.country);
+            }
+
+            if (this.rewritedParametersFromURL.hasOwnProperty('lang')) {
+                this.hiddenFields.language1 = getLanguage(this.rewritedParametersFromURL.lang);
+            }
+
+            if (this.rewritedParametersFromURL.hasOwnProperty('sFDCLastCampaignID')) {
+                this.rewritedParametersFromURL.sFDCLastCampaignID
+                this.hiddenFields.sFDCLastCampaignID = this.rewritedParametersFromURL.sFDCLastCampaignID;
+            }
+
+
+
+          }
          
     
 
    
 
     render() {
+       
+        this._queryString();   
 
         const langTmplUrl = langTemplate(this.hiddenFields.language1);
         let initFields;
@@ -1315,6 +1306,7 @@ export class FormComponent {
             settings: this.settings,
             selectedItems: this.selectedItems,
             customFormClasses: this.customFormClasses,
+            SMPsegment: this.fieldsTmpl.SMPsegment ? this.fieldsTmpl.SMPsegment : null,
         });
 
         

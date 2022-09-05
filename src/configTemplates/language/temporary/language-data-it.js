@@ -425,7 +425,14 @@ __globScopeLanguageTemplate__ = {
             // [Backend value, Frontend value]    
             ["Yes", "sì"],
             ["No", "No"],
-        ]
+        ],
+
+        ASD: {           
+                        
+            TMC: {
+                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+            }
+        }
 
     },
 
@@ -721,7 +728,7 @@ __globScopeLanguageTemplate__ = {
     sample: {
         type: "select",
         label: "Select a product sample",
-        errMessage: "Choose a sample",
+        errMessage: "Scegli un campione",
         options: [
             // [Backend value, Frontend value]   
             ['First', 'First'],

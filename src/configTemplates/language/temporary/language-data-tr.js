@@ -423,7 +423,14 @@ __globScopeLanguageTemplate__ = {
             // [Backend value, Frontend value]    
             ["Yes", "Evet"],
             ["No", "Hayır"],
-        ]
+        ],
+
+        ASD: {           
+                        
+            TMC: {
+                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+            }
+        }
 
     },
 
@@ -718,8 +725,8 @@ __globScopeLanguageTemplate__ = {
 
     sample: {
         type: "select",
-        label: "Select a product sample",
-        errMessage: "Choose a sample",
+        label: "Please choose at least one product of interest",
+        errMessage: "Bir örnek seçin",
         options: [
             // [Backend value, Frontend value]   
             ['First', 'First'],
@@ -950,7 +957,7 @@ __globScopeLanguageTemplate__ = {
 
     optInHeader: {
         type: "header",
-        label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
+        label: "En son 3M aşındırıcı ürün gelişmelerinden ve diğer haberlerden haberdar olmak için abone olun",            
     },
     
 },

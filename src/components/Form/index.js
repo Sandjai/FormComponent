@@ -22,6 +22,7 @@ export default class FormAssetsCreator {
         this.settings = data.settings;
         this.selectedItems = data.selectedItems;
         this.customFormClasses = data.customFormClasses;
+        this.SMPsegment = data.SMPsegment;
 
     }
 
@@ -84,17 +85,17 @@ export default class FormAssetsCreator {
     render() {
        
         this._addSettingsToFormTag();
-        this._createFormTemplate(this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems, this.constructor.busPhoneNum, this.settings.changedFieldTypes);
+        this._createFormTemplate(this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.SMPsegment, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems, this.constructor.busPhoneNum, this.settings.changedFieldTypes);
 
     }
 
-    _createFormTemplate(hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes) {
+    _createFormTemplate(hiddenFields, fieldsets, langTmpl, div, SMPseg, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes) {
 
         //this.el.insertAdjacentHTML('beforebegin', preform());
         this.el.insertAdjacentHTML('afterend', afterform({ langTmpl }));
         this._addClasses(this.customFormClasses);
 
-        this.el.innerHTML = template({ hiddenFields, fieldsets, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes});
+        this.el.innerHTML = template({ hiddenFields, fieldsets, langTmpl, div, SMPseg, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes});
 
 
 

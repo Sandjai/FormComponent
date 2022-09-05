@@ -425,7 +425,14 @@ __globScopeLanguageTemplate__ = {
             // [Backend value, Frontend value]    
             ["Yes", "Ja"],
             ["No", "Nein"],
-        ]
+        ],
+
+        ASD: {           
+                        
+            TMC: {
+                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+            }
+        }
 
     },
 
@@ -719,8 +726,8 @@ __globScopeLanguageTemplate__ = {
 
     sample: {
         type: "select",
-        label: "Select a product sample",
-        errMessage: "Choose a sample",
+        label: "Bitte wählen Sie mindestens ein Produktinteresse aus",
+        errMessage: "Wählen Sie eine Stichprobe aus",
         options: [
             // [Backend value, Frontend value]   
             ['First', 'First'],
@@ -952,7 +959,7 @@ __globScopeLanguageTemplate__ = {
 
         optInHeader: {
             type: "header",
-            label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
+            label: "Abonnieren Sie den Newsletter mit Updates zu den aktuellen Entwicklungen bei 3M Schleifmitteln und anderen Neuigkeiten",            
         },
         
     },

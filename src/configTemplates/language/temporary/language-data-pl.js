@@ -425,7 +425,14 @@ __globScopeLanguageTemplate__ = {
             // [Backend value, Frontend value]    
             ["Yes", "Tak"],
             ["No", "Nie"],
-        ]
+        ],
+
+        ASD: {           
+                        
+            TMC: {
+                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+            }
+        }
 
     },
 
@@ -721,7 +728,7 @@ __globScopeLanguageTemplate__ = {
     sample: {
         type: "select",
         label: "Select a product sample",
-        errMessage: "Choose a sample",
+        errMessage: "Wybierz próbkę",
         options: [
             // [Backend value, Frontend value]   
             ['First', 'First'],
@@ -952,7 +959,7 @@ __globScopeLanguageTemplate__ = {
 
     optInHeader: {
         type: "header",
-        label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
+        label: "Aby na bieżąco otrzymać najnowsze informacje na temat materiałów ściernych 3M, zapraszamy do zapisania się do naszego newslettera. ",            
     },
     
 },
