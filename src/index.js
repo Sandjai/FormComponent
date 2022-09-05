@@ -1148,13 +1148,21 @@ export class FormComponent {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
                     this._scriptDynamicLoading(smpTmplUrl, document.head, false).onload = () => {
                         //this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
-                      
+                        if (!__globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`]) {
+                            this.settings.leadGenType = 'CA';
+                        }
+
                         this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
+                        
                       
                         resolve();
                     }
                 })
             } else {
+                if (!__globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`]) {
+                    this.settings.leadGenType = 'CA';
+                }
+                
                 this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
                 
                 resolve();
