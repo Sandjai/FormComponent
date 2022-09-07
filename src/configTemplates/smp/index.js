@@ -8,7 +8,7 @@ export default function (div) {
         
     } 
 
-  /* 
+   /*
      const smpRouting = {
         EMSD: 'http://localhost:8080/src/configTemplates/smp/temporary/test-smp-data-emsd.js',
        
@@ -18,8 +18,8 @@ export default function (div) {
         
         
     }
-     
-  */  
+   */  
+    
     const smpTmpl = `${smpRouting[division]}`;    
 
     return smpTmpl;

@@ -23,6 +23,8 @@ export default class FormAssetsCreator {
         this.selectedItems = data.selectedItems;
         this.customFormClasses = data.customFormClasses;
         this.SMPsegment = data.SMPsegment;
+        this.busPhoneRequired = data.busPhoneRequired;
+        this.mobilePhoneRequired = data.mobilePhoneRequired;
 
     }
 
@@ -53,12 +55,20 @@ export default class FormAssetsCreator {
     }
 
     _busPhoneSettings(country) {       
-
+    
         if (this.settings._busPhone && !this.constructor.busPhoneExist) {
+
 
             this.constructor.busPhoneExist = true;
             window.busPhoneid = '#busPhoneID'; // Enter this for the first form on the page
             window.countryselectid = '#countryID'; // Enter this for the first form on the page 
+
+            if (this.busPhoneRequired !== 'false') {
+                window.validationtype = "HARD";
+            } else {
+                window.validationtype = "SOFT";
+            }
+            
 
             if (window.prefCountries) {
                 const query = [country];
@@ -74,7 +84,32 @@ export default class FormAssetsCreator {
 
         } else if (this.settings._busPhone && this.constructor.busPhoneExist) {
             ++this.constructor.busPhoneNum;
-        } else if (!this.settings._busPhone) {
+        } else if  (this.settings._mobilePhone && !this.constructor.mobilePhoneExist) {
+            this.constructor.busPhoneExist = true;
+            window.busPhoneid = '#mobilePhoneID'; // Enter this for the first form on the page
+            window.countryselectid = '#countryID'; // Enter this for the first form on the page 
+
+            if (this.mobilePhoneRequired !== 'false') {
+                window.validationtype = "HARD";
+            } else {
+                window.validationtype = "SOFT";
+            }
+            
+
+            if (window.prefCountries) {
+                const query = [country];
+                const arrOfCountries = Array.from(new Set([...query, ...window.prefCountries]));
+                window.prefCountries = arrOfCountries;
+
+            } else {
+
+                window.prefCountries = [country];
+
+            } 
+
+        }
+
+        else if ((!this.settings._busPhone) && (!this.settings._mobilePhone)) {
             domReady.CTUTEL = () => { };
         }
 

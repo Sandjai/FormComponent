@@ -36,8 +36,11 @@ export class FormComponent {
     fieldsOrder = [];       // Order for new Added fields
     changedOrder = [];      // Is used in case if we need to change default fields order
     changedOrder__after = [];
-    removedFields = [];
+    removed_fields = [];
+    hided_fields = [];
     removedClasses = [];
+    inGroupOfChbxes = [];
+    
     updatedTexts = []; 
     rewritedParametersFromURL = {};    
 
@@ -56,6 +59,7 @@ export class FormComponent {
         get countryCode () {return this._identifyLocale('countryCode')},
         leadGenType: 'CA',
         _busPhone: false, // do not change manually
+        _mobilePhone: false, // do not change manually
         changedFieldTypes: {},
     };
 
@@ -97,9 +101,7 @@ export class FormComponent {
             SMPVersion: ""
         };
 
-        if (this.hiddenFields.formType === 'SAM') {
-           this.settings.leadGenType = 'Basic';
-        }
+        this._manageSpecifics();        
 
         this._identifyLocale("country");
 
@@ -112,6 +114,21 @@ export class FormComponent {
         //Using a variable from mmmSettings (do not use in normal usage, only in case of unexpected behaviour due to some internal changes in work of 3M platform)
         //this._addIn3MpriorityModules (langTemplate(this.hiddenFields.language1), smpTemplate(this.hiddenFields.division1), baseFieldsTemplate());
     }
+
+
+    _manageSpecifics() {
+        if (this.hiddenFields.formType === 'SAM') {
+            this.settings.leadGenType = 'Basic';
+         }
+      
+         if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
+            this.settings.leadGenType = 'TMC';       
+         }
+    }
+
+        
+
+        
 
     rewriteFromURL (name) {
 
@@ -171,8 +188,13 @@ export class FormComponent {
         }
 
         if (par === 'countryCode') {
-            return val.slice(val.lastIndexOf('_') + 1).toLocaleLowerCase();
+            const countryCode = this.rewritedParametersFromURL.country;
+            
+            if ((countryCode !== undefined) && (getCountry(countryCode) !== undefined)) {
+                return countryCode;
+            }
 
+            return val.slice(val.lastIndexOf('_') + 1).toLocaleLowerCase();
         }
     }
 
@@ -287,6 +309,7 @@ export class FormComponent {
     for (let i of items) {       
         this._addClass(i, 'MMM--isVisuallyHidden');
         this.staticValidationRules[i] = 'false';
+        this.hided_fields.push(i);
     }
         
     }
@@ -465,6 +488,17 @@ export class FormComponent {
 
     _makeNewOrder(arr, place) {
 
+       /* for (let item of arr) {
+            if (!Object.keys(this.fieldsTmpl.staticValidationRules).includes(item) &&
+            (!Object.keys(this.staticValidationRules).includes(item))) {
+                this.staticValidationRules[item] = 'true';
+            }
+        }
+
+        */
+
+       
+
 
         let startItem = arr[arr.length - 1];
 
@@ -517,7 +551,7 @@ export class FormComponent {
 
     _removeFields() {
        
-        for (let field of this.removedFields) {
+        for (let field of this.removed_fields) {
             const fieldsetID = this._getFieldsetID(field);
             if (fieldsetID === undefined) {
                 return;
@@ -605,6 +639,17 @@ export class FormComponent {
         this.updatedTexts.push([name, this._getObject('label', val)]);
     }
 
+    /**
+     * setLabel
+     * Sets a new text for label of the field
+     * @param {string} name - HTM name of the field
+     * @param {string} val - new Text for the label 
+     */
+
+     setValue(name, val) {
+        this.updatedTexts.push([name, this._getObject('value', val)]);
+    }
+
 
     /**
      * setOptions
@@ -676,11 +721,6 @@ export class FormComponent {
 
         }
 
-    }
-
-
-    consoleFieldsets() {
-        console.log(this.fieldsTmpl.fieldsets);
     }
 
 
@@ -783,14 +823,22 @@ export class FormComponent {
      * If this variable is absent, new field is being added to the very end of the form. 
 */
 
-    addField(name, placeBefore, ifMandatory, condition = () => {return true}) {
+    addField(name, placeBefore, ifMandatory='false', condition = () => {return true}) {
         if (placeBefore) {
             this.fieldsOrder.push([name, placeBefore]);            
         } else {
             this.fieldsOrder.push([name]);
         }
 
-        this.staticValidationRules[name] = ((ifMandatory === 'true') || (ifMandatory === true)) ? 'true' : 'false';
+        
+        if (!this._getAllNamesOfGroupedChbxes().includes(name)) {
+          //  if ((ifMandatory === 'true') || (ifMandatory === true)) {this.staticValidationRules[name] = 'true'}
+          
+         this.staticValidationRules[name] = ((ifMandatory === 'true') || (ifMandatory === true)) ? 'true' : 'false';
+        }
+
+        
+       
 
         if ((this.staticValidationRules[name] === 'true') || (this.staticValidationRules[name] === true)) {
             let validationAPI = (validation) => {              
@@ -799,9 +847,16 @@ export class FormComponent {
     
           this.validationRules  = validationAPI;
         }
+    }
 
+    
+
+
+    addFields(names, placeBefore, ifMandatory, condition) {
+        for (let name of names) {
+            this.addField(name, placeBefore, ifMandatory, condition);
+        }
         
-
     }
     
 
@@ -811,7 +866,22 @@ export class FormComponent {
      */
 
     removeField(name) {
-        this.removedFields.push(name);
+        this.removed_fields.push(name);
+    }
+
+
+
+    removeFields(fields) {
+        if (typeof fields === 'string') {
+            this.removed_fields.push(fields);
+        }
+
+        if (Array.isArray(fields)) {
+            for (let name of fields) {
+                this.removed_fields.push(name);
+            }    
+        }
+            
     }
 
     _getFieldsetID(name) {
@@ -861,7 +931,7 @@ export class FormComponent {
  /**
      * Method for combining checkboxes into a group
      * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
-     * @param {string} namesOfgroup - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
+     * @param {string} names - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
      * @param {string} errorMessage
      * @param {Function} condition - in case if needed to rewrite a normal condition.If not - don't use this method. Should return true or false. 
      * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
@@ -869,20 +939,50 @@ export class FormComponent {
      */
 
     checkboxesGroup (names, data = {}) {
+
+        for (let name of names.split(' ')) {          
+            delete this.staticValidationRules[name];
+        }
+
         let dataToSend = {namesOfgroup: names};
-     
+    
         if (data.errorMessage !== undefined) {dataToSend.errorMessage = data.errorMessage};
         if (data.numMin !== undefined) {dataToSend.numMin = data.numMin};
         if (data.numMax !== undefined) {dataToSend.numMax = data.numMax};
 
         this.arrayOfCheckboxesGroup.push(dataToSend);
-        
+       
         let validationAPI = (validation) => {
-            validation.checkboxesGroups(this.arrayOfCheckboxesGroup);
-     };
+            
+            let totalNumRemoved = names.split(' ').length;
+            let totalNumHided = names.split(' ').length;
 
-     this.validationRules  = validationAPI;
+            for (let name of names.split(' ')) {
+            
+                if (this.removed_fields.includes(name)) {                
+                    totalNumRemoved = totalNumRemoved-1;
+                }
+
+                if (this.hided_fields.includes(name)) {                
+                    totalNumHided = totalNumHided-1;
+                }
+            }
+            if ((totalNumRemoved !== 0) && (totalNumHided !== 0)) {              
+                validation.checkboxesGroups(this.arrayOfCheckboxesGroup);               
+            }
+/*
+            for (let name of this._getAllNamesOfGroupedChbxes ()) {
+                this.staticValidationRules[name] = 'false';
+            }
+            */
+            
+    };
+
+    this.validationRules  = validationAPI;
+
+    
     }
+        
 
     checkboxesGroups (names, data = {}) {        
         this.checkboxesGroup (names, data = {});
@@ -937,12 +1037,12 @@ export class FormComponent {
 
             if (Array.isArray(data.mandatory)) {
                 for (let name of data.mandatory) {
-                    if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'false') {
+                    if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'true') {
                         mandatory.push(name);
                     }
                 }
-            }
-        
+            }            
+       
             let validationAPI = (validation) => {
                 validation.addDependencyRule (mandatory, condition);            
               }                
@@ -1045,9 +1145,39 @@ export class FormComponent {
            */
 
           addDependencyFromCheckboxes (fName, scheme, condition = () => {return true}) {
-           
-            let displayAPI = (display) => {            
-                display.complexDepFromCheckboxes (fName, scheme);    
+          
+            let displayAPI = (display) => {         
+
+                let setOfNames = new Set();
+
+                for (let values of scheme.values()) {
+                    for (let val of values) {
+                        setOfNames.add(val);
+                    }   
+                    
+                }
+
+                let totalNumRemoved = setOfNames.size;
+                let totalNumHided = setOfNames.size;   
+
+             
+                for (let name of setOfNames) {
+                  
+                    if (this.removed_fields.includes(name)) {                      
+                        totalNumRemoved = totalNumRemoved-1;
+                    }
+    
+                    if (this.hided_fields.includes(name)) {                
+                        totalNumHided = totalNumHided-1;
+                    }
+                }
+                
+              
+                
+                if ((totalNumRemoved !== 0) && (totalNumHided !== 0)) {              
+                    display.complexDepFromCheckboxes (fName, scheme);  
+                }
+            
             }
 
             if (this._staticValidationRulesCombine(fName)) {
@@ -1100,6 +1230,8 @@ export class FormComponent {
           _queryString () {
             if (this.rewritedParametersFromURL.hasOwnProperty('country')) {
                 this.selectedItems.country = getCountry(this.rewritedParametersFromURL.country);
+            } else if (!this.selectedItems.country) {
+                this.selectedItems.country = this._identifyLocale('country');
             }
 
             if (this.rewritedParametersFromURL.hasOwnProperty('lang')) {
@@ -1110,9 +1242,74 @@ export class FormComponent {
                 this.rewritedParametersFromURL.sFDCLastCampaignID
                 this.hiddenFields.sFDCLastCampaignID = this.rewritedParametersFromURL.sFDCLastCampaignID;
             }
+          }
+
+          _getAllNamesOfGroupedChbxes () {
+           
+            for (let group of this.arrayOfCheckboxesGroup) {
+               
+                let items = group.namesOfgroup.split(' ');
+              
+                this.inGroupOfChbxes =[...this.inGroupOfChbxes, ...items]     
+
+        
+            }
+
+            return this.inGroupOfChbxes;
+          }
 
 
+          _addingToValidator (condition = () => {return true}) {           
 
+           
+            let names = [];
+                
+                        
+         
+            for (let [key, val] of Object.entries(this.staticValidationRules)) {             
+               
+                if ((val.toString() === 'true')) {                    
+                    names.push(key);                                 
+                }
+            }
+
+           
+
+            for (let [key, val] of Object.entries(this.fieldsTmpl.staticValidationRules)) {
+
+
+                if (val.toString() === 'true') {
+                    names.push(key);                             
+                }
+            }
+           
+
+            if (!!names.length) {
+                for (let fieldset of this.fieldsTmpl.fieldsets.values()) {
+                    for (let field of fieldset) {
+                       
+                        
+                        if (!names.includes(field) && 
+                        (!['salesRequest','elqGlobalLanguage','stateProv'].includes(field))) {
+                            names.push(field);                            
+                        }
+                    }
+                    
+                }
+        
+                let allNamesOfGroupedChbxes = this._getAllNamesOfGroupedChbxes();
+
+                    names = names.filter((name) => {
+                        return (!allNamesOfGroupedChbxes.includes(name) &&
+                        (this._staticValidationRulesCombine(name)));                        
+                    })                      
+                  
+                let validationAPI = (validation) => {              
+                    validation.addDependencyRule (names, condition);               
+              };
+
+              this.validationRules  = validationAPI; 
+            }
           }
          
     
@@ -1162,7 +1359,7 @@ export class FormComponent {
                 if (!__globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`]) {
                     this.settings.leadGenType = 'CA';
                 }
-                
+
                 this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
                 
                 resolve();
@@ -1285,6 +1482,10 @@ export class FormComponent {
             this.settings._busPhone = true;
         }
 
+        if (this._getFieldsetID('mobilePhone')) {
+            this.settings._mobilePhone = true;
+        }
+
         if ((this.fieldsTmpl.salesRequestFieldType !== undefined) && 
             (this.fieldsTmpl.salesRequestFieldType.toLowerCase() === 'select')) {
             if (!this.settings.changedFieldTypes.salesRequest) {
@@ -1301,8 +1502,9 @@ export class FormComponent {
             } else {
                 this.settings.changedFieldTypes.selDist = false;
             }
-        }         
-
+        }
+        
+       this._addingToValidator();
 
         const form = new FormAssetsCreator({
             el: this.el,
@@ -1315,9 +1517,13 @@ export class FormComponent {
             selectedItems: this.selectedItems,
             customFormClasses: this.customFormClasses,
             SMPsegment: this.fieldsTmpl.SMPsegment ? this.fieldsTmpl.SMPsegment : null,
+            busPhoneRequired: this.staticValidationRules.busPhone !== undefined ? this.staticValidationRules.busPhone : this.fieldsTmpl.staticValidationRules.busPhone !== undefined 
+                ? this.fieldsTmpl.staticValidationRules.busPhone : 'true',
+            mobilePhoneRequired: this.staticValidationRules.mobilePhone !== undefined ? this.staticValidationRules.mobilePhone : this.fieldsTmpl.staticValidationRules.mobilePhone !== undefined 
+            ? this.fieldsTmpl.staticValidationRules.mobilePhone : 'true',
+            
         });
 
-        
         this.setDomReadyPrioritize(() => {return form._busPhoneSettings.bind(form, this._identifyLocale('countryCode'))});
 
 

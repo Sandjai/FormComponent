@@ -160,13 +160,36 @@ addField(name, placeBefore, ifMandatory)
   form1.addField('address2', 'city', 'true'); /* Adds mandatory field 'address2' right before the 'city' field */ 
 ```   
 
-:red_circle: `removeField(name)`
-Removes a field from the form
+
+:red_circle: `addField(name)`
+OR
+`addField(name, placeBefore, ifMandatory)`
+Adds a new field to LP
+```javascript
+ /**
+     * @param {string} names - array of HTML names of the new form fields 
+     * @param {string} placeBefore - HTML name of the form field, before which a new field should be added. 
+     * @param {boolean} ifMandatory - by default it's 'false'. Place 'true' if this fields needs to be mandatory.
+     * If this variable is absent, new field is being added to the very end of the form. 
+*/
+
+addFields(names, placeBefore)
+
+```
+**Example:**
+```javascript
+  form1.addFields(['testChbx','testCustomField'], 'custEnq'); /* Adds optional fields right before the 'custEnq' field */ 
+```   
+
+
+:red_circle: `removeFields(names)`
+Removes fields from the form
 ```javascript
 /**
-    * @param {string} name - HTML name of the form
+    * @param {string, Array} name - HTML name of the form (can be of 'string' type (one name), or as an array of several names)
 */
-removeField(name);
+removeFields(name);
+removeFields([name1, name2, name3]);
 ```
 **Example:**
 ```javascript

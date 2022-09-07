@@ -40,7 +40,7 @@
                 let arrGroup = item.namesOfgroup.split(' ');
                 let newArrGroup = [];
                 for (let item of arrGroup) {
-                  
+                 
                     if ((this.staticValidationRules[item] !== 'false') && (this.staticValidationRules[item] !== false)) {
                       
                         newArrGroup.push(item);
@@ -58,9 +58,15 @@
                     if (!item.condition) {item.condition = ()=>{return false}}
                     if (!item.numMin) {item.numMin = 1} 
                   	if (!item.numMax) {item.numMax = $(`.${index}`).size()} 
+
+                 //   alert(Object.keys($(`.${index}`).children()));
                   
                   	if (item.condition()) {                        
                           return true;                                     
+                    } else if ($(`.${index}`).closest('li').hasClass('MMM--isVisuallyHidden') 
+                    || $(`.${index}`).closest('ul').hasClass('MMM--isVisuallyHidden') 
+                    || $(`.${index}`).closest('fieldset').hasClass('MMM--isVisuallyHidden')) {
+                        return true;
                     }                  
                     else if ($(`.${index}`).is(':checked')) {
                         return (($(`.${index}:checked`).size() >= (item.numMin)) && ($(`.${index}:checked`).size() <= item.numMax));

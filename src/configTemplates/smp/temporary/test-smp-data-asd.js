@@ -104,12 +104,8 @@ var __globScopeSMPtemplate__ = {
         },
     },
 
-
-    /**
-     * For TMC segment 
-     */
-
-     leadGenType_TMC: {
+    
+     leadGenType_leadGenType_TMC: {
 
         SMPVersion: "1", 
 
@@ -117,8 +113,7 @@ var __globScopeSMPtemplate__ = {
 
         fieldsets: {
             CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'mobilePhone', 'TMC_comp_type', 'mmmIndustry1', 'mmmJobRole1', 'salesRequest'],
-            leadgen: ['sample', 'company', 'zipPostal', 'city', 'busPhone', 'mmmJobRole1', 'NumberofOperators', 'custEnq', 'selDist', 'address1',],
-            optinTxt: ['optInHeader'],
+            leadgen: ['TMC_proc_type', 'TMC_app_type', 'custEnq', 'TMC_substrate', 'TMC_numberOfOperators', 'company', 'busPhone', 'zipPostal', 'address1', 'selDist'],            
         },
 
         // Fields, which should be optional in CA Form type (only 'static' rules here. For dynamic ones - use 'ValidationRules' method)
@@ -128,37 +123,37 @@ var __globScopeSMPtemplate__ = {
          },
 
         optionsForFilter: {
-            mmmJobRole1: ['Manager/Supervisor', 'President/Owner', 'Machinist/Operator', 'Engineer-Process', 'Production Manager', 'Purchasing/Procurement/Buyer', 'Engineer-Design', 'Occupational Health Manager'],
-            mmmIndustry1: ['Industrial-Primary Metals Mfg', 'Industrial-Other Fabr Metals Mfg', 'Industrial-Indust Machinery & Equip Mfg', 'Industrial-Medical Devices Mfg', 'Transp-Automotive Mfg', 'Transp-Bus Mfg', 'Transp-Railcar Mfg & Maint', 'Transp-Specialty Veh Mfg', 'Transp-Aerospace MRO', 'Transp-Aerospace Mfg', 'Industrial-Turbine & Engine Mfg', 'Transp-Ship Building & Maint', 'Industrial-Composites Mfg', 'Industrial-Furniture Mfg', 'Industrial-Woodworking'],
+            mmmJobRole1: ['EHS Manager', 'Engineer-General', 'Maintenance Manager/Facilities Mgmt', 'Engineer-Manufacturing/Fab', 'Operations Manager', 'Painter/Paint Professional', 'Engineer-Process', 'Engineer-Product', 'Product Manager', 'Production Employee', 'Engineer-Production', 'Production Manager', 'Purchasing/Procurement/Buyer', 'Engineer-Quality', 'Engineer-Safety', 'Safety Manager', 'Welder', 'Other',],
+            mmmIndustry1: ['Transp-Aerospace MRO', 'Transp-Aerospace Mfg', 'Transp-Automotive Mfg', 'Transp-Bus Mfg', 'Transp-Comm Veh Mfg', 'Industrial-Composites Mfg', 'Industrial-Indust Machinery & Equip Mfg', 'Transp-Marine Mfg & Maint', 'Industrial-Plastics Mfg', 'Transp-Railcar Mfg & Maint', 'Transp-Rail Fleet Operators', 'Transp-Specialty Veh Mfg', 'Transp-Ship Building & Maint', 'Transp-Two-Wheel Veh Mfg & Maint', 'Transp-Vehicle Parts Mfg', 'Industrial-Woodworking',],
         },
+
 
         addedClasses: {
             leadgen: "MMM--isVisuallyHidden",
-            salesRequest: "MMM--gapTopLrg",
-            selDist: "MMM--isVisuallyHidden",
+            salesRequest: "MMM--gapTopLrg",            
+            //TMC_proc_type
         },
 
-        salesRequestFieldType: 'select',
-
-        formTypeSpecifics: {
+    
+       /* formTypeSpecifics: {
             // FormType Short name | Array of html names to be shown only for the particular form type
             SAM: ['sample', 'selDist', 'address1'],
             DEM: ['custEnq'],
             ASK: ['custEnq'],
             CON: ['custEnq'],
             LAR: ['custEnq'],
-        },
+        }, */
 
         displayValidationRules: (form1) => {
 
             form1.addDependency({
-                mandatory: ['company', 'zipPostal', 'city', 'busPhone', 'mmmJobRole1', 'NumberofOperators', 'selDist', 'sample', 'address1'],
+                mandatory: [],
                 fieldset: "leadgen",
                 triggerName: 'salesRequest',
             });
 
 
-            form1.showOther('NumberofOperators', 'selDist', '2-5');
+           
 
         },
 

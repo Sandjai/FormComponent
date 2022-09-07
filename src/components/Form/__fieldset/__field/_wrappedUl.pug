@@ -1,94 +1,95 @@
 mixin wrappedUl(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum)
-    - var ulClass = item[0].replace(/[^a-z]/g, '') + '_group'
+    if item.length !== 0
+        - var ulClass = item[0].replace(/[^a-z]/g, '') + '_group'
 
-    ul(class = addedClasses[ulClass] ? 'MMM--columnList ' + addedClasses[ulClass] + ulClass : 'MMM--columnList MMM--columnList_cc2 ' + ulClass)
-            
-        each subitem in item
-            - var langPath = langTmpl[div];
-            - var li_Class = addedClasses[subitem] ? addedClasses[subitem] : ""
-            li(class = li_Class, style = 'list-style-type: none; display: inline-block; margin-left: 0px; margin-right: 0px')
-                case langPath[subitem].type
-                    when 'text'        
-                        label.MMM--blockLabel(
-                            for=subitem + 'ID-' + idGen)= langPath[subitem].label
-                        input.MMM--textInput.MMM--defaultFields(
-                            id=subitem + 'ID-' + idGen
-                            type='text'
-                            name=subitem
-                            data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
-                            data-msg-required=langPath[subitem].errMessage
-                            aria-required="true")
-                            
-                    when 'checkbox'
-                        if (selectedItems.hasOwnProperty(subitem))
-                            -var _ifChecked = true        
-                        else 
-                            -var _ifChecked = false
-                        input(
-                            type='checkbox'
-                            value=langPath[subitem].value
-                            name=subitem
-                            checked =  _ifChecked
-                            id=subitem + 'ID-' + idGen
-                            data-rule-required= staticValidationRules[subitem] ? staticValidationRules[subitem] : "false"
-                            data-msg-required=langPath[subitem].errMessage
-                            ) 
-                        label.MMM--blockLabel.MMM--checkboxLabel(
-                            style="font-weight:normal; display: inline; margin-left: 10px; margin-right: 20px;"
-                            for=subitem + 'ID-' + idGen)=langPath[subitem].label  
+        ul(class = addedClasses[ulClass] ? 'MMM--columnList ' + addedClasses[ulClass] + ulClass : 'MMM--columnList MMM--columnList_cc2 ' + ulClass)
+                
+            each subitem in item
+                - var langPath = langTmpl[div];
+                - var li_Class = addedClasses[subitem] ? addedClasses[subitem] : ""
+                li(class = li_Class, style = 'list-style-type: none; display: inline-block; margin-left: 0px; margin-right: 0px')
+                    case langPath[subitem].type
+                        when 'text'        
+                            label.MMM--blockLabel(
+                                for=subitem + 'ID-' + idGen)= langPath[subitem].label
+                            input.MMM--textInput.MMM--defaultFields(
+                                id=subitem + 'ID-' + idGen
+                                type='text'
+                                name=subitem
+                                data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
+                                data-msg-required=langPath[subitem].errMessage
+                                aria-required="true")
+                                
+                        when 'checkbox'
+                            if (selectedItems.hasOwnProperty(subitem))
+                                -var _ifChecked = true        
+                            else 
+                                -var _ifChecked = false
+                            input(
+                                type='checkbox'
+                                value=langPath[subitem].value
+                                name=subitem
+                                checked =  _ifChecked
+                                id=subitem + 'ID-' + idGen
+                                data-rule-required= staticValidationRules[subitem] ? staticValidationRules[subitem] : "false"
+                                data-msg-required=langPath[subitem].errMessage
+                                ) 
+                            label.MMM--blockLabel.MMM--checkboxLabel(
+                                style="font-weight:normal; display: inline; margin-left: 10px; margin-right: 20px;"
+                                for=subitem + 'ID-' + idGen)=langPath[subitem].label  
 
-                    when 'radio' 
-                        if (selectedItems.hasOwnProperty(subitem))
-                            -var _ifChecked = true        
-                        else 
-                            -var _ifChecked = false       
-                        label.MMM--blockLabel(
-                            for=subitem + 'ID-' + idGen)=langPath[subitem].label
-                        input.MMM--textInput.MMM--defaultFields(
-                            id=subitem + 'ID-' + idGen
-                            checked =  _ifChecked
-                            type='text'
-                            name=subitem
-                            data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "false"
-                            data-msg-required=langPath[subitem].errMessage
-                            )  
+                        when 'radio' 
+                            if (selectedItems.hasOwnProperty(subitem))
+                                -var _ifChecked = true        
+                            else 
+                                -var _ifChecked = false       
+                            label.MMM--blockLabel(
+                                for=subitem + 'ID-' + idGen)=langPath[subitem].label
+                            input.MMM--textInput.MMM--defaultFields(
+                                id=subitem + 'ID-' + idGen
+                                checked =  _ifChecked
+                                type='text'
+                                name=subitem
+                                data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "false"
+                                data-msg-required=langPath[subitem].errMessage
+                                )  
 
-                    when 'textarea'        
-                        label.MMM--blockLabel(
-                            for=subitem + 'ID-' + idGen)=langPath[subitem].label
-                        textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
-                            id=subitem + 'ID-' + idGen
-                            type='text'
-                            name=subitem
-                            data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
-                            data-msg-required=langPath[subitem].errMessage
-                            aria-required="true")=''
-                            
-                    when 'select'        
-                        label.MMM--blockLabel(
-                            for=subitem + 'ID-' + idGen)=langPath[subitem].label
-                        select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
-                            id=subitem + 'ID-' + idGen
-                            name=subitem
-                            data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
-                            data-msg-required=langPath[subitem].errMessage
-                            data-lookup=""
-                            aria-required="true")  
-                                option(
-                                    value="" disabled="disabled" selected="selected"
-                                )=langTmpl.defaultSelect                    
-                                each opt in langPath[subitem].options
-                                    include select\select__option.pug
+                        when 'textarea'        
+                            label.MMM--blockLabel(
+                                for=subitem + 'ID-' + idGen)=langPath[subitem].label
+                            textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
+                                id=subitem + 'ID-' + idGen
+                                type='text'
+                                name=subitem
+                                data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
+                                data-msg-required=langPath[subitem].errMessage
+                                aria-required="true")=''
+                                
+                        when 'select'        
+                            label.MMM--blockLabel(
+                                for=subitem + 'ID-' + idGen)=langPath[subitem].label
+                            select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
+                                id=subitem + 'ID-' + idGen
+                                name=subitem
+                                data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
+                                data-msg-required=langPath[subitem].errMessage
+                                data-lookup=""
+                                aria-required="true")  
+                                    option(
+                                        value="" disabled="disabled" selected="selected"
+                                    )=langTmpl.defaultSelect                    
+                                    each opt in langPath[subitem].options
+                                        include select\select__option.pug
 
-                    when 'header' 
-                        h3.MMM--blockLabel(
-                            for=subitem + 'ID-' + idGen)=langPath[subitem] ? langPath[subitem].label : ""
-                        p.MMM--txt_italic=langPath[subitem].subLabel ? langPath[subitem].subLabel : ""
+                        when 'header' 
+                            h3.MMM--blockLabel(
+                                for=subitem + 'ID-' + idGen)=langPath[subitem] ? langPath[subitem].label : ""
+                            p.MMM--txt_italic=langPath[subitem].subLabel ? langPath[subitem].subLabel : ""
 
-                    default 
-                        h3.MMM--blockLabel(
-                            for=subitem + 'ID-' + idGen)=langPath[subitem] ? langPath[subitem].label : ""
-                        p.MMM--txt_italic=langPath[subitem].subLabel ? langPath[subitem].subLabel : ""      
+                        default 
+                            h3.MMM--blockLabel(
+                                for=subitem + 'ID-' + idGen)=langPath[subitem] ? langPath[subitem].label : ""
+                            p.MMM--txt_italic=langPath[subitem].subLabel ? langPath[subitem].subLabel : ""      
 
                 
 

@@ -6,7 +6,7 @@
             AAD: 'AAD - Automotive Aftermarket',
             AASD: 'AASD - Automotive &amp; Aerospace Solutions Division',
             AdMD: 'AdMD - Advanced Materials Division',
-            ASD: 'ASD - Abrasive Systems',
+            ASD: 'ASD - Abrasive Systems Division',
             CBS: 'CBS - Consumer Business Sponsored',
             CHC: 'CHC - Consumer Health Care',
             CHIM: 'CHIM - Construction &amp; Home Improvement Division',
@@ -37,7 +37,9 @@
             SOSD: 'SOSD - Stationary &amp; Office Supplies Division',
             SPSD: 'SPSD - Separation and Purification Science Division',
             TSD: 'TSD - Transportation Safety Division',
-            VAS: 'VAS - Visual Attention Services',        
+            VAS: 'VAS - Visual Attention Services',
+            // Part of ASD:
+            TMC: 'ASD - Abrasive Systems Division',
     };
 
     

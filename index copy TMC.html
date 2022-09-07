@@ -228,7 +228,7 @@ Please be advised that we can only contact professional, industrial users that m
     }
     </style>
 
-      <form name="EMSD-202209-en_GB-SAM-EMSD_DYSON_Event_UK_2022"></form>
+      <form name="TEST-ASD-202208-en_EMEA-ASK-General_SMP1"></form>
 
   </div>
 </div>
@@ -240,86 +240,19 @@ Please be advised that we can only contact professional, industrial users that m
 
     (function() {
     
-        var form1 = new window.FormComponent("EMSD-202209-en_GB-SAM-EMSD_DYSON_Event_UK_2022");
+        var form1 = new window.FormComponent("TEST-ASD-202208-en_EMEA-ASK-General_SMP1");
         
         form1.setHiddenFields({          
         sFDCLastCampaignName: "TMC-1910-EMEA-GLC-CON-DRC_Testing",
         sFDCLastCampaignID: "7011N0000019pg6QAA",
         sFDCLastCampaignStatus: "Optional",
         leadSourceMostRecent1: "Website",
-        CTA: "Request a Demo",       
+        CTA: "Request a Demo",     
+        TMC_emailGroup: '',  
 
-        });  
+        }); 
 
-     
-
-   //   form1.staticValidationRules.busPhone = 'false';
-     //  form1.staticValidationRules.address2 = 'true';
-       form1.removeFields(['salutation','app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13']);
-
-        form1.newField({ 
-            label: 'Coating & Cleaning Solutions', 
-            errMessage: 'Please select at least one', 
-            type: 'checkbox',            
-            name: 'coatingCleaning', 
-            value: 'on', 
-           });        
-
-            form1.newField({ 
-            label: 'Tapes & Adhesives Solutions (Electronic Grade)', 
-            errMessage: 'Please select at least one', 
-            type: 'checkbox',           
-            name: 'electronicGrade', 
-            value: 'on', 
-          });
-
-            form1.newField({ 
-            label: 'Tapes & Adhesives Solutions (Industrial Grade)', 
-            errMessage: 'Please select at least one', 
-            type: 'checkbox',             
-            name: 'industrialGrade', 
-            value: 'on', 
-           });
-
-            form1.newField({ 
-            label: 'Packaging Solutions, MDC and Automation Support', 
-            errMessage: 'Please select at least one', 
-            type: 'checkbox',             
-            name: 'packagingSolutions', 
-            value: 'on', 
-            });
-
-        
-      form1.newField({
-      label: 'How can 3M support your needs', 
-      errMessage: 'This field is mandatory', 
-      type: 'text', 
-      name: 'mmmNeeds'
-       });
-
-
-      // form1.removeField('busPhone');
-
-      // form1.addField('mobilePhone');
-
-          
-        
-           
-       
-            form1.checkboxesGroup ('coatingCleaning electronicGrade industrialGrade packagingSolutions');
-
-          form1.addFields(['mmmNeeds']); 
-         
-          form1.changeOrder(['coatingCleaning','electronicGrade','industrialGrade','packagingSolutions','appHeader'], 'after'); 
-            form1.setValue('coatingCleaning', 'qwerty');
-
-            
-
-        form1.removeClasses('mmmIndustry1');
-        form1.staticValidationRules.mmmIndustry1 = 'true';
-        form1.updateSelectOpts ('mmmIndustry1', 'Transp-Aerospace Mfg', 'Transp-Automotive Mfg', 'Industrial-Bearings & Gears Mfg', 'Industrial-Chemical Mfg', 'Comms-Data Center', 'Industrial-Electrical Equip Mfg', 'Industrial-Fire Protection & Suppr', 'Industrial-Indust Machinery & Equip Mfg', 'Industrial-Medical Devices Mfg', 'Industrial-Paints & Coatings Mfg', 'Utilities-Power Dist & Transmission', 'Utilities-Power Generation', 'Electronics-Semicon & Circuit Boards', 'Industrial-Turbine & Engine Mfg',);
-        form1.updateSelectOpts ('mmmJobRole1', 'Consultant','Engineer-Fire Protection','Engineer-General','Manager/Supervisor','Marketing','Purchasing/Procurement/Buyer','Research & Development','Sales','Other',)
-
+        form1.settings.leadGenType = 'TMC';
 
 
 
