@@ -10,6 +10,7 @@ import ifMQLformType from './utils/ifMQLformType.js'
 import getLanguage from './utils/getLanguage.js'
 import getCountry from './utils/getCountry.js'
 import getDivision from './utils/getDivision.js'
+import ifLeadGenTypeIsCorrect from './utils/ifLeadGenTypeIsCorrect.js'
 
 /**
  * Initializes settings for the form creation,
@@ -117,16 +118,19 @@ export class FormComponent {
 
 
     _manageSpecifics() {
+
+        //Must be the first
         if (this.hiddenFields.formType === 'SAM') {
             this.settings.leadGenType = 'Basic';
          }
-      
-         if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
-            this.settings.leadGenType = 'TMC';       
-         }
-    }
 
-        
+         //Must be the second
+         if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
+            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;                   
+         }
+
+      //   alert( this.settings.leadGenType);
+    }    
 
         
 
@@ -326,10 +330,15 @@ export class FormComponent {
         this._setValidationRules('true', null, ...fieldNames);        
     }
 
-    mandatoryWhen (name, condition) {
-               
+    mandatoryWhen (name, condition) {               
         this._setValidationRules (true, condition, name);
     }
+
+    /**
+     * 
+     * @param {Array} names
+     * @param {Array} values 
+     */
 
     _setValidationRules (value, condition, ...fieldNames) {
 
@@ -439,6 +448,72 @@ export class FormComponent {
         }
        }
 
+
+       _applyFormTypeSpecifics () {
+
+            const formTypeSpecifics = Object.assign({}, this.fieldsTmpl.formTypeSpecifics, this.formTypeSpecifics);
+            
+            
+            let currentFormTypeValues = formTypeSpecifics[this.hiddenFields.formType];
+            
+            delete formTypeSpecifics[this.hiddenFields.formType];
+    
+            let names = [];
+            let namesToRemove = [];
+            let namesToBeOptional = [];
+            let namesToBeMandatory = [];
+    
+    
+            for (let val of Object.values(formTypeSpecifics)) {                
+                names = names.concat(val);
+        }
+
+
+
+        namesToRemove = names.filter((name) => {
+            return ((typeof name!== 'object') && !currentFormTypeValues.includes(name));
+        });
+        
+        if (currentFormTypeValues !== undefined) {
+            namesToBeOptional = currentFormTypeValues.filter((name) => {
+                return ((typeof name === 'object') && Object.values(name).join() === 'false');           
+            });
+            
+    
+            namesToBeMandatory = currentFormTypeValues.filter((name) => {               
+                return ((typeof name === 'object') && Object.values(name).join() === 'true');  
+                      
+            });
+        }
+        
+     
+
+
+        for (let name of namesToBeOptional) {
+            this.fieldsTmpl.staticValidationRules[Object.keys(name).join()] = 'false';
+        }
+
+        for (let name of namesToBeMandatory) {            
+            this.fieldsTmpl.staticValidationRules[Object.keys(name).join()] = 'true';
+        }
+
+        
+
+        
+        
+
+        this._removeNames (this.fieldsets, namesToRemove);
+        this._removeNames (this.fieldsTmpl.fieldsets, namesToRemove);  
+
+
+
+
+
+    }
+
+
+      
+
    
 
     /**
@@ -447,18 +522,9 @@ export class FormComponent {
 
     _mergeFieldsets() {
 
-        const formTypeSpecifics = Object.assign({}, this.fieldsTmpl.formTypeSpecifics, this.formTypeSpecifics);        
-        delete formTypeSpecifics[this.hiddenFields.formType];
+        this._applyFormTypeSpecifics();
 
-        let namesToRemove = [];
-
-        for (let val of Object.values(formTypeSpecifics)) {
-            namesToRemove = namesToRemove.concat(val);
-        }
-
-        this._removeNames (this.fieldsets, namesToRemove);
-        this._removeNames (this.fieldsTmpl.fieldsets, namesToRemove);  
-
+ 
 
         for (let [key, val] of Object.entries(this.fieldsets)) {
 
@@ -774,9 +840,10 @@ export class FormComponent {
 
     newField(data = { label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: '', condition:'', value: '' }) {
        
-        
+        let value;
+
         if (data.type === "checkbox" || data.type === "radio") {
-            data.value = "on";
+            value = "on";
         }
 
         const obj = {
@@ -789,7 +856,7 @@ export class FormComponent {
             required: data.required ? data.required : 'false',
             condition: data.condition ? data.condition : null,
             triggerName: data.triggerName ? data.triggerName : null,
-            value: data.value
+            value: data.value ? data.value : value
         }
 
       /*  if (obj.required === 'false') {
@@ -987,6 +1054,20 @@ export class FormComponent {
     checkboxesGroups (names, data = {}) {        
         this.checkboxesGroup (names, data = {});
     }
+
+
+
+    hideOther(f1_name, f2_name, val) {
+
+        let displayAPI = (display) => {
+            //alert(Object.keys(display));
+            display.hideOther(f1_name, f2_name, val);
+            //display.showOther(f1_name, f2_name, val)
+        }
+
+        this.displayRules  = displayAPI;
+        }
+    
      
 
     
@@ -1089,7 +1170,7 @@ export class FormComponent {
          * 
          * @param {string} fName1 - HTML name of the field (checkbox or SELECT)
          * @param {string} fName2 - HTML name of the dependable field        
-         * @param {string} opt - Default value = "Other". Value of option in Select (fName1) field, which should trigger fName2 to appear
+         * @param {string, Array} opt - Default value = "Other". Value of option in Select (fName1) field, which should trigger fName2 to appear
          * @param {Function} condition 
          */
         
@@ -1103,7 +1184,7 @@ export class FormComponent {
               }
       
               if (Array.isArray(opt)) {
-                  optValues = val.slice();
+                  optValues = opt.slice();     
               }  
               
               if (typeof opt === 'undefined') {
@@ -1260,7 +1341,7 @@ export class FormComponent {
 
 
           _addingToValidator (condition = () => {return true}) {           
-
+          
            
             let names = [];
                 
@@ -1273,7 +1354,7 @@ export class FormComponent {
                 }
             }
 
-           
+          
 
             for (let [key, val] of Object.entries(this.fieldsTmpl.staticValidationRules)) {
 
@@ -1283,7 +1364,7 @@ export class FormComponent {
                 }
             }
            
-
+         
             if (!!names.length) {
                 for (let fieldset of this.fieldsTmpl.fieldsets.values()) {
                     for (let field of fieldset) {
@@ -1291,17 +1372,19 @@ export class FormComponent {
                         
                         if (!names.includes(field) && 
                         (!['salesRequest','elqGlobalLanguage','stateProv'].includes(field))) {
-                            names.push(field);                            
+                            names.push(field);       
+                                          
                         }
                     }
                     
                 }
-        
+              
                 let allNamesOfGroupedChbxes = this._getAllNamesOfGroupedChbxes();
 
-                    names = names.filter((name) => {
-                        return (!allNamesOfGroupedChbxes.includes(name) &&
-                        (this._staticValidationRulesCombine(name)));                        
+                    names = names.filter((name) => {                        
+                        return (!allNamesOfGroupedChbxes.includes(name) && (
+                        (this._staticValidationRulesCombine(name))
+                        || ((this.staticValidationRules[name] === undefined) && (this.fieldsTmpl.staticValidationRules[name] === undefined))));                        
                     })                      
                   
                 let validationAPI = (validation) => {              
@@ -1317,7 +1400,7 @@ export class FormComponent {
    
 
     render() {
-       
+      
         this._queryString();   
 
         const langTmplUrl = langTemplate(this.hiddenFields.language1);
@@ -1345,8 +1428,8 @@ export class FormComponent {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
                     this._scriptDynamicLoading(smpTmplUrl, document.head, false).onload = () => {
                         //this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
-                        if (!__globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`]) {
-                            this.settings.leadGenType = 'CA';
+                        if (!ifLeadGenTypeIsCorrect(this.settings.leadGenType, this.hiddenFields.division1)) {                            
+                            this.settings.leadGenType = 'CA';                          
                         }
 
                         this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
@@ -1355,8 +1438,8 @@ export class FormComponent {
                         resolve();
                     }
                 })
-            } else {
-                if (!__globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`]) {
+            } else {                
+                if (!ifLeadGenTypeIsCorrect(this.settings.leadGenType, this.hiddenFields.division1)) {                 
                     this.settings.leadGenType = 'CA';
                 }
 
@@ -1371,7 +1454,7 @@ export class FormComponent {
                 initFields = new Promise((resolve) => {
                     const baseTmplUrl = baseFieldsTemplate();
                     this._scriptDynamicLoading(baseTmplUrl, document.head, false).onload = () => {
-                        this.fieldsTmpl = __globScopeBaseFieldstemplate__;
+                        this.fieldsTmpl = __globScopeBaseFieldstemplate__;                        
                         resolve();
                     }
                 })
@@ -1383,10 +1466,8 @@ export class FormComponent {
         }
 
         Promise.all([initLang, initFields]).then(
-            resolve => {
-
+            resolve => {            
                 this._formRender();
-
             }
         )
             .then(
@@ -1505,7 +1586,7 @@ export class FormComponent {
         }
         
        this._addingToValidator();
-
+       
         const form = new FormAssetsCreator({
             el: this.el,
             hiddenFields: this.hiddenFields,
@@ -1516,7 +1597,8 @@ export class FormComponent {
             settings: this.settings,
             selectedItems: this.selectedItems,
             customFormClasses: this.customFormClasses,
-            SMPsegment: this.fieldsTmpl.SMPsegment ? this.fieldsTmpl.SMPsegment : null,
+            //SMPsegment is not used now, but can be in case of neccesity of having more nested levels in lang templates
+            SMPsegment: this.settings.SMPsegment ? this.settings.SMPsegment : null,
             busPhoneRequired: this.staticValidationRules.busPhone !== undefined ? this.staticValidationRules.busPhone : this.fieldsTmpl.staticValidationRules.busPhone !== undefined 
                 ? this.fieldsTmpl.staticValidationRules.busPhone : 'true',
             mobilePhoneRequired: this.staticValidationRules.mobilePhone !== undefined ? this.staticValidationRules.mobilePhone : this.fieldsTmpl.staticValidationRules.mobilePhone !== undefined 

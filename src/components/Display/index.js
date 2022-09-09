@@ -26,10 +26,9 @@
           _onChange (event) {
            
             const targetEl = event.target;
-            
+          
             $(this.rules).each((i,item) => { 
-              
-                   
+         
               if ($(item[0]).attr('name') === $(targetEl).attr('name')) {                     
                 if (item[1]()) {
                   return false;
@@ -59,7 +58,47 @@
           _showEl (el) {
             $(el).closest('li').removeClass('MMM--isVisuallyHidden');
           }
-        
+
+
+          hideOther(f1_name, f2_name, val) { 
+              let source = $(this.el).find("[name=\"".concat(f1_name, "\"]"));
+              let depend = $(this.el).find("[name=\"".concat(f2_name, "\"]"));
+              
+               
+              let dependId = $(depend).attr('id') ? $(depend).attr('id') : f2_name;
+             
+              const handler = () => {
+
+                $(depend).closest('li').addClass('MMM--isVisuallyHidden');
+                $("#".concat(dependId, "-error")).hide(); 
+            
+                if ($(source).val() === '') {                 
+                  $(depend).closest('li').removeClass('MMM--isVisuallyHidden');
+                  $("#".concat(dependId, "-error")).show(); 
+                return true;
+              }
+              else if (($(source).attr('type') !== 'checkbox') && ($(source).val() === val)) {               
+                  $(depend).closest('li').addClass('MMM--isVisuallyHidden');
+                  $("#".concat(dependId, "-error")).hide(); 
+                  return true;
+              } 
+              
+              else  if (($(source).attr('type') === 'checkbox') && ($(source).is(':checked'))) {               
+                $(depend).closest('li').addClass('MMM--isVisuallyHidden');
+                $("#".concat(dependId, "-error")).hide(); 
+                return true;
+            } 
+            }
+
+            this.rules.push([source, handler]);
+
+          }
+      
+            
+                  
+         
+
+   
          
         
         
@@ -67,7 +106,7 @@
            * Sets dependencies between field №1 and hidden field №2 to be shown
            * @param {string} f1_name - HTML name of the field 1
            * @param {string} f2_name - HTML name of the dependable field
-           * @param {Array} value - if tag name of field1 is 'SELECT', val - is value(s) which should trigger field2
+           * @param {Array} val - if tag name of field1 is 'SELECT', val - is value(s) which should trigger field2
            * 
            */
           

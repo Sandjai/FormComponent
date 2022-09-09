@@ -59,7 +59,7 @@
                     if (!item.numMin) {item.numMin = 1} 
                   	if (!item.numMax) {item.numMax = $(`.${index}`).size()} 
 
-                 //   alert(Object.keys($(`.${index}`).children()));
+         
                   
                   	if (item.condition()) {                        
                           return true;                                     

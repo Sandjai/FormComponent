@@ -78,14 +78,12 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
 
             when 'header' 
                 <!-- className of the item below is equal to an HTML name provided -->
-                h3.MMM--blockLabel.MMM--gapTopMed(class=item 
-                    for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""
+                h3.MMM--blockLabel.MMM--gapTopMed=langPath[item] ? langPath[item].label : ""
                     
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
             default 
-                h3.MMM--blockLabel(
-                    for=item + 'ID-' + idGen)=langPath[item] ? langPath[item].label : ""
+                h3.MMM--blockLabel=langPath[item] ? langPath[item].label : ""
                 p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
 
 +custom_form__field(item, langTmpl, div, addedClasses, staticValidationRules, idGen, selectedItems)

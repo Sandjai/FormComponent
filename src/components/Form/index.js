@@ -26,6 +26,7 @@ export default class FormAssetsCreator {
         this.busPhoneRequired = data.busPhoneRequired;
         this.mobilePhoneRequired = data.mobilePhoneRequired;
 
+
     }
 
     updateSettings(key, val) {
