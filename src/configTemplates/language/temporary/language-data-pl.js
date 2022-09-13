@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Telefon komórkowy",
+        errMessage: "Wpisz służbowy numer telefonu"
     },
 
     address1: {
@@ -430,7 +430,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Chcę porozmawiać z ekspertem w dziedzinie rozwiązań 3M dla transportu",
             }
         }
 
@@ -438,11 +438,16 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "Jaki jest Twój obszar zainteresowania lub zastosowania, którym jesteś zainteresowany(-a)",
-        errMessage: "Jaki jest Twój obszar zainteresowania lub zastosowania, którym jesteś zainteresowany(-a)"
+        errMessage: "Jaki jest Twój obszar zainteresowania lub zastosowania, którym jesteś zainteresowany(-a)",
+        ASD: {
+            TMC: {
+                label: 'Jaki problem lub wyzwanie musisz pokonać?',
+            }
+        }
     },
 
     selDist: {
-        label: "Wybierz dystrybutora",
+        label: "Kto jest Twoim dystrybutorem",
         errMessage: "Wybrany dystrybutor",
         options: [
             // [Backend value, Frontend value]    
@@ -748,7 +753,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Cel zastosowania",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -889,7 +894,7 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Liczba Operatorów używających materiałów ściernych",
+        label: "Liczba operatorów",
         errMessage: "Wybierz wartość",
         options: [
             // [Backend value, Frontend value]   
@@ -901,7 +906,7 @@ __globScopeLanguageTemplate__ = {
 
     TMC_comp_type: {
         type: "select",
-        label: "Company Type",
+        label: "Rodzaj przedsiębiorstwa",
         errMessage: "Wybierz wartość",
         options: [
             // [Backend value, Frontend value]
@@ -913,47 +918,47 @@ __globScopeLanguageTemplate__ = {
 
     TMC_proc_type: {
         type: "select",
-        label: "Process Type",
+        label: "Typ procesu produkcyjnego",
         errMessage: "Wybierz wartość",
         options: [
             // [Backend value, Frontend value]   
-            ['Manual', 'Manual'],
-            ['Robotic', 'Robotic'],
-            ['Other', 'Other'],                
+            ['Manual', 'Ręczny'],
+            ['Robotic', 'Automatyczny'],
+            ['Other', 'Inne'],
         ]
     },
 
     TMC_app_type: {
         type: "select",
-        label: "Application Type",
+        label: "Typ aplikacji",
         errMessage: "Wybierz wartość",
         options: [
             // [Backend value, Frontend value]   
-            ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-            ['Deburring', 'Deburring'],
-            ['Sanding', 'Sanding'],                
-            ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-            ['Coating/Spraying', 'Coating/Spraying'],
-            ['Masking/Protecting', 'Masking/Protecting'],
-            ['Bonding & Assembly', 'Bonding & Assembly'],
-            ['Safety Equipments', 'Safety Equipments'],
-            ['Other', 'Other'],
+            ['Cutting, grinding, Weld removal', 'Cięcie, szlifowanie, usuwanie spoin'],
+            ['Deburring', 'Gratowanie'],
+            ['Sanding', 'Szlifowanie'],
+            ['Finishing, polishing, cleaning', 'Wykańczanie, polerowanie, czyszczenie'],
+            ['Coating/Spraying', 'Malowanie/natryskiwanie'],
+            ['Masking/Protecting', 'Maskowanie/ochrona'],
+            ['Bonding & Assembly', 'Klejenie i montaż'],
+            ['Safety Equipments', 'Osprzęt zwiększający bezpieczeństwo'],
+            ['Other', 'Inne'],
         ]
     },
 
     TMC_substrate: {
         type: "select",
-        label: "Substrate",
+        label: "Podłoże",
         errMessage: "Wybierz wartość",
         options: [
             // [Backend value, Frontend value]   
-            ['Mild Steel', 'Mild Steel'],
-            ['Stainless Steel', 'Stainless Steel'],
+            ['Mild Steel', 'Stal miękka'],
+            ['Stainless Steel', 'Stal nierdzewna'],
             ['Aluminium', 'Aluminium'],
-            ['Pastic & Composites', 'Pastic & Composites'],
-            ['Glass', 'Glass'],
-            ['Wood', 'Wood'],
-            ['Other', 'Other'],
+            ['Pastic & Composites', 'Tworzywa sztuczne i kompozyty'],
+            ['Glass', 'Szkło'],
+            ['Wood', 'Drewno'],
+            ['Other', 'Inne'],
         ]
     },    
 

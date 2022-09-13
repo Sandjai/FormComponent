@@ -746,7 +746,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Naudojimo paskirtis",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -958,7 +958,7 @@ __globScopeLanguageTemplate__ = {
 
     optInHeader: {
         type: "header",
-        label: "Iscriviti per rimanere informato sulle ultime novità dei prodotti abrasivi 3M e per altre notizie",            
+        label: "Subscribe to stay informed about the latest 3M abrasive product developments and other news",            
     },
     
 },

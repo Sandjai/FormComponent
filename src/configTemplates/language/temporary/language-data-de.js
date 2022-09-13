@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Mobiltelefon",
+        errMessage: "Bitte geben Sie Ihre Telefonnummer an"
     },
 
     address1: {
@@ -410,10 +410,10 @@ __globScopeLanguageTemplate__ = {
 
 
             ],
-            EMSD: {
-                label: "Industry/ Market Segment", // Original: Industry/ Market Segment
-            }
 
+            EMSD: {
+                label: "Branche", // Original: Industry/ Market Segment
+            },
 
     },
 
@@ -430,7 +430,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Ich möchte mit einem 3M Spezialisten für Transportlösungen sprechen",
             }
         }
 
@@ -438,7 +438,13 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "Eine kurze Beschreibung Ihres Anliegens / Kommentare",
-        errMessage: "Eine kurze Beschreibung Ihres Anliegens / Kommentare"
+        errMessage: "Eine kurze Beschreibung Ihres Anliegens / Kommentare",
+        
+        ASD: {
+            TMC: {
+                label: 'Vor welcher Herausforderung bzw. vor welchem Problem stehen Sie?',
+            }
+        }
     },
 
     selDist: {
@@ -747,7 +753,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Anwendungszweck",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -889,7 +895,7 @@ __globScopeLanguageTemplate__ = {
         
         TMC_numberOfOperators: {
             type: "select",
-            label: "Anzahl der Schleifmittelanwender",
+            label: "Anzahl der Anwender",
             errMessage: "Bitte wählen Sie eine Option",
             options: [
                 // [Backend value, Frontend value]   
@@ -901,7 +907,7 @@ __globScopeLanguageTemplate__ = {
 
         TMC_comp_type: {
             type: "select",
-            label: "Company Type",
+            label: "Unternehmensart",
             errMessage: "Bitte wählen Sie eine Option",
             options: [
                 // [Backend value, Frontend value]
@@ -913,47 +919,47 @@ __globScopeLanguageTemplate__ = {
 
         TMC_proc_type: {
             type: "select",
-            label: "Process Type",
+            label: "Verfahrensart",
             errMessage: "Bitte wählen Sie eine Option",
             options: [
                 // [Backend value, Frontend value]   
-                ['Manual', 'Manual'],
-                ['Robotic', 'Robotic'],
-                ['Other', 'Other'],                
+                ['Manual', 'händisch'],
+                ['Robotic', 'Robotertechnik'],
+                ['Other', 'Sonstige'],
             ]
         },
 
         TMC_app_type: {
             type: "select",
-            label: "Application Type",
+            label: "Zastosowanie",
             errMessage: "Bitte wählen Sie eine Option",
             options: [
                 // [Backend value, Frontend value]   
-                ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-                ['Deburring', 'Deburring'],
-                ['Sanding', 'Sanding'],                
-                ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-                ['Coating/Spraying', 'Coating/Spraying'],
-                ['Masking/Protecting', 'Masking/Protecting'],
-                ['Bonding & Assembly', 'Bonding & Assembly'],
-                ['Safety Equipments', 'Safety Equipments'],
-                ['Other', 'Other'],
+                ['Cutting, grinding, Weld removal', 'Trennen, Schleifen, Entfernen von Schweißnähten'],
+                ['Deburring', 'Entgraten'],
+                ['Sanding', 'Schleifen'],
+                ['Finishing, polishing, cleaning', 'Finishen, Polieren, Reinigen'],
+                ['Coating/Spraying', 'Lack/Sprühbeschichtung'],
+                ['Masking/Protecting', 'Abdecken/Schützen'],
+                ['Bonding & Assembly', 'Verbinden und Befestigen'],
+                ['Safety Equipments', 'Sicherheitsausrüstungen'],
+                ['Other', 'Sonstige'],
             ]
         },
 
         TMC_substrate: {
             type: "select",
-            label: "Substrate",
+            label: "Oberflächen",
             errMessage: "Bitte wählen Sie eine Option",
             options: [
                 // [Backend value, Frontend value]   
-                ['Mild Steel', 'Mild Steel'],
-                ['Stainless Steel', 'Stainless Steel'],
+                ['Mild Steel', 'Baustahl'],
+                ['Stainless Steel', 'Edelstahl'],
                 ['Aluminium', 'Aluminium'],
-                ['Pastic & Composites', 'Pastic & Composites'],
-                ['Glass', 'Glass'],
-                ['Wood', 'Wood'],
-                ['Other', 'Other'],
+                ['Pastic & Composites', 'Kunststoffe und Verbundstoffe'],
+                ['Glass', 'Glas'],
+                ['Wood', 'Holz'],
+                ['Other', 'Sonstige'],
             ]
         },       
 

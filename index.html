@@ -240,8 +240,8 @@
   </div>
   
   <!-- Form Component Script -->
-  <script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script>
-
+  <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
+<script src="./dist/app.js"></script>
   <script>
   var form1 = new window.FormComponent("TEST-TMC-202208-en_EMEA-CON-General_SMP1");
 
@@ -253,6 +253,26 @@
     CTA: "Contact Us",  
     TMC_emailGroup: '',
     });    
+
+    form1.newField({
+        type: 'header',
+        label: 'label',
+        subLabel: 'subLabel',
+        HTMLcode: `<p>This is my <a href="https://www.3m.com" target="_blank"> Test link </a>`,
+        name: 'testLink'
+    });
+
+    form1.addField('testLink');
+
+    form1.setHTMLcode('salesRequest', '<p>This is my <a href="https://www.3m.com" target="_blank"> Test link </a>');
+    form1.setLabel('emailAddress', 'label', 'sub');
+
+    form1.setHTMLcode('firstName', '<p>This is my <a href="https://www.3m.com" target="_blank"> Test link </a>');
+    form1.setLabel('firstName', 'label', 'sub');
+
+
+
+    
 
     //Change to External TY page
     form1.settings.vendor = 'elq-direct'; 

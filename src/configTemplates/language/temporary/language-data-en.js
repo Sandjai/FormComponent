@@ -435,7 +435,12 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "What is your Challenge or Application",
-        errMessage: "Please enter your Challenge or Application"
+        errMessage: "Please enter your Challenge or Application",
+        ASD: {
+            TMC: {
+                label: 'What is you challenge or pain point?',
+            }
+        }
     },
 
     selDist: {

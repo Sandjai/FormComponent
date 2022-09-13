@@ -126,10 +126,10 @@ export class FormComponent {
 
          //Must be the second
          if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
-            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;                   
+            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;      
+            this.settings.SMPsegment =  'TMC';            
          }
 
-      //   alert( this.settings.leadGenType);
     }    
 
         
@@ -667,7 +667,9 @@ export class FormComponent {
                 label: field.label,
                 errMessage: field.errMessage,
                 options: field.options ? field.options : null,
-                label: field.label,
+                value: field.value,
+                subLabel: field.subLabel,
+                HTMLcode: field.HTMLcode,
             }
 
             if (field.required === 'false') {
@@ -694,22 +696,35 @@ export class FormComponent {
         return _val;
     }
 
+
     /**
      * setLabel
      * Sets a new text for label of the field
      * @param {string} name - HTM name of the field
      * @param {string} val - new Text for the label 
+     * @param {string} val2 - works only for headers 
      */
 
-    setLabel(name, val) {
-        this.updatedTexts.push([name, this._getObject('label', val)]);
+    setLabel(name, val, val2) {
+        if (val) {
+            this.updatedTexts.push([name, this._getObject('label', val)]);
+        }
+        if (val2) {        
+            this.updatedTexts.push([name, this._getObject('subLabel', val2)]);
+        }
+    }
+
+    setHTMLcode(name, HTMLcode) {
+        if (HTMLcode) {
+            this.updatedTexts.push([name, this._getObject('HTMLcode', HTMLcode)]);
+        }
     }
 
     /**
-     * setLabel
-     * Sets a new text for label of the field
+     * setValue
+     * Sets a new value of the field
      * @param {string} name - HTM name of the field
-     * @param {string} val - new Text for the label 
+     * @param {string} val - value for the field
      */
 
      setValue(name, val) {
@@ -838,7 +853,7 @@ export class FormComponent {
      * required:        - can be 'true' or 'false'
      */
 
-    newField(data = { label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: '', condition:'', value: '' }) {
+    newField(data = { label: '', errMessage: '', type: '', options: '', name: '', className: '', required: '', condition:'', value: '',  label: '', subLabel: ''}) {
        
         let value;
 
@@ -856,8 +871,12 @@ export class FormComponent {
             required: data.required ? data.required : 'false',
             condition: data.condition ? data.condition : null,
             triggerName: data.triggerName ? data.triggerName : null,
-            value: data.value ? data.value : value
+            value: data.value ? data.value : value,
+            subLabel: data.subLabel ? data.subLabel : '',
+            HTMLcode: data.HTMLcode ? data.HTMLcode : '',
         }
+
+       
 
       /*  if (obj.required === 'false') {
             this.optionalNames.push(data.name);
@@ -1060,7 +1079,7 @@ export class FormComponent {
     hideOther(f1_name, f2_name, val) {
 
         let displayAPI = (display) => {
-            //alert(Object.keys(display));
+          
             display.hideOther(f1_name, f2_name, val);
             //display.showOther(f1_name, f2_name, val)
         }
@@ -1597,8 +1616,8 @@ export class FormComponent {
             settings: this.settings,
             selectedItems: this.selectedItems,
             customFormClasses: this.customFormClasses,
-            //SMPsegment is not used now, but can be in case of neccesity of having more nested levels in lang templates
-            SMPsegment: this.settings.SMPsegment ? this.settings.SMPsegment : null,
+            //SMPsegment is used for covering specifics in lang templates
+            SMPsegment: this.settings.SMPsegment ? this.settings.SMPsegment : this.fieldsTmpl.SMPsegment ? this.fieldsTmpl.SMPsegment : null,
             busPhoneRequired: this.staticValidationRules.busPhone !== undefined ? this.staticValidationRules.busPhone : this.fieldsTmpl.staticValidationRules.busPhone !== undefined 
                 ? this.fieldsTmpl.staticValidationRules.busPhone : 'true',
             mobilePhoneRequired: this.staticValidationRules.mobilePhone !== undefined ? this.staticValidationRules.mobilePhone : this.fieldsTmpl.staticValidationRules.mobilePhone !== undefined 

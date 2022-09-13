@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Cep Telefonu Numarası",
+        errMessage: "Bir iş telefon numarası girin"
     },
 
     address1: {
@@ -428,7 +428,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Taşımacılık Çözümleri alanında bir 3M Uzmanı ile görüşmek istiyorum",
             }
         }
 
@@ -436,11 +436,16 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "Yaşadığınız Zorluk veya Uygulamanız Nedir?",
-        errMessage: "Yaşadığınız Zorluk veya Uygulamanız Nedir?"
+        errMessage: "Yaşadığınız Zorluk veya Uygulamanız Nedir?",
+        ASD: {
+            TMC: {
+                label: 'Sizi zorlayan veya sizde sıkıntı yaratan konu nedir?',
+            }
+        }
     },
 
     selDist: {
-        label: "Seçilen Distribütör",
+        label: "Distribütörünüz kim?",
         errMessage: "Bir Distribütör seçin",
         options: [
             // [Backend value, Frontend value]    
@@ -746,7 +751,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Başvuru Amacı",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -887,7 +892,7 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Aşındırıcı Kullanıcılarının Sayısı",
+        label: "Operatör Sayısı",
         errMessage: "Bir değer seçin",
         options: [
             // [Backend value, Frontend value]   
@@ -899,7 +904,7 @@ __globScopeLanguageTemplate__ = {
 
     TMC_comp_type: {
         type: "select",
-        label: "Company Type",
+        label: "Şirket Türü",
         errMessage: "Bir değer seçin",
         options: [
             // [Backend value, Frontend value]
@@ -911,47 +916,47 @@ __globScopeLanguageTemplate__ = {
 
     TMC_proc_type: {
         type: "select",
-        label: "Process Type",
+        label: "Proses Tipi",
         errMessage: "Bir değer seçin",
         options: [
             // [Backend value, Frontend value]   
-            ['Manual', 'Manual'],
-            ['Robotic', 'Robotic'],
-            ['Other', 'Other'],                
+            ['Manual', 'El ile Çalışma'],
+            ['Robotic', 'Robotla Çalışma'],
+            ['Other', 'Diğer'],
         ]
     },
 
     TMC_app_type: {
         type: "select",
-        label: "Application Type",
+        label: "Uygulama Türü",
         errMessage: "Bir değer seçin",
         options: [
             // [Backend value, Frontend value]   
-            ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-            ['Deburring', 'Deburring'],
-            ['Sanding', 'Sanding'],                
-            ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-            ['Coating/Spraying', 'Coating/Spraying'],
-            ['Masking/Protecting', 'Masking/Protecting'],
-            ['Bonding & Assembly', 'Bonding & Assembly'],
-            ['Safety Equipments', 'Safety Equipments'],
-            ['Other', 'Other'],
+            ['Cutting, grinding, Weld removal', 'Kesme, taşlama, Kaynak temizleme'],
+            ['Deburring', 'Çapak alma'],
+            ['Sanding', 'Kumlama'],
+            ['Finishing, polishing, cleaning', 'Finisaj, polisaj, temizlik,'],
+            ['Coating/Spraying', 'Kaplama/Püskürtme'],
+            ['Masking/Protecting', 'Maskeleme/Koruma'],
+            ['Bonding & Assembly', 'Yapıştırma ve Montaj'],
+            ['Safety Equipments', 'Güvenlik Ekipmanları'],
+            ['Other', 'Diğer'],
         ]
     },
 
     TMC_substrate: {
         type: "select",
-        label: "Substrate",
+        label: "Yüzey",
         errMessage: "Bir değer seçin",
         options: [
             // [Backend value, Frontend value]   
-            ['Mild Steel', 'Mild Steel'],
-            ['Stainless Steel', 'Stainless Steel'],
-            ['Aluminium', 'Aluminium'],
-            ['Pastic & Composites', 'Pastic & Composites'],
-            ['Glass', 'Glass'],
-            ['Wood', 'Wood'],
-            ['Other', 'Other'],
+            ['Mild Steel', 'Düşük Karbonlu Çelik'],
+            ['Stainless Steel', 'Paslanmaz Çelik'],
+            ['Aluminium', 'Alüminyum'],
+            ['Pastic & Composites', 'Plastik ve Kompozitler'],
+            ['Glass', 'Cam'],
+            ['Wood', 'Ahşap'],
+            ['Other', 'Diğer'],
         ]
     },       
 

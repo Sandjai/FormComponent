@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Mobiltelefon",
+        errMessage: "Ange ett jobbtelefonnummer"
     },
 
     address1: {
@@ -430,7 +430,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Jag skulle vilja prata med en 3M-expert inom transportlösningar",
             }
         }
 
@@ -438,11 +438,16 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "Vilken är din utmaning eller ditt användningsområde?",
-        errMessage: "Vilken är din utmaning eller ditt användningsområde?"
+        errMessage: "Vilken är din utmaning eller ditt användningsområde?",
+        ASD: {
+            TMC: {
+                label: 'Vad är din utmaning eller ditt problem?',
+            }
+        }
     },
 
     selDist: {
-        label: "Vald återförsäljare",
+        label: "Vem är din återförsäljare?",
         errMessage: "Välj en återförsäljare",
         options: [
             // [Backend value, Frontend value]    
@@ -727,7 +732,7 @@ __globScopeLanguageTemplate__ = {
 
     sample: {
         type: "select",
-        label: "Please choose at least one product of interest",
+        label: "Select a product sample",
         errMessage: "Välj ett exempel",
         options: [
             // [Backend value, Frontend value]   
@@ -748,7 +753,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Användningsområde",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -889,7 +894,7 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Antal slipanvändare",
+        label: "Antal tekniker",
         errMessage: "Välj ett värde",
         options: [
             // [Backend value, Frontend value]   
@@ -901,7 +906,7 @@ __globScopeLanguageTemplate__ = {
 
     TMC_comp_type: {
         type: "select",
-        label: "Company Type",
+        label: "Företagstyp",
         errMessage: "Välj ett värde",
         options: [
             // [Backend value, Frontend value]
@@ -913,47 +918,47 @@ __globScopeLanguageTemplate__ = {
 
     TMC_proc_type: {
         type: "select",
-        label: "Process Type",
+        label: "Proces type",
         errMessage: "Välj ett värde",
         options: [
             // [Backend value, Frontend value]   
-            ['Manual', 'Manual'],
-            ['Robotic', 'Robotic'],
-            ['Other', 'Other'],                
+            ['Manual', 'Ręczny'],
+            ['Robotic', 'Automatyczny'],
+            ['Other', 'Inne'],
         ]
     },
 
     TMC_app_type: {
         type: "select",
-        label: "Application Type",
+        label: "Typ av ansökan",
         errMessage: "Välj ett värde",
         options: [
             // [Backend value, Frontend value]   
-            ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-            ['Deburring', 'Deburring'],
-            ['Sanding', 'Sanding'],                
-            ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-            ['Coating/Spraying', 'Coating/Spraying'],
-            ['Masking/Protecting', 'Masking/Protecting'],
-            ['Bonding & Assembly', 'Bonding & Assembly'],
-            ['Safety Equipments', 'Safety Equipments'],
-            ['Other', 'Other'],
+            ['Cutting, grinding, Weld removal', 'Kapning, slipning, borttagning av svetsfogar'],
+            ['Deburring', 'Gradning'],
+            ['Sanding', 'Slipning'],
+            ['Finishing, polishing, cleaning', 'Finishing, polering, rengöring'],
+            ['Coating/Spraying', 'Beläggning/sprayning'],
+            ['Masking/Protecting', 'Maskering/skydd'],
+            ['Bonding & Assembly', 'Sammanfogning och montering'],
+            ['Safety Equipments', 'Säkerhetsutrustning'],
+            ['Other', 'Annat'],
         ]
     },
 
     TMC_substrate: {
         type: "select",
-        label: "Substrate",
+        label: "Substrat",
         errMessage: "Välj ett värde",
         options: [
             // [Backend value, Frontend value]   
-            ['Mild Steel', 'Mild Steel'],
-            ['Stainless Steel', 'Stainless Steel'],
+            ['Mild Steel', 'Mjukt stål'],
+            ['Stainless Steel', 'Rostfritt stål'],
             ['Aluminium', 'Aluminium'],
-            ['Pastic & Composites', 'Pastic & Composites'],
-            ['Glass', 'Glass'],
-            ['Wood', 'Wood'],
-            ['Other', 'Other'],
+            ['Pastic & Composites', 'Plast & komposit'],
+            ['Glass', 'Glas'],
+            ['Wood', 'Trä'],
+            ['Other', 'Övrigt'],
         ]
     },     
 

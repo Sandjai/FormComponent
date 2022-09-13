@@ -27,7 +27,7 @@ mixin wrappedUl(item, langTmpl, div, addedClasses, staticValidationRules, idGen,
                                 -var _ifChecked = false
                             input(
                                 type='checkbox'
-                                value=langPath[subitem].value
+                                value=langPath[subitem].value ? langPath[subitem].value : 'on'
                                 name=subitem
                                 checked =  _ifChecked
                                 id=subitem + 'ID-' + idGen
@@ -48,7 +48,8 @@ mixin wrappedUl(item, langTmpl, div, addedClasses, staticValidationRules, idGen,
                             input.MMM--textInput.MMM--defaultFields(
                                 id=subitem + 'ID-' + idGen
                                 checked =  _ifChecked
-                                type='text'
+                                value=langPath[subitem].value ? langPath[subitem].value : 'on'
+                                type='radio'
                                 name=subitem
                                 data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "false"
                                 data-msg-required=langPath[subitem].errMessage
@@ -59,7 +60,7 @@ mixin wrappedUl(item, langTmpl, div, addedClasses, staticValidationRules, idGen,
                                 for=subitem + 'ID-' + idGen)=langPath[subitem].label
                             textarea.MMM--textInput.MMM--defaultFields.MMM--textInput_textArea(
                                 id=subitem + 'ID-' + idGen
-                                type='text'
+                                type='textarea'
                                 name=subitem
                                 data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "true"
                                 data-msg-required=langPath[subitem].errMessage

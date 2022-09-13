@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Telefono cellulare",
+        errMessage: "Inserisci un numero di telefono aziendale"
     },
 
     address1: {
@@ -430,7 +430,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Vorrei parlare con un esperto 3M in soluzioni di trasporto",
             }
         }
 
@@ -438,12 +438,17 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "Qual è la tua problematica o la tua applicazione?",
-        errMessage: "Qual è la tua problematica o la tua applicazione?"
+        errMessage: "Qual è la tua problematica o la tua applicazione?",
+        ASD: {
+            TMC: {
+                label: 'Qual è la tua sfida o il tuo dubbio? ',
+            }
+        }
     },
 
     selDist: {
-        label: "Selected Distributor",
-        errMessage: "Specify a distributor",
+        label: "Chi è il tuo distributore",
+        errMessage: "Chi è il tuo distributore",
         options: [
             // [Backend value, Frontend value]    
             ["Option 1", "Option 1"],
@@ -748,7 +753,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Scopo dell'applicazione",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -890,7 +895,7 @@ __globScopeLanguageTemplate__ = {
         
         TMC_numberOfOperators: {
             type: "select",
-            label: "Numero di operatori che usano abrasivi",
+            label: "Numero di operatori",
             errMessage: "Seleziona un valore",
             options: [
                 // [Backend value, Frontend value]   
@@ -902,7 +907,7 @@ __globScopeLanguageTemplate__ = {
 
         TMC_comp_type: {
             type: "select",
-            label: "Company Type",
+            label: "Tipo di azienda",
             errMessage: "Seleziona un valore",
             options: [
                 // [Backend value, Frontend value]
@@ -914,13 +919,13 @@ __globScopeLanguageTemplate__ = {
 
         TMC_proc_type: {
             type: "select",
-            label: "Process Type",
+            label: "Tipo di processo",
             errMessage: "Seleziona un valore",
             options: [
                 // [Backend value, Frontend value]   
-                ['Manual', 'Manual'],
-                ['Robotic', 'Robotic'],
-                ['Other', 'Other'],                
+                ['Manual', 'Manuale'],
+                ['Robotic', 'Robotizzato'],
+                ['Other', 'Altro'],
             ]
         },
 
@@ -930,31 +935,31 @@ __globScopeLanguageTemplate__ = {
             errMessage: "Seleziona un valore",
             options: [
                 // [Backend value, Frontend value]   
-                ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-                ['Deburring', 'Deburring'],
-                ['Sanding', 'Sanding'],                
-                ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-                ['Coating/Spraying', 'Coating/Spraying'],
-                ['Masking/Protecting', 'Masking/Protecting'],
-                ['Bonding & Assembly', 'Bonding & Assembly'],
-                ['Safety Equipments', 'Safety Equipments'],
-                ['Other', 'Other'],
+                ['Cutting, grinding, Weld removal', 'Taglio, molatura, attività di rimozione saldatura'],
+                ['Deburring', 'Sbavatura'],
+                ['Sanding', 'Carteggiatura'],
+                ['Finishing, polishing, cleaning', 'Finitura, lucidatura, pulitura,'],
+                ['Coating/Spraying', 'Rivestimento/Spruzzo'],
+                ['Masking/Protecting', 'Mascheratura/Protezione'],
+                ['Bonding & Assembly', 'Legante e assemblaggio'],
+                ['Safety Equipments', 'Dotazioni di sicurezza'],
+                ['Other', 'Altro'],
             ]
         },
 
         TMC_substrate: {
             type: "select",
-            label: "Substrate",
+            label: "Substrato",
             errMessage: "Seleziona un valore",
             options: [
                 // [Backend value, Frontend value]   
-                ['Mild Steel', 'Mild Steel'],
-                ['Stainless Steel', 'Stainless Steel'],
-                ['Aluminium', 'Aluminium'],
-                ['Pastic & Composites', 'Pastic & Composites'],
-                ['Glass', 'Glass'],
-                ['Wood', 'Wood'],
-                ['Other', 'Other'],
+                ['Mild Steel', 'Acciaio dolce'],
+                ['Stainless Steel', 'Acciaio inox'],
+                ['Aluminium', 'Alluminio'],
+                ['Pastic & Composites', 'Plastica e compositi'],
+                ['Glass', 'Vetro'],
+                ['Wood', 'Legno'],
+                ['Other', 'Altro'],
             ]
         },     
 

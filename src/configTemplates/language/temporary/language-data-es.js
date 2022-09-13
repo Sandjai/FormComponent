@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Teléfono móvil",
+        errMessage: "Escriba el número de teléfono de su empresa"
     },
 
     address1: {
@@ -428,7 +428,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Me gustaría hablar con un experto especializado de 3M en Soluciones para el sector del transporte",
             }
         }
 
@@ -437,6 +437,11 @@ __globScopeLanguageTemplate__ = {
     custEnq: {
         label: "Cuál es tu reto o aplicación",
         errMessage: "Cuál es tu reto o aplicación",
+        ASD: {
+            TMC: {
+                label: '¿Con qué retos o puntos críticos se encuentra?',
+            }
+        }
     },
 
     selDist: {
@@ -746,7 +751,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Ámbito de uso",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",
@@ -887,7 +892,7 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Número de operarios que utilizan abrasivos",
+        label: "Número de operarios",
         errMessage: "Seleccione una opción",
         options: [
             // [Backend value, Frontend value]   
@@ -899,7 +904,7 @@ __globScopeLanguageTemplate__ = {
 
     TMC_comp_type: {
         type: "select",
-        label: "Company Type",
+        label: "Tipo de empresa",
         errMessage: "Seleccione una opción",
         options: [
             // [Backend value, Frontend value]
@@ -911,47 +916,47 @@ __globScopeLanguageTemplate__ = {
 
     TMC_proc_type: {
         type: "select",
-        label: "Process Type",
+        label: "Proces type",
         errMessage: "Seleccione una opción",
         options: [
             // [Backend value, Frontend value]   
-            ['Manual', 'Manual'],
+            ['Manual', 'Handleiding'],
             ['Robotic', 'Robotic'],
-            ['Other', 'Other'],                
+            ['Other', 'Otros'],
         ]
     },
 
     TMC_app_type: {
         type: "select",
-        label: "Application Type",
+        label: "Tipo de aplicación",
         errMessage: "Seleccione una opción",
         options: [
             // [Backend value, Frontend value]   
-            ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-            ['Deburring', 'Deburring'],
-            ['Sanding', 'Sanding'],                
-            ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-            ['Coating/Spraying', 'Coating/Spraying'],
-            ['Masking/Protecting', 'Masking/Protecting'],
-            ['Bonding & Assembly', 'Bonding & Assembly'],
-            ['Safety Equipments', 'Safety Equipments'],
-            ['Other', 'Other'],
+            ['Cutting, grinding, Weld removal', 'Corte, desbaste, eliminación de soldaduras'],
+            ['Deburring', 'Desbarbado'],
+            ['Sanding', 'Lijado'],
+            ['Finishing, polishing, cleaning', 'Acabado, pulido, limpieza,'],
+            ['Coating/Spraying', 'Recubrimiento/Pulverización'],
+            ['Masking/Protecting', 'Enmascarado/Protección'],
+            ['Bonding & Assembly', 'Unión y montaje'],
+            ['Safety Equipments', 'Equipos de seguridad'],
+            ['Other', 'Otros'],
         ]
     },
 
     TMC_substrate: {
         type: "select",
-        label: "Substrate",
+        label: "Sustrato",
         errMessage: "Seleccione una opción",
         options: [
             // [Backend value, Frontend value]   
-            ['Mild Steel', 'Mild Steel'],
-            ['Stainless Steel', 'Stainless Steel'],
-            ['Aluminium', 'Aluminium'],
-            ['Pastic & Composites', 'Pastic & Composites'],
-            ['Glass', 'Glass'],
-            ['Wood', 'Wood'],
-            ['Other', 'Other'],
+            ['Mild Steel', 'Acero al carbono'],
+            ['Stainless Steel', 'Acero inoxidable'],
+            ['Aluminium', 'Aluminio'],
+            ['Pastic & Composites', 'Plásticos y composites'],
+            ['Glass', 'Vidrio'],
+            ['Wood', 'Madera'],
+            ['Other', 'Otros'],
         ]
     },    
 

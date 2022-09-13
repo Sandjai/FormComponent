@@ -119,7 +119,7 @@ export default class FormAssetsCreator {
 
 
     render() {
-       
+
         this._addSettingsToFormTag();
         this._createFormTemplate(this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.SMPsegment, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems, this.constructor.busPhoneNum, this.settings.changedFieldTypes);
 

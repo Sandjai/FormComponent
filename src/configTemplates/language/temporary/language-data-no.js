@@ -750,7 +750,7 @@ __globScopeLanguageTemplate__ = {
         appHeader: {
             type: "header",
             label: "Bruksformål",
-            subLabel: "Please choose at least one application type",
+            subLabel: "",
         },
         app1: {
             type: "checkbox",

@@ -32,6 +32,7 @@ const langRouting = {
     } 
    
   /*
+  
     const langRouting = {      
         
         Bulgarian: 'http://localhost:8080/src/configTemplates/language/temporary/language-data-bg.js',
@@ -65,6 +66,7 @@ const langRouting = {
        
     } 
  */
+
     const langTmpl = `${langRouting[language]}`;
     
 

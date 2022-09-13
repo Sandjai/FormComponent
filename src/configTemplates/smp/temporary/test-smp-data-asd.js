@@ -1,5 +1,5 @@
 var __globScopeSMPtemplate__ = {
-    // Number of leadGenTypes: 3
+    // Number of leadGenTypes: 4
     /**
      * leadgenCA - This property is for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
      * This template is used if [form].settings.leadGenType is equal to: 'CA';  - (by default for all the lead gen forms except SAM (for SAM default is: 'Basic')) 

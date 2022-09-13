@@ -61,8 +61,8 @@ __globScopeLanguageTemplate__ = {
     },
 
     mobilePhone: {
-        label: "Mobile Phone",
-        errMessage: "Enter your mobile phone"
+        label: "Mobiel",
+        errMessage: "Gelieve uw telefoonnummer in te voeren"
     },
 
     address1: {
@@ -427,7 +427,7 @@ __globScopeLanguageTemplate__ = {
         ASD: {           
                         
             TMC: {
-                label: "I would like to speak to a 3M Expert in Transportation Manufacturing Solutions",
+                label: "Ik wil graag spreken met een 3M-expert in transportoplossingenManufacturing Solutions",
             }
         }
 
@@ -435,11 +435,18 @@ __globScopeLanguageTemplate__ = {
 
     custEnq: {
         label: "Wat is uw uitdaging of toepassing",
-        errMessage: "Wat is uw uitdaging of toepassing"
+        errMessage: "Wat is uw uitdaging of toepassing",
+
+        ASD: {
+            TMC: {
+                label: "Wat is uw uitdaging of knelpunt?",
+            }
+        },
+ 
     },
 
     selDist: {
-        label: "Geselecteerde distributeur",
+        label: "Wie is uw distributeur",
         errMessage: "Selecteer een distributeur",
         options: [
             // [Backend value, Frontend value]    
@@ -886,7 +893,7 @@ __globScopeLanguageTemplate__ = {
     
     TMC_numberOfOperators: {
         type: "select",
-        label: "Aantal gebruikers van schuurmateriaal",
+        label: "Aantal operators",
         errMessage: "Selecteer de waarde",
         options: [
             // [Backend value, Frontend value]   
@@ -898,7 +905,7 @@ __globScopeLanguageTemplate__ = {
 
     TMC_comp_type: {
         type: "select",
-        label: "Company Type",
+        label: "Type bedrijf",
         errMessage: "Selecteer de waarde",
         options: [
             // [Backend value, Frontend value]
@@ -914,43 +921,43 @@ __globScopeLanguageTemplate__ = {
         errMessage: "Selecteer de waarde",
         options: [
             // [Backend value, Frontend value]   
-            ['Manual', 'Manual'],
+            ['Manual', 'Handleiding'],
             ['Robotic', 'Robotic'],
-            ['Other', 'Other'],                
+            ['Other', 'Overige'],
         ]
     },
 
     TMC_app_type: {
         type: "select",
-        label: "Application Type",
-        errMessage: "Selecteer de waarde",
+        label: "Toepassingstype",
+        errMessage: "Maak een keuze",
         options: [
             // [Backend value, Frontend value]   
-            ['Cutting, grinding, Weld removal', 'Cutting, grinding, Weld removal'],
-            ['Deburring', 'Deburring'],
-            ['Sanding', 'Sanding'],                
-            ['Finishing, polishing, cleaning', 'Finishing, polishing, cleaning'],
-            ['Coating/Spraying', 'Coating/Spraying'],
-            ['Masking/Protecting', 'Masking/Protecting'],
-            ['Bonding & Assembly', 'Bonding & Assembly'],
-            ['Safety Equipments', 'Safety Equipments'],
-            ['Other', 'Other'],
+            ['Cutting, grinding, Weld removal', 'Snijwerking, slijpen, verwijderen van lasnaden'],
+            ['Deburring', 'Afbramen'],
+            ['Sanding', 'Schuren'],
+            ['Finishing, polishing, cleaning', 'Finishen, polijsten, reinigen,'],
+            ['Coating/Spraying', 'Coating/spuiten'],
+            ['Masking/Protecting', 'Maskeren/beschermen'],
+            ['Bonding & Assembly', 'Verbinden en assembleren'],
+            ['Safety Equipments', 'Veiligheidsuitrusting'],
+            ['Other', 'Overige'],
         ]
     },
 
     TMC_substrate: {
         type: "select",
-        label: "Substrate",
+        label: "Ondergrond",
         errMessage: "Selecteer de waarde",
         options: [
             // [Backend value, Frontend value]   
-            ['Mild Steel', 'Mild Steel'],
-            ['Stainless Steel', 'Stainless Steel'],
+            ['Mild Steel', 'Koolstofstaal'],
+            ['Stainless Steel', 'Roestvast staal '],
             ['Aluminium', 'Aluminium'],
-            ['Pastic & Composites', 'Pastic & Composites'],
-            ['Glass', 'Glass'],
-            ['Wood', 'Wood'],
-            ['Other', 'Other'],
+            ['Pastic & Composites', 'Kunststof en composieten'],
+            ['Glass', 'Glas'],
+            ['Wood', 'Hout'],
+            ['Other', 'Overige'],
         ]
     },        
 
