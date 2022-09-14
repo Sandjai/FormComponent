@@ -120,7 +120,10 @@ New field declaration. (Adding a new declarated field to a form is managed via a
      * type: '',        - Mandatory: (possible values for type: 'text', 'textarea', checkbox', 'radio', 'select', 'header')
      * options: '',     - only in case if type = 'select'
      * name: '',        - Mandatory: (should be matching with the HTML name field of the form)      
-     * className: '',   - Optional: class for <li> wrapper of the field         
+     * className: '',   - Optional: class for <li> wrapper of the field
+     * subLabel: '' // optional, just for text in coursive small font
+     *  HTMLcode: '' // optional if you want to add a link, for example, just add HTML code here     
+         
      
 */
 
@@ -135,7 +138,21 @@ newField({ label: '', errMessage: '', type: '', options: '', name: '', value: ''
       errMessage: 'This field is mandatory', 
       type: 'text', 
       name: 'txtField',
+      subLabel: '', // optional, just for text in coursive small font
+      HTMLcode: '' // if you want to add a link, for example, just add HTML code here
     });
+```
+
+```javascript
+form1.newField({
+    label: 'I would like to enter the prize draw ', 
+    errMessage: 'This field is mandatory',
+    HTMLcode: `<a href="#termsandconditions" target="_blank"> Terms and Conditions </a>`, // using the same type of quotes (backticks) in which you wrap your HTML code here will make your life much easier in case of severa lines
+    type: 'checkbox', 
+    name: 'prizedrawyes',
+    value: 'on'
+    });
+
 ```
 
 :red_circle: `addField(name)`

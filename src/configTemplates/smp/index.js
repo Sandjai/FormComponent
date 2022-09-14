@@ -18,7 +18,7 @@ export default function (div) {
       
       
   }
-*/   
+ */ 
   
   const smpTmpl = `${smpRouting[division]}`;    
 

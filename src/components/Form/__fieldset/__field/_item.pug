@@ -303,17 +303,17 @@ mixin form__field(item, langTmpl, div, SMPseg, addedClasses, staticValidationRul
                         style="display: inline; margin-left: 10px;"
                         for=item + 'ID-' + idGen)=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].label : (divPath[div] !== undefined && divPath[div].label) ? divPath[div].label : divPath.label                                
                     
-                p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
-                div 
-                    != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
+                    p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
+                    div 
+                        != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
             else 
                 li(class = addedClasses[item] ? addedClasses[item] : "", style = 'list-style-type: none; margin-top: 25px; max-width:767px')        
                     label.MMM--blockLabel(
                         for=item + 'ID-' + idGen)= (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].label : (divPath[div] !== undefined && divPath[div].label) ? divPath[div].label : divPath.label       
                     
-                p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
-                div 
-                    != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
+                    p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
+                    div 
+                        != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
                     select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
                         id=item + 'ID-' + idGen
                         name=item
@@ -334,9 +334,9 @@ mixin form__field(item, langTmpl, div, SMPseg, addedClasses, staticValidationRul
                     label.MMM--blockLabel(
                         for=item + 'ID-' + idGen)=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].label : (divPath[div] !== undefined && divPath[div].label) ? divPath[div].label : divPath.label
                     
-                p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
-                div 
-                    != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
+                    p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
+                    div 
+                        != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
                     input.MMM--textInput.MMM--defaultFields(
                         id=item + 'ID-' + idGen
                         type='text'
@@ -350,9 +350,9 @@ mixin form__field(item, langTmpl, div, SMPseg, addedClasses, staticValidationRul
                     label.MMM--blockLabel(
                         for=item + 'ID-' + idGen)=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].label : (divPath[div] !== undefined && divPath[div].label) ? divPath[div].label : divPath.label
                     
-                p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
-                div 
-                    != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
+                    p.MMM--txt_italic=(divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].subLabel : (divPath[div] !== undefined && divPath[div].subLabel) ? divPath[div].subLabel : divPath.subLabel ? divPath.subLabel : ''
+                    div 
+                        != (divPath[div] !== undefined) && divPath[div][SMPseg] ? divPath[div][SMPseg].HTMLcode : (divPath[div] !== undefined && divPath[div].HTMLcode) ? divPath[div].HTMLcode : divPath.HTMLcode ? divPath.HTMLcode : ''
                     select.js-fancyDropDown.MMM--selectInput.MMM--isVisuallyHidden(
                         id=item + 'ID-' + idGen
                         name=item

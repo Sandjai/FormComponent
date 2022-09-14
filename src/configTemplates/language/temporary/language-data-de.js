@@ -911,9 +911,9 @@ __globScopeLanguageTemplate__ = {
             errMessage: "Bitte wählen Sie eine Option",
             options: [
                 // [Backend value, Frontend value]
-                ['End User', 'Manufacturing Company or Tier'],
-                ['Distributor', 'Distributor/Converter'],
-                ['Consumer', 'Personal Consumer'],
+                ['End User', 'Endverbraucher'],
+                ['Distributor', 'Händler'],
+                ['Consumer', 'Verbraucher'],
             ]
         },
 

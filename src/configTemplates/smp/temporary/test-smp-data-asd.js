@@ -103,12 +103,12 @@ var __globScopeSMPtemplate__ = {
 
         },
     },
-    
+
     leadGenType_TMC_CA: {
 
         SMPVersion: "1",
 
-      
+
         fieldsets: {
             CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'mobilePhone', 'TMC_comp_type',],
             preLeadgen: ['mmmIndustry1', 'mmmJobRole1', 'salesRequest'],
@@ -135,7 +135,7 @@ var __globScopeSMPtemplate__ = {
             leadgen: "MMM--isVisuallyHidden",
             preLeadgen: "MMM--isVisuallyHidden",
             salesRequest: "MMM--gapTopLrg",
-            selDist: "MMM--isVisuallyHidden",           
+            selDist: "MMM--isVisuallyHidden",
         },
 
 
@@ -183,7 +183,7 @@ var __globScopeSMPtemplate__ = {
                 ['Transp-Two-Wheel Veh Mfg & Maint', 'Email Group 2'],
                 ['Transp-Vehicle Parts Mfg', 'Email Group 2'],
                 ['Industrial-Woodworking', 'Email Group 3'],
-            ]);            
+            ]);
 
             form1.updateHidden('mmmIndustry1', 'TMC_emailGroup', emGroupScheme);
 
@@ -202,14 +202,14 @@ var __globScopeSMPtemplate__ = {
         SMPsegment: 'TMC',
 
         fieldsets: {
-            CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'TMC_comp_type','mmmIndustry1', 'mmmJobRole1', 'TMC_proc_type', 'TMC_app_type', 'custEnq', 'TMC_substrate', 'TMC_numberOfOperators', 'company', 'busPhone', 'zipPostal', 'address1', 'selDist'],
+            CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'TMC_comp_type', 'mmmIndustry1', 'mmmJobRole1', 'TMC_proc_type', 'TMC_app_type', 'custEnq', 'TMC_substrate', 'TMC_numberOfOperators', 'company', 'busPhone', 'zipPostal', 'address1', 'selDist'],
         },
 
         // Fields, which should be optional in CA Form type (only 'static' rules here. For dynamic ones - use 'ValidationRules' method)
         // all standard fields are mandatory by default
         staticValidationRules: {
             selDist: 'false',
-            TMC_substrate: 'false',            
+            TMC_substrate: 'false',
             busPhone: 'false'
 
         },
@@ -220,48 +220,48 @@ var __globScopeSMPtemplate__ = {
         },
 
 
-        addedClasses: {                     
+        addedClasses: {
             salesRequest: "MMM--gapTopLrg",
-            selDist: "MMM--isVisuallyHidden",           
+            selDist: "MMM--isVisuallyHidden",
         },
 
 
         formTypeSpecifics: {
             // FormType Short name | Array of html names to be shown only for the particular form type
             SAM: ['selDist', 'address1',],
-            DEM: ['custEnq', { busPhone: true }],
+            DEM: ['custEnq', { busPhone: true }], // custEnq is visible for this type of form, busPhone is true only for this type of form
             ASK: ['custEnq', { busPhone: true }],
             CON: ['custEnq', { busPhone: true }],
             LAR: ['custEnq', { busPhone: true }],
         },
 
-        displayValidationRules: (form1) => {           
+        displayValidationRules: (form1) => {
 
 
             let emGroupScheme = new Map([
 
-                ['Transp-Aerospace MRO', 'Email Group 1'],
-                ['Transp-Aerospace Mfg', 'Email Group 1'],
-                ['Transp-Automotive Mfg', 'Email Group 2'],
-                ['Transp-Bus Mfg', 'Email Group 2'],
-                ['Transp-Comm Veh Mfg', 'Email Group 2'],
-                ['Industrial-Composites Mfg', 'Email Group 3'],
-                ['Industrial-Indust Machinery & Equip Mfg', 'Email Group 3'],
-                ['Transp-Marine Mfg & Maint', 'Email Group 2'],
-                ['Industrial-Plastics Mfg', 'Email Group 3'],
-                ['Transp-Railcar Mfg & Maint', 'Email Group 2'],
-                ['Transp-Rail Fleet Operators', 'Email Group 2'],
-                ['Transp-Specialty Veh Mfg', 'Email Group 2'],
-                ['Transp-Ship Building & Maint', 'Email Group 2'],
-                ['Transp-Two-Wheel Veh Mfg & Maint', 'Email Group 2'],
-                ['Transp-Vehicle Parts Mfg', 'Email Group 2'],
-                ['Industrial-Woodworking', 'Email Group 3'],
-            ]);            
+                ['Transp-Aerospace MRO', 'Aerospace, Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Aerospace Mfg', 'Aerospace, Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Automotive Mfg', 'Collision Repair, Automotive, Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Bus Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Comm Veh Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Industrial-Composites Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Industrial-Indust Machinery & Equip Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Marine Mfg & Maint', 'Collision Repair, Marine, Transportation, Surface Conditioning and Finishing'],
+                ['Industrial-Plastics Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Railcar Mfg & Maint', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Rail Fleet Operators', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Specialty Veh Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Ship Building & Maint', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Two-Wheel Veh Mfg & Maint', 'Transportation, Surface Conditioning and Finishing'],
+                ['Transp-Vehicle Parts Mfg', 'Transportation, Surface Conditioning and Finishing'],
+                ['Industrial-Woodworking', 'Transportation, Surface Conditioning and Finishing'],
+            ]);
 
             form1.updateHidden('mmmIndustry1', 'TMC_emailGroup', emGroupScheme);
 
             form1.showOther('TMC_numberOfOperators', 'selDist', ['6-20', '>20']);
-            
+
 
         },
 

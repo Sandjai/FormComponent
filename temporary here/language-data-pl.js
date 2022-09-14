@@ -910,9 +910,9 @@ __globScopeLanguageTemplate__ = {
         errMessage: "Wybierz wartość",
         options: [
             // [Backend value, Frontend value]
-            ['End User', 'Manufacturing Company or Tier'],
-            ['Distributor', 'Distributor/Converter'],
-            ['Consumer', 'Personal Consumer'],
+            ['End User', 'Użytkownik końcowy'],
+            ['Distributor', 'Dystrybutor'],
+            ['Consumer', 'Konsument'],
         ]
     },
 
