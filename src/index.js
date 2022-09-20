@@ -70,7 +70,8 @@ export class FormComponent {
 
     constructor(name) {
 
-        this.el = document.querySelector(`[name="${name}"]`);        
+        this.el = document.querySelector(`[name="${name}"]`);
+        this.innerHTMLcode = this.el.innerHTML;         
 
         // in case if url parameter(s) is(are) matching with:
         // formName, sFDCLastCampaignID, lang, country, relevant fields will be overwritten/defined
@@ -1605,6 +1606,11 @@ export class FormComponent {
         }
         
        this._addingToValidator();
+
+       if (this.fieldsTmpl.hiddenFields) {
+        let hiddenFields = Object.assign(this.fieldsTmpl.hiddenFields, this.hiddenFields);
+        this.hiddenFields = hiddenFields;
+       }
        
         const form = new FormAssetsCreator({
             el: this.el,
@@ -1616,12 +1622,13 @@ export class FormComponent {
             settings: this.settings,
             selectedItems: this.selectedItems,
             customFormClasses: this.customFormClasses,
-            //SMPsegment is used for covering specifics in lang templates
+            //SMPsegment is used for covering specifics in lang templates (for TMC inside ASD, for example)
             SMPsegment: this.settings.SMPsegment ? this.settings.SMPsegment : this.fieldsTmpl.SMPsegment ? this.fieldsTmpl.SMPsegment : null,
             busPhoneRequired: this.staticValidationRules.busPhone !== undefined ? this.staticValidationRules.busPhone : this.fieldsTmpl.staticValidationRules.busPhone !== undefined 
                 ? this.fieldsTmpl.staticValidationRules.busPhone : 'true',
             mobilePhoneRequired: this.staticValidationRules.mobilePhone !== undefined ? this.staticValidationRules.mobilePhone : this.fieldsTmpl.staticValidationRules.mobilePhone !== undefined 
             ? this.fieldsTmpl.staticValidationRules.mobilePhone : 'true',
+            innerHTMLcode: this.innerHTMLcode,
             
         });
 

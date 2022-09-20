@@ -210,8 +210,7 @@
         <!-- Titling BEGIN -->
         <div class="rG-68-Titling rSG-68-Titling MMM--gapBottom MMM--contentWrapper MMM--contentWrapper_padded MMM--clear dpl-15232016172337246">
             <div class="MMM--pageSectionTitle MMM--wysiwyg"> 
-                <!--h2 class="MMM--hdg MMM--hdg_2 mix-MMM--hdg_spaced">Lead Gen template</h2-->
-                <h2 class="MMM--hdg MMM--hdg_2 mix-MMM--hdg_spaced">LeadGen Template</h2>
+                <h2 class="MMM--hdg MMM--hdg_2 mix-MMM--hdg_spaced">Lead Gen template</h2>
                 <p class="">Ask our expert about 3M abrasive solutions and <span style="color:blue;">request a demo / request a sample</span>. Register and our 3M expert will contact you directly.
               </p><p class="">
   Please be advised that we can only contact professional, industrial users that meet the required conditions. If these conditions aren’t met, we recommend visiting 3M website from where can contact our distributors partners who will be able to provide you with more information and help you find the right product.
@@ -233,39 +232,171 @@
       }
       </style>
 
-     
+      <span elqid="2218" elqtype="Section" class="remove-absolute" style="display: block"></span>
 
-      <form name="TEST-TMC-202208-en_EMEA-CON-General_SMP1">
-        <span elqid="2218" elqtype="Section" class="remove-absolute" style="display: block"></span>
-      </form>
+      <form name="EMSD-202209-en_GB-SAM-DYSON_Event_UK_2022"></form>
 
     </div>
   </div>
   
   <!-- Form Component Script -->
-  <script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script>
-
+  <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
+<script src="./dist/app.js"></script>
   <script>
 	(function() {
 	
-        var form1 = new window.FormComponent("TEST-TMC-202208-en_EMEA-CON-General_SMP1");
+    var form1 = new window.FormComponent("EMSD-202209-en_GB-SAM-DYSON_Event_UK_2022");
 
-        form1.setHiddenFields({          
-        sFDCLastCampaignName: "ASD-1910-EMEA-GLC-CON-DRC_Testing",
-        sFDCLastCampaignID: "7011N0000019pg6QAA",
-        sFDCLastCampaignStatus: "Optional",
-        leadSourceMostRecent1: "Website",
-        CTA: "Contact Us",  
-        });    
+    form1.setHiddenFields({          
+    sFDCLastCampaignName: "EMSD-DYSON_Events-UK-2022_09-C",
+    sFDCLastCampaignID: "7012K000001aGEGQA2",
+    sFDCLastCampaignStatus: "Optional",
+    leadSourceMostRecent1: "Website",
+    CTA: "Request a sample"  
+    });
 
-        //Change to External TY page
-        form1.settings.vendor = 'elq-direct'; 
-        //Choosing a correct TMC template. Possible values: "TMC_CA" and "TMC_Basic"
-        form1.settings.leadGenType = "TMC_Basic";
+    //Totally removing the fields from LP (validation rules will be removed automatically)
+    form1.removeFields(['appHeader','custEnq','salutation','city','app1','app2','app3','app4','app5','app6','app7','app8','app9','app10','app11','app12','app13']);
+  
 
-        form1.render();
+
+    // Just to make the field visible (by means of removing 'MMM--isVisuallyHidden' and all the classes if they are)
+    form1.removeClasses('mmmIndustry1');
+
+
+    // To make 'Industry' field mandatory
+    form1.staticValidationRules.mmmIndustry1 = 'true';
+
+    // Backend values of Industries which we want to see
+    form1.updateSelectOpts ('mmmIndustry1', 'Transp-Aerospace Mfg', 'Transp-Automotive Mfg', 'Industrial-Bearings & Gears Mfg', 'Industrial-Chemical Mfg', 'Comms-Data Center', 'Industrial-Electrical Equip Mfg', 'Industrial-Fire Protection & Suppr', 'Industrial-Indust Machinery & Equip Mfg', 'Industrial-Medical Devices Mfg', 'Industrial-Paints & Coatings Mfg', 'Utilities-Power Dist & Transmission', 'Utilities-Power Generation', 'Electronics-Semicon & Circuit Boards', 'Industrial-Turbine & Engine Mfg',);
+
+    // Backend values of Job Roles which we want to see
+    form1.updateSelectOpts ('mmmJobRole1', 'Consultant','Engineer-Fire Protection','Engineer-General','Manager/Supervisor','Marketing','Purchasing/Procurement/Buyer','Research & Development','Sales','Other',)
+
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'How can 3M support your needs', 
+    errMessage: 'This field is mandatory', 
+    type: 'text', 
+    name: 'mmmNeeds'
+    });
+
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'Enquiry and / or Sample Request Details', 
+    errMessage: 'This field is mandatory', 
+    type: 'text', 
+    name: 'samreq'
+    });
     
-    })();
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'Which topics / products are you interested in?',         
+    type: 'header', 
+    name: 'topicsHeader'
+    });
+
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'Coating & Cleaning Solutions', 
+    errMessage: 'Please choose at least one topic/product',
+    type: 'checkbox', 
+    name: 'int_in_1',
+    value: 'on'
+    });
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'Tapes & Adhesives Solutions (Electronic Grade)', 
+    errMessage: 'Please choose at least one topic/product',
+    type: 'checkbox', 
+    name: 'int_in_2',
+    value: 'on'
+    });
+
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'Tapes & Adhesives Solutions (Industrial Grade)', 
+    errMessage: 'Please choose at least one topic/product',
+    type: 'checkbox', 
+    name: 'int_in_3',
+    value: 'on'
+    });
+
+    // Declaring a new custom field 
+    form1.newField({
+    label: 'Packaging Solutions, MDC and Automation Support  ', 
+    errMessage: 'Please choose at least one topic/product',
+    type: 'checkbox', 
+    name: 'int_in_4',
+    value: 'on'
+    }); 
+
+    form1.newField({
+    label: 'Prize draw question: What colour is the 3M logo?', 
+    errMessage: 'This field is mandatory', 
+    type: 'text', 
+    name: 'mmmColour'
+    });
+
+    
+
+    const infoBlock = `<div class="addInfoBlock-action">
+                        <a href="#legalInfo-footer" class="MMM--hdg MMM--addInfoBlockTrigger js-contentToggle-trigger_resource MMM--basicLink"><i class="MMM--icn MMM--icn_plus mix-MMM--icn_sm mix-MMM--icn_rightSpace"></i>Terms &amp; Conditions</a>
+                    </div>
+                    <div class="MMM--addInfoBlock-message js-contentToggle-target MMM--contentToggle-target MMM--flx_sm_3" id="legalInfo-footer">
+                        The 3M™ Welding Prize Draw 2022 – Terms &amp; Conditions 
+                        <ol class="MMM--addInfoBlock-message js-contentToggle-target MMM--contentToggle-target MMM--flx_sm_3" id="legalInfo-footer">                          
+                        <li style="font-size: 10px;">The promotion is open all UK &amp; Ireland residents aged 18 years or over and employed in a professional role that includes welding responsibilities except employees and their families as well as representatives or agents of 3M United Kingdom plc.</li>
+                        <li style="font-size: 10px;">The promotion is free to enter and no purchase is necessary.</li>
+                        <li style="font-size: 10px;">The opening date for entries is April 25th 2022. The closing date of the prize draw is June 6th 2022. Entries received after this time will not be counted.</li>
+                        <li style="font-size: 10px;">To enter, please visit (<a href="https://app.engage.3m.com/e/er?s=837031577&amp;lid=89315&amp;elqTrackId=8b4d8ee01a61448f8a55c2862ff40a1c&amp;elq=00000000000000000000000000000000&amp;elqaid=30920&amp;elqat=2" target="_blank">https://engage.3m.com/HMTweldingcomp</a>) and complete the online form. Once you have submitted the form, you will automatically be sent to a thank you page. You will be automatically entered into the prize draw.</li>
+                        <li style="font-size: 10px;">This draw is to win one of our 3M™ Speedglas™ Welding Helmet with our new welding filter, to a value of approximately £571.47.</li>
+                        <li style="font-size: 10px;">The entrant is defined as the person who filled in the online form.</li>
+                        <li style="font-size: 10px;">The prize must be taken as offered [with no warranty or guarantee given by the Promoter].</li>
+                        <li style="font-size: 10px;">The promoter will contact the winners within 30 days of the close date by email to arrange delivery of the prize. If a winner does not respond to the Promoter within 14 days of being notified by the Promoter, then the winner's prize will be forfeited, and the Promoter will be entitled to select another winner in accordance with the process described above.</li>
+                        <li style="font-size: 10px;">The prize for the winner is non-exchangeable, non-transferable and no cash alternative is offered.</li>
+                        <li style="font-size: 10px;">Only one entry per person will be accepted. Any entries submitted by agents, third parties, organised groups or applications automatically generated by a computer will be invalid and will not be accepted by the Promoter.</li>
+                        <li style="font-size: 10px;">Incomplete entries will be deemed invalid.</li>
+                        <li style="font-size: 10px;">The winner will be drawn at random from all valid entries on June 7th 2022 (“Draw Date”) performed by a computer process or supervised by an independent person.</li>
+                        <li style="font-size: 10px;">By entering, the entrant agrees to take part in publicity as required by 3M United Kingdom plc, in the event that they win the prize.</li>
+                        <li style="font-size: 10px;">The Promoter accepts no responsibility for entries which are lost or corrupted during upload or not received through technical fault. Proof of sending is not automatically proof of receipt.</li>
+                        <li style="font-size: 10px;">Your personal information will be processed by the Promoter for allowing your participation to the promotion in subject. The legal basis for processing your personal information is our legitimate interest to carry out our business activity and to develop and manage our relationship with you. Your personal information will generally be stored for the duration of this promotion in 3M databases or databases maintained by our trusted service providers. Many of these databases are stored on servers located in the United States. 3M takes appropriate measures, by contract or otherwise, to provide adequate protection for personal information that is disclosed to a third party or transferred to another country, including transfers within 3M group. 3M maintains reasonable safeguards to protect the confidentiality, security and integrity of your personal information. Although we use security measures to help protect your personal information against unauthorized disclosure, misuse, or alteration, as is the case with all computer networks linked to the Internet, we cannot guarantee the security of information provided over the Internet and will not be responsible for breaches of security beyond our reasonable control.</li>
+                        <li style="font-size: 10px;">By entering the promotion, the entrant agrees to the terms of the 3M privacy policy – available at <a href="https://app.engage.3m.com/e/er?s=837031577&amp;lid=12700&amp;elqTrackId=7a89eb367d8d4dad9bf972e58bff739c&amp;elq=00000000000000000000000000000000&amp;elqaid=30920&amp;elqat=2" target="_blank">https://www.3m.co.uk/3M/en_GB/company-uk/privacy-policy</a>. Please refer to the 3M privacy policy to find additional information about data processing, including how to exercise individual rights.</li>
+                        <li style="font-size: 10px;">It is the entrant’s sole responsibility to ensure that they have any permission required to enter the promotion.</li>
+                        <li style="font-size: 10px;">The promoter reserves the right to amend these terms and conditions or substitute the prize (to one of equivalent or greater value) in the event of circumstances beyond its reasonable control.</li>
+                        <li style="font-size: 10px;">The promoter’s decision is final and no correspondence will be entered into.</li>
+                        <li style="font-size: 10px;">Insofar as is permitted by law, the Promoter, its agents or distributors will not in any circumstances be responsible or liable to compensate the winner or accept any liability for any loss, damage, personal injury or death occurring as a result of taking up the prize except where it is caused by the negligence of the Promoter, its agents or distributors or that of their employees. Your statutory rights are not affected.</li>
+                        <li style="font-size: 10px;">The Promoter of this prize draw is 3M United Kingdom plc of, 3M Centre, Cain Road, Bracknell, RG12 8HT.</li>
+                        <li style="font-size: 10px;">These terms and conditions are governed by the laws of England and Wales . and entrants to the prize draw submit to the jurisdiction of the English courts.</li>
+                        </ol>  
+                    </div>`;
+
+    form1.newField({
+    label: 'I would like to enter the prize draw  ', 
+    errMessage: 'This field is mandatory',
+    HTMLcode: infoBlock, 
+    type: 'checkbox', 
+    name: 'prizedrawyes',
+    value: 'on'
+    });
+
+    // Adding new declared fields to LP (by default all fields are optional)
+    form1.addFields(['topicsHeader','int_in_1','int_in_2','int_in_3','int_in_4'], 'firstName'); 
+form1.addFields(['mmmNeeds','samreq','mmmColour','prizedrawyes']);
+
+    // Combine checkboxes in one group
+    form1.checkboxesGroup ('int_in_1 int_in_2 int_in_3 int_in_4');
+  form1.setValue('int_in_1', 'on'); 
+    form1.setValue('int_in_2', 'on');
+    form1.setValue('int_in_3', 'on');
+    form1.setValue('int_in_4', 'on');
+    form1.setValue('prizedrawyes', 'on');
+  
+
+  
+    form1.render();
+    
+})();
   </script>
   
   

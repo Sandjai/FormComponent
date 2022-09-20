@@ -25,6 +25,7 @@ export default class FormAssetsCreator {
         this.SMPsegment = data.SMPsegment;
         this.busPhoneRequired = data.busPhoneRequired;
         this.mobilePhoneRequired = data.mobilePhoneRequired;
+        this.innerHTMLcode = data.innerHTMLcode;
 
 
     }
@@ -121,17 +122,17 @@ export default class FormAssetsCreator {
     render() {
 
         this._addSettingsToFormTag();
-        this._createFormTemplate(this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.SMPsegment, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems, this.constructor.busPhoneNum, this.settings.changedFieldTypes);
+        this._createFormTemplate(this.hiddenFields, this.fieldsTmpl.fieldsets, this.langTmpl, this.div, this.SMPsegment, this.fieldsTmpl.addedClasses, this.fieldsTmpl.staticValidationRules, this.idGen, this.selectedItems, this.constructor.busPhoneNum, this.settings.changedFieldTypes, this.innerHTMLcode);
 
     }
 
-    _createFormTemplate(hiddenFields, fieldsets, langTmpl, div, SMPseg, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes) {
+    _createFormTemplate(hiddenFields, fieldsets, langTmpl, div, SMPseg, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes, innerHTMLcode) {
 
         //this.el.insertAdjacentHTML('beforebegin', preform());
         this.el.insertAdjacentHTML('afterend', afterform({ langTmpl }));
         this._addClasses(this.customFormClasses);
 
-        this.el.innerHTML = template({ hiddenFields, fieldsets, langTmpl, div, SMPseg, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes});
+        this.el.innerHTML = template({ hiddenFields, fieldsets, langTmpl, div, SMPseg, addedClasses, staticValidationRules, idGen, selectedItems, busPhoneNum, changedFieldTypes, innerHTMLcode});
 
 
 
