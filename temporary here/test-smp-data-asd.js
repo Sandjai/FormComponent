@@ -1,5 +1,5 @@
 var __globScopeSMPtemplate__ = {
-    // Number of leadGenTypes: 4
+    // Number of leadGenTypes here: 4 (2 for ASD, and 2 for TMC)
     /**
      * leadgenCA - This property is for the case when 'I want Sales Contact' checkbox is on the page and leadgen fields are hidden untill the checkbox is checked
      * This template is used if [form].settings.leadGenType is equal to: 'CA';  - (by default for all the lead gen forms except SAM (for SAM default is: 'Basic')) 
@@ -104,10 +104,11 @@ var __globScopeSMPtemplate__ = {
         },
     },
 
+    // Templates for TMC start here 
+    // TMC with a Sales Request checkbox field (when [form].settings.leadGenType equal to: TMC_CA ).
     leadGenType_TMC_CA: {
 
         SMPVersion: "1",
-
 
         fieldsets: {
             CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'mobilePhone', 'TMC_comp_type',],
@@ -148,6 +149,15 @@ var __globScopeSMPtemplate__ = {
             LAR: ['custEnq', { busPhone: true }],
         },
 
+        hiddenFields: {
+            CollisionRepair: '',
+            Marine: '',
+            Automotive: '',
+            Aerospace: '',
+            Transportation: '',
+            SurfaceConditioningFinishing: '',
+        },
+
         displayValidationRules: (form1) => {
 
             form1.addDependency({
@@ -165,41 +175,105 @@ var __globScopeSMPtemplate__ = {
 
             });
 
-            let emGroupScheme = new Map([
+            form1.showOther('TMC_numberOfOperators', 'selDist', ['6-20', '>20']);
 
-                ['Transp-Aerospace MRO', 'Email Group 1'],
-                ['Transp-Aerospace Mfg', 'Email Group 1'],
-                ['Transp-Automotive Mfg', 'Email Group 2'],
-                ['Transp-Bus Mfg', 'Email Group 2'],
-                ['Transp-Comm Veh Mfg', 'Email Group 2'],
-                ['Industrial-Composites Mfg', 'Email Group 3'],
-                ['Industrial-Indust Machinery & Equip Mfg', 'Email Group 3'],
-                ['Transp-Marine Mfg & Maint', 'Email Group 2'],
-                ['Industrial-Plastics Mfg', 'Email Group 3'],
-                ['Transp-Railcar Mfg & Maint', 'Email Group 2'],
-                ['Transp-Rail Fleet Operators', 'Email Group 2'],
-                ['Transp-Specialty Veh Mfg', 'Email Group 2'],
-                ['Transp-Ship Building & Maint', 'Email Group 2'],
-                ['Transp-Two-Wheel Veh Mfg & Maint', 'Email Group 2'],
-                ['Transp-Vehicle Parts Mfg', 'Email Group 2'],
-                ['Industrial-Woodworking', 'Email Group 3'],
+            form1.hideOther('mobilePhone', 'busPhone');
+
+            /*
+               * START setting a value 'Yes' to relevant hidden field depending on a chosen Industry (for realizing the scheme of subscription to email groups)
+               */
+
+            // for CollisionRepair START
+            let emCollisionRepairScheme = new Map([
+                ['Transp-Automotive Mfg', 'Yes'],
+                ['Transp-Marine Mfg & Maint', 'Yes'],
             ]);
 
-            form1.updateHidden('mmmIndustry1', 'TMC_emailGroup', emGroupScheme);
+            form1.updateHidden('mmmIndustry1', 'CollisionRepair', emCollisionRepairScheme);
+            // for CollisionRepair END
 
-            form1.showOther('TMC_numberOfOperators', 'selDist', ['6-20', '>20']);
-            form1.hideOther('mobilePhone', 'busPhone');
+            // for Marine START
+            let emMarineScheme = new Map([
+                ['Transp-Marine Mfg & Maint', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Marine', emMarineScheme);
+            // for Marine END
+
+            // for Automotive START
+            let emAutomotiveScheme = new Map([
+                ['Transp-Automotive Mfg', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Automotive', emAutomotiveScheme);
+            // for Automotive END
+
+            // for Aerospace START
+            let emAerospaceScheme = new Map([
+                ['Transp-Aerospace MRO', 'Yes'],
+                ['Transp-Aerospace Mfg', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Aerospace', emAerospaceScheme);
+            // for Aerospace END
+
+            // for Transportation START       
+            let emTransportationScheme = new Map([
+                ['Transp-Aerospace MRO', 'Yes'],
+                ['Transp-Aerospace Mfg', 'Yes'],
+                ['Transp-Automotive Mfg', 'Yes'],
+                ['Transp-Bus Mfg', 'Yes'],
+                ['Transp-Comm Veh Mfg', 'Yes'],
+                ['Industrial-Composites Mfg', 'Yes'],
+                ['Industrial-Indust Machinery & Equip Mfg', 'Yes'],
+                ['Transp-Marine Mfg & Maint', 'Yes'],
+                ['Industrial-Plastics Mfg', 'Yes'],
+                ['Transp-Railcar Mfg & Maint', 'Yes'],
+                ['Transp-Rail Fleet Operators', 'Yes'],
+                ['Transp-Specialty Veh Mfg', 'Yes'],
+                ['Transp-Ship Building & Maint', 'Yes'],
+                ['Transp-Two-Wheel Veh Mfg & Maint', 'Yes'],
+                ['Transp-Vehicle Parts Mfg', 'Yes'],
+                ['Industrial-Woodworking', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Transportation', emTransportationScheme);
+            // for Transportation END
+
+            // for SurfaceConditioningFinishing START          
+            let emSurfaceConditioningFinishingScheme = new Map([
+                ['Transp-Aerospace MRO', 'Yes'],
+                ['Transp-Aerospace Mfg', 'Yes'],
+                ['Transp-Automotive Mfg', 'Yes'],
+                ['Transp-Bus Mfg', 'Yes'],
+                ['Transp-Comm Veh Mfg', 'Yes'],
+                ['Industrial-Composites Mfg', 'Yes'],
+                ['Industrial-Indust Machinery & Equip Mfg', 'Yes'],
+                ['Transp-Marine Mfg & Maint', 'Yes'],
+                ['Industrial-Plastics Mfg', 'Yes'],
+                ['Transp-Railcar Mfg & Maint', 'Yes'],
+                ['Transp-Rail Fleet Operators', 'Yes'],
+                ['Transp-Specialty Veh Mfg', 'Yes'],
+                ['Transp-Ship Building & Maint', 'Yes'],
+                ['Transp-Two-Wheel Veh Mfg & Maint', 'Yes'],
+                ['Transp-Vehicle Parts Mfg', 'Yes'],
+                ['Industrial-Woodworking', 'Yes'],
+            ]);
+            form1.updateHidden('mmmIndustry1', 'SurfaceConditioningFinishing', emSurfaceConditioningFinishingScheme);
+            // for SurfaceConditioningFinishing END
+
+            /*
+            * END setting a value 'Yes' to relevant hidden field depending on a chosen Industry (for realizing the scheme of subscription to email groups)
+            */
 
         },
 
     },
 
-
+    // TMC Without a Sales Request checkbox (select) field (when [form].settings.leadGenType equal to: TMC_Basic ).
     leadGenType_TMC_Basic: {
 
         SMPVersion: "1",
-
-        SMPsegment: 'TMC',
 
         fieldsets: {
             CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'TMC_comp_type', 'mmmIndustry1', 'mmmJobRole1', 'TMC_proc_type', 'TMC_app_type', 'custEnq', 'TMC_substrate', 'TMC_numberOfOperators', 'company', 'busPhone', 'zipPostal', 'address1', 'selDist'],
@@ -235,32 +309,107 @@ var __globScopeSMPtemplate__ = {
             LAR: ['custEnq', { busPhone: true }],
         },
 
+        hiddenFields: {
+            CollisionRepair: '',
+            Marine: '',
+            Automotive: '',
+            Aerospace: '',
+            Transportation: '',
+            SurfaceConditioningFinishing: '',
+        },
+
         displayValidationRules: (form1) => {
 
+            form1.showOther('TMC_numberOfOperators', 'selDist', ['6-20', '>20']);
 
-            let emGroupScheme = new Map([
+            /*
+            * START setting a value 'Yes' to relevant hidden field depending on a chosen Industry (for realizing the scheme of subscription to email groups)
+            */
 
-                ['Transp-Aerospace MRO', 'Aerospace, Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Aerospace Mfg', 'Aerospace, Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Automotive Mfg', 'Collision Repair, Automotive, Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Bus Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Comm Veh Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Industrial-Composites Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Industrial-Indust Machinery & Equip Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Marine Mfg & Maint', 'Collision Repair, Marine, Transportation, Surface Conditioning and Finishing'],
-                ['Industrial-Plastics Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Railcar Mfg & Maint', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Rail Fleet Operators', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Specialty Veh Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Ship Building & Maint', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Two-Wheel Veh Mfg & Maint', 'Transportation, Surface Conditioning and Finishing'],
-                ['Transp-Vehicle Parts Mfg', 'Transportation, Surface Conditioning and Finishing'],
-                ['Industrial-Woodworking', 'Transportation, Surface Conditioning and Finishing'],
+            // for CollisionRepair START
+            let emCollisionRepairScheme = new Map([
+                ['Transp-Automotive Mfg', 'Yes'],
+                ['Transp-Marine Mfg & Maint', 'Yes'],
             ]);
 
-            form1.updateHidden('mmmIndustry1', 'TMC_emailGroup', emGroupScheme);
+            form1.updateHidden('mmmIndustry1', 'CollisionRepair', emCollisionRepairScheme);
+            // for CollisionRepair END
 
-            form1.showOther('TMC_numberOfOperators', 'selDist', ['6-20', '>20']);
+            // for Marine START
+            let emMarineScheme = new Map([
+                ['Transp-Marine Mfg & Maint', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Marine', emMarineScheme);
+            // for Marine END
+
+            // for Automotive START
+            let emAutomotiveScheme = new Map([
+                ['Transp-Automotive Mfg', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Automotive', emAutomotiveScheme);
+            // for Automotive END
+
+            // for Aerospace START
+            let emAerospaceScheme = new Map([
+                ['Transp-Aerospace MRO', 'Yes'],
+                ['Transp-Aerospace Mfg', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Aerospace', emAerospaceScheme);
+            // for Aerospace END
+
+            // for Transportation START       
+            let emTransportationScheme = new Map([
+                ['Transp-Aerospace MRO', 'Yes'],
+                ['Transp-Aerospace Mfg', 'Yes'],
+                ['Transp-Automotive Mfg', 'Yes'],
+                ['Transp-Bus Mfg', 'Yes'],
+                ['Transp-Comm Veh Mfg', 'Yes'],
+                ['Industrial-Composites Mfg', 'Yes'],
+                ['Industrial-Indust Machinery & Equip Mfg', 'Yes'],
+                ['Transp-Marine Mfg & Maint', 'Yes'],
+                ['Industrial-Plastics Mfg', 'Yes'],
+                ['Transp-Railcar Mfg & Maint', 'Yes'],
+                ['Transp-Rail Fleet Operators', 'Yes'],
+                ['Transp-Specialty Veh Mfg', 'Yes'],
+                ['Transp-Ship Building & Maint', 'Yes'],
+                ['Transp-Two-Wheel Veh Mfg & Maint', 'Yes'],
+                ['Transp-Vehicle Parts Mfg', 'Yes'],
+                ['Industrial-Woodworking', 'Yes'],
+            ]);
+
+            form1.updateHidden('mmmIndustry1', 'Transportation', emTransportationScheme);
+            // for Transportation END
+
+            // for SurfaceConditioningFinishing START          
+            let emSurfaceConditioningFinishingScheme = new Map([
+                ['Transp-Aerospace MRO', 'Yes'],
+                ['Transp-Aerospace Mfg', 'Yes'],
+                ['Transp-Automotive Mfg', 'Yes'],
+                ['Transp-Bus Mfg', 'Yes'],
+                ['Transp-Comm Veh Mfg', 'Yes'],
+                ['Industrial-Composites Mfg', 'Yes'],
+                ['Industrial-Indust Machinery & Equip Mfg', 'Yes'],
+                ['Transp-Marine Mfg & Maint', 'Yes'],
+                ['Industrial-Plastics Mfg', 'Yes'],
+                ['Transp-Railcar Mfg & Maint', 'Yes'],
+                ['Transp-Rail Fleet Operators', 'Yes'],
+                ['Transp-Specialty Veh Mfg', 'Yes'],
+                ['Transp-Ship Building & Maint', 'Yes'],
+                ['Transp-Two-Wheel Veh Mfg & Maint', 'Yes'],
+                ['Transp-Vehicle Parts Mfg', 'Yes'],
+                ['Industrial-Woodworking', 'Yes'],
+            ]);
+            form1.updateHidden('mmmIndustry1', 'SurfaceConditioningFinishing', emSurfaceConditioningFinishingScheme);
+            // for SurfaceConditioningFinishing END
+
+            /*
+            * END setting a value 'Yes' to relevant hidden field depending on a chosen Industry (for realizing the scheme of subscription to email groups)
+            */
+
+
 
 
         },
