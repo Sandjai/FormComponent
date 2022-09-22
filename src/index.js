@@ -41,11 +41,12 @@ export class FormComponent {
     hided_fields = [];
     removedClasses = [];
     inGroupOfChbxes = [];
-    
-    updatedTexts = []; 
-    rewritedParametersFromURL = {};    
+
+    updatedTexts = [];
+    rewritedParametersFromURL = {};
 
     arrayOfCheckboxesGroup = [];
+    shortLanguage = '';
 
 
     langTmpl;        // will be feeded by a a relevant 'language data template'
@@ -56,8 +57,8 @@ export class FormComponent {
 
     settings = {        // Set of parameters of the <form> tag
         vendor: 'elq-jsp', // Possible vendors: 'elq', 'elq-jsp', 'elq-direct', 'elq-psd', '3M', 'pdot'
-        classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],       
-        get countryCode () {return this._identifyLocale('countryCode')},
+        classes: ['cmxform', 'js-subvalidate', 'js-emailform', 'mmmMailForm', 'eloquaForm', 'eloquaGlobalForm'],
+        get countryCode() { return this._identifyLocale('countryCode') },
         leadGenType: 'CA',
         _busPhone: false, // do not change manually
         _mobilePhone: false, // do not change manually
@@ -71,15 +72,15 @@ export class FormComponent {
     constructor(name) {
 
         this.el = document.querySelector(`[name="${name}"]`);
-        this.innerHTMLcode = this.el.innerHTML;         
+        this.innerHTMLcode = this.el.innerHTML;
 
         // in case if url parameter(s) is(are) matching with:
         // formName, sFDCLastCampaignID, lang, country, relevant fields will be overwritten/defined
-        
+
         this.rewriteFromURL(name);
 
 
-        this.elId = this.name;                
+        this.elId = this.name;
 
         this.hiddenFields = {        // Set of hidden fields of the form
 
@@ -103,7 +104,7 @@ export class FormComponent {
             SMPVersion: ""
         };
 
-        this._manageSpecifics();        
+        this._manageSpecifics();
 
         this._identifyLocale("country");
 
@@ -123,19 +124,19 @@ export class FormComponent {
         //Must be the first
         if (this.hiddenFields.formType === 'SAM') {
             this.settings.leadGenType = 'Basic';
-         }
+        }
 
-         //Must be the second
-         if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
-            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;      
-            this.settings.SMPsegment =  'TMC';            
-         }
+        //Must be the second
+        if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
+            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;
+            this.settings.SMPsegment = 'TMC';
+        }
 
-    }    
+    }
 
-        
 
-    rewriteFromURL (name) {
+
+    rewriteFromURL(name) {
 
         const urlAddress = new URL(location.href);
 
@@ -148,53 +149,54 @@ export class FormComponent {
 
         const urlLang = urlAddress.searchParams.get('lang');
         if (urlLang !== null) {
-            this.rewritedParametersFromURL.lang = urlLang.toLowerCase();           
+            this.rewritedParametersFromURL.lang = urlLang.toLowerCase();
         }
 
         const urlCountry = urlAddress.searchParams.get('country');
-        if (urlCountry !== null) {            
-            this.rewritedParametersFromURL.country = urlCountry.toUpperCase();            
+        if (urlCountry !== null) {
+            this.rewritedParametersFromURL.country = urlCountry.toUpperCase();
         }
 
         const urlsFDCLastCampaignID = urlAddress.searchParams.get('sFDCLastCampaignID');
         if (urlsFDCLastCampaignID !== null) {
             this.rewritedParametersFromURL.sFDCLastCampaignID = urlsFDCLastCampaignID;
-        } 
-        
+        }
+
     }
 
-    initDomReadyPrioritized () {        
-        domReady[this.prioritizedDomReadyKey] = () => {};
+    initDomReadyPrioritized() {
+        domReady[this.prioritizedDomReadyKey] = () => { };
     }
 
     setDomReadyPrioritize(func) {
-      
+
         const current = domReady[this.prioritizedDomReadyKey];
         const result = func();
-     
+
         domReady[this.prioritizedDomReadyKey] = () => {
             current();
-            result();         
-          
-           
+            result();
+
+
         }
-      }
+    }
 
     _identifyLocale(par) {
 
         const name = 'DCSext.locale';
         const val = document.getElementsByTagName('meta')[name].getAttribute("content");
+        this.shortLanguage = val.slice(0, val.indexOf('_'));
 
         if (par === 'country') {
             return getCountry(val.slice(val.indexOf('_') + 1));
         }
-        if (par === 'language') {           
+        if (par === 'language') {
             return getLanguage(val.slice(0, val.indexOf('_')));
         }
 
         if (par === 'countryCode') {
             const countryCode = this.rewritedParametersFromURL.country;
-            
+
             if ((countryCode !== undefined) && (getCountry(countryCode) !== undefined)) {
                 return countryCode;
             }
@@ -257,19 +259,19 @@ export class FormComponent {
      */
 
     addClass(item, ...cls) {
-       
+
         if (item === 'form') {
             for (let cl of cls) {
                 this.customFormClasses.push(cl);
             }
         } else {
-            
-                this._addClass(item, cls.join(' ').toString());
-           
+
+            this._addClass(item, cls.join(' ').toString());
+
         }
     }
 
-    removeClasses(fName) {        
+    removeClasses(fName) {
         this.removedClasses.push(fName);
     }
 
@@ -279,9 +281,9 @@ export class FormComponent {
                 this.fieldsTmpl.addedClasses[item] = "";
             }
         }
-        
+
     }
-    
+
 
     /**
      * 
@@ -300,8 +302,8 @@ export class FormComponent {
             this.staticValidationRules[item] = 'false';
         }
 
-       
-         
+
+
     }
 
     /**
@@ -309,30 +311,30 @@ export class FormComponent {
      * @param  {...string} items - HTML name(s) of the field(s), needed to be hidden (by adding a CSS class 'MMM--isVisuallyHidden')
      */
 
-    hideFields(...items) {       
+    hideFields(...items) {
 
-    for (let i of items) {       
-        this._addClass(i, 'MMM--isVisuallyHidden');
-        this.staticValidationRules[i] = 'false';
-        this.hided_fields.push(i);
+        for (let i of items) {
+            this._addClass(i, 'MMM--isVisuallyHidden');
+            this.staticValidationRules[i] = 'false';
+            this.hided_fields.push(i);
+        }
+
     }
-        
-    }
-    
-    updateSelectOpts (name, ...options) {
+
+    updateSelectOpts(name, ...options) {
         this.optionsForFilter[name] = options;
     }
 
-    makeOptional (...fieldNames) {
-        this._setValidationRules('false', null, ...fieldNames);        
+    makeOptional(...fieldNames) {
+        this._setValidationRules('false', null, ...fieldNames);
     }
 
-    makeMandatory (...fieldNames) {
-        this._setValidationRules('true', null, ...fieldNames);        
+    makeMandatory(...fieldNames) {
+        this._setValidationRules('true', null, ...fieldNames);
     }
 
-    mandatoryWhen (name, condition) {               
-        this._setValidationRules (true, condition, name);
+    mandatoryWhen(name, condition) {
+        this._setValidationRules(true, condition, name);
     }
 
     /**
@@ -341,7 +343,7 @@ export class FormComponent {
      * @param {Array} values 
      */
 
-    _setValidationRules (value, condition, ...fieldNames) {
+    _setValidationRules(value, condition, ...fieldNames) {
 
         if (condition === null) {
             for (let field of fieldNames) {
@@ -349,30 +351,25 @@ export class FormComponent {
             }
         } else {
             let condArr = [];
-     
-            
-        for (let name of fieldNames) {
-            
-            if (this.dynamicValidationRules.hasOwnProperty(name) && Array.isArray(this.dynamicValidationRules[name])) {
-               
-                this.dynamicValidationRules[name].push(condition);
-            }  else {      
-                               
-                condArr.push(condition);    
-                
-                this.dynamicValidationRules[name] = condArr;           
-            
+
+
+            for (let name of fieldNames) {
+
+                if (this.dynamicValidationRules.hasOwnProperty(name) && Array.isArray(this.dynamicValidationRules[name])) {
+
+                    this.dynamicValidationRules[name].push(condition);
+                } else {
+
+                    condArr.push(condition);
+
+                    this.dynamicValidationRules[name] = condArr;
+
+                }
+
             }
 
-           
         }
-          
-        
-     
-        }
-        
-       
-        
+
     }
 
     _scriptDynamicLoading(url, targetEl, ifAsync = true) {
@@ -419,9 +416,6 @@ export class FormComponent {
                 return arrCustomOpts.indexOf(opt[0]) != -1;
             });
 
-
-
-
             this.langTmpl[key].options = filteredOptions;
         }
 
@@ -434,88 +428,75 @@ export class FormComponent {
      */
 
 
-    _removeNames (source, namesToRemove) {
+    _removeNames(source, namesToRemove) {
         if (source) {
             for (let key of Object.keys(source)) {
-              
+
                 for (let name of namesToRemove) {
                     if (source[key].includes(name)) {
-                        let index = source[key].indexOf(name);                
-                        source[key].splice(index, 1);                      
+                        let index = source[key].indexOf(name);
+                        source[key].splice(index, 1);
                     }
                 }
-                
+
             }
         }
-       }
+    }
 
 
-       _applyFormTypeSpecifics () {
+    _applyFormTypeSpecifics() {
 
-            const formTypeSpecifics = Object.assign({}, this.fieldsTmpl.formTypeSpecifics, this.formTypeSpecifics);
-            
-            
-            let currentFormTypeValues = formTypeSpecifics[this.hiddenFields.formType];
-            
-            delete formTypeSpecifics[this.hiddenFields.formType];
-    
-            let names = [];
-            let namesToRemove = [];
-            let namesToBeOptional = [];
-            let namesToBeMandatory = [];
-    
-    
-            for (let val of Object.values(formTypeSpecifics)) {                
-                names = names.concat(val);
+        const formTypeSpecifics = Object.assign({}, this.fieldsTmpl.formTypeSpecifics, this.formTypeSpecifics);
+
+
+        let currentFormTypeValues = formTypeSpecifics[this.hiddenFields.formType];
+
+        delete formTypeSpecifics[this.hiddenFields.formType];
+
+        let names = [];
+        let namesToRemove = [];
+        let namesToBeOptional = [];
+        let namesToBeMandatory = [];
+
+
+        for (let val of Object.values(formTypeSpecifics)) {
+            names = names.concat(val);
         }
 
 
 
         namesToRemove = names.filter((name) => {
-            return ((typeof name!== 'object') && !currentFormTypeValues.includes(name));
+            return ((typeof name !== 'object') && !currentFormTypeValues.includes(name));
         });
-        
+
         if (currentFormTypeValues !== undefined) {
             namesToBeOptional = currentFormTypeValues.filter((name) => {
-                return ((typeof name === 'object') && Object.values(name).join() === 'false');           
+                return ((typeof name === 'object') && Object.values(name).join() === 'false');
             });
-            
-    
-            namesToBeMandatory = currentFormTypeValues.filter((name) => {               
-                return ((typeof name === 'object') && Object.values(name).join() === 'true');  
-                      
+
+
+            namesToBeMandatory = currentFormTypeValues.filter((name) => {
+                return ((typeof name === 'object') && Object.values(name).join() === 'true');
+
             });
         }
-        
-     
 
 
         for (let name of namesToBeOptional) {
             this.fieldsTmpl.staticValidationRules[Object.keys(name).join()] = 'false';
         }
 
-        for (let name of namesToBeMandatory) {            
+        for (let name of namesToBeMandatory) {
             this.fieldsTmpl.staticValidationRules[Object.keys(name).join()] = 'true';
         }
 
-        
 
-        
-        
-
-        this._removeNames (this.fieldsets, namesToRemove);
-        this._removeNames (this.fieldsTmpl.fieldsets, namesToRemove);  
-
-
-
-
+        this._removeNames(this.fieldsets, namesToRemove);
+        this._removeNames(this.fieldsTmpl.fieldsets, namesToRemove);
 
     }
 
 
-      
-
-   
 
     /**
      * Combine data of fieldsets (fields inside) from the 'fields template' and from LP (if provided), then update local 'language template'
@@ -525,14 +506,10 @@ export class FormComponent {
 
         this._applyFormTypeSpecifics();
 
- 
-
         for (let [key, val] of Object.entries(this.fieldsets)) {
 
             if (this.fieldsTmpl.fieldsets[key]) {
-
                 this.fieldsTmpl.fieldsets[key] = Array.from(new Set([...this.fieldsTmpl.fieldsets[key], ...val]));
-
             }
             else {
                 this.fieldsTmpl.fieldsets[key] = this.fieldsets[key];
@@ -542,7 +519,7 @@ export class FormComponent {
 
 
         this.fieldsTmpl.fieldsets = new Map(Object.entries(this.fieldsTmpl.fieldsets));
-        
+
 
         for (let arr of this.changedOrder) {
             this._makeNewOrder(arr, null);
@@ -554,18 +531,6 @@ export class FormComponent {
     }
 
     _makeNewOrder(arr, place) {
-
-       /* for (let item of arr) {
-            if (!Object.keys(this.fieldsTmpl.staticValidationRules).includes(item) &&
-            (!Object.keys(this.staticValidationRules).includes(item))) {
-                this.staticValidationRules[item] = 'true';
-            }
-        }
-
-        */
-
-       
-
 
         let startItem = arr[arr.length - 1];
 
@@ -598,16 +563,16 @@ export class FormComponent {
             for (let arr of this.fieldsOrder) {
                 if (arr[1]) {
                     const fieldsetID = this._getFieldsetID(arr[1]);
-                   
+
                     const index = this._getIndexByName(arr[1], fieldsetID);
-                  
+
                     if (!Array.isArray(index)) {
                         this.fieldsTmpl.fieldsets.get(fieldsetID).splice((index), 0, arr[0]);
                     } else {
                         this.fieldsTmpl.fieldsets.get(fieldsetID)[index[0]].splice((index[1]), 0, arr[0]);
                     }
 
-                    
+
                 } else {
                     const lastFieldsetID = [...this.fieldsTmpl.fieldsets.keys()][(this.fieldsTmpl.fieldsets.size) - 1];
                     this.fieldsTmpl.fieldsets.get(lastFieldsetID).push(arr[0]);
@@ -617,7 +582,7 @@ export class FormComponent {
     }
 
     _removeFields() {
-       
+
         for (let field of this.removed_fields) {
             const fieldsetID = this._getFieldsetID(field);
             if (fieldsetID === undefined) {
@@ -625,7 +590,7 @@ export class FormComponent {
             }
             const index = this._getIndexByName(field, fieldsetID);
 
-         
+
             if (!Array.isArray(index)) {
                 this.fieldsTmpl.fieldsets.get(fieldsetID).splice([index], 1);
             } else {
@@ -634,7 +599,7 @@ export class FormComponent {
 
 
 
-            
+
         }
     }
 
@@ -643,20 +608,20 @@ export class FormComponent {
      */
 
     _mergeFieldsTmpl(arr) {
-       
+
         for (let objName of arr) {
             if (objName === 'addedClasses') {
-                if (!this.fieldsTmpl[objName]) {this.fieldsTmpl[objName] = {}};
+                if (!this.fieldsTmpl[objName]) { this.fieldsTmpl[objName] = {} };
                 let arr = Array.from(new Set([...Object.keys(this.fieldsTmpl[objName]), ...Object.keys(this[objName])]));
-                for (let key of arr) {                
-                this.fieldsTmpl[objName][key] = (this.fieldsTmpl[objName].hasOwnProperty(key) ? this.fieldsTmpl[objName][key] + " " : ' ') + (this[objName].hasOwnProperty(key) ? this[objName][key] + " " : ' ');               
+                for (let key of arr) {
+                    this.fieldsTmpl[objName][key] = (this.fieldsTmpl[objName].hasOwnProperty(key) ? this.fieldsTmpl[objName][key] + " " : ' ') + (this[objName].hasOwnProperty(key) ? this[objName][key] + " " : ' ');
                 }
-                
+
             } else {
                 const obj = { ...this.fieldsTmpl[objName], ...this[objName] };
                 this.fieldsTmpl[objName] = obj;
             }
-                       
+
         }
     }
 
@@ -685,8 +650,8 @@ export class FormComponent {
         this.updatedTexts.push([name, data, target]);
     }
 
-    setTY (header, paragraph) {
-        
+    setTY(header, paragraph) {
+
         this.updatedTexts.push(['submissionSuccess_1', header]);
         this.updatedTexts.push(['submissionSuccess_2', paragraph]);
     }
@@ -710,7 +675,7 @@ export class FormComponent {
         if (val) {
             this.updatedTexts.push([name, this._getObject('label', val)]);
         }
-        if (val2) {        
+        if (val2) {
             this.updatedTexts.push([name, this._getObject('subLabel', val2)]);
         }
     }
@@ -728,7 +693,7 @@ export class FormComponent {
      * @param {string} val - value for the field
      */
 
-     setValue(name, val) {
+    setValue(name, val) {
         this.updatedTexts.push([name, this._getObject('value', val)]);
     }
 
@@ -756,36 +721,36 @@ export class FormComponent {
         this.updatedTexts.push([name, this._getObject('errMessage', val)]);
     }
 
-   
 
-     /**
-      * @param {string} item[0] - HTML name of the field
-      * @param {Object} item[1] - new text
-      * @param {string, null} item[1] - target, to which Object property new text should be added ()
-      */
 
-    _updateTextField () {
+    /**
+     * @param {string} item[0] - HTML name of the field
+     * @param {Object} item[1] - new text
+     * @param {string, null} item[1] - target, to which Object property new text should be added ()
+     */
+
+    _updateTextField() {
         for (let item of this.updatedTexts) {
-                       
+
             if (typeof item[1] === 'string') {
                 this.langTmpl[item[0]] = item[1];
             }
 
             if ((typeof item[1] === 'object') && (typeof item[1] !== null)) {
                 for (let key of Object.keys(item[1])) {
-                       
-                   let targetPath = (this.langTmpl.hasOwnProperty(item[0]) && this.langTmpl[item[0]].hasOwnProperty(this.division_cropped)) ? 
-                   this.langTmpl[item[0]][this.division_cropped] : 
-                   (this.langTmpl.hasOwnProperty(item[0])) ?  
-                   this.langTmpl[item[0]] : 
-                   this.langTmpl[this.division_cropped][item[0]];
-              
-                   targetPath[key] = item[1][key];                        
+
+                    let targetPath = (this.langTmpl.hasOwnProperty(item[0]) && this.langTmpl[item[0]].hasOwnProperty(this.division_cropped)) ?
+                        this.langTmpl[item[0]][this.division_cropped] :
+                        (this.langTmpl.hasOwnProperty(item[0])) ?
+                            this.langTmpl[item[0]] :
+                            this.langTmpl[this.division_cropped][item[0]];
+
+                    targetPath[key] = item[1][key];
                 }
             }
 
-        
-  
+
+
         }
     }
 
@@ -798,7 +763,7 @@ export class FormComponent {
         for (let key of Object.keys(this.fieldsTmpl.staticValidationRules)) {
 
             if ((this.fieldsTmpl.staticValidationRules[key] === 'false') || (this.fieldsTmpl.staticValidationRules[key] === false)) {
-                this.optionalNames.push(key);               
+                this.optionalNames.push(key);
             }
 
         }
@@ -808,37 +773,37 @@ export class FormComponent {
 
     _getIndexByName(name, fieldsetID) {
 
-        
-        let index = this.fieldsTmpl.fieldsets.get(fieldsetID).findIndex((i) => {          
+
+        let index = this.fieldsTmpl.fieldsets.get(fieldsetID).findIndex((i) => {
             return i === name;
         })
 
         if (index !== -1) {
             return index;
-        }  
-        
+        }
+
         let indexInner = -1;
         let arrOfIndexes = -1;
 
         this.fieldsTmpl.fieldsets.get(fieldsetID).forEach((item, i) => {
-            if ( Array.isArray(item) ) {
+            if (Array.isArray(item)) {
                 indexInner = item.findIndex((innerI) => {
                     return innerI === name;
                 })
 
-              
 
-            if (indexInner !== -1) {                  
-                arrOfIndexes = [i, indexInner];             
-                return arrOfIndexes;
-            }
+
+                if (indexInner !== -1) {
+                    arrOfIndexes = [i, indexInner];
+                    return arrOfIndexes;
+                }
 
             }
         })
 
-      return arrOfIndexes;
-        
-        
+        return arrOfIndexes;
+
+
     }
 
     /**
@@ -854,50 +819,30 @@ export class FormComponent {
      * required:        - can be 'true' or 'false'
      */
 
-    newField(data = { label: '', errMessage: '', type: '', options: '', name: '', className: '', required: '', condition:'', value: '',  label: '', subLabel: ''}) {
-       
+    newField(data = { name: '', label: '', errMessage: '', type: '', options: '', value: '', subLabel: '', HTMLcode: '' }) {
+
         let value;
 
         if (data.type === "checkbox" || data.type === "radio") {
             value = "on";
         }
 
+        if (this.rewritedParametersFromURL.lang) {
+            this.shortLanguage = this.rewritedParametersFromURL.lang;
+        }
+
         const obj = {
             name: data.name,
-            label: data.label,
-            errMessage: data.errMessage,
-            type: data.type,
-            options: data.options,
-            classToLiWrapper: data.className,
-            required: data.required ? data.required : 'false',
-            condition: data.condition ? data.condition : null,
-            triggerName: data.triggerName ? data.triggerName : null,
-            value: data.value ? data.value : value,
-            subLabel: data.subLabel ? data.subLabel : '',
-            HTMLcode: data.HTMLcode ? data.HTMLcode : '',
+            label: (typeof data.label === 'string') ? data.label : data.label[this.shortLanguage],
+            errMessage: (typeof data.errMessage === 'string') ? data.errMessage : data.errMessage[this.shortLanguage],
+            type: (typeof data.type === 'string') ? data.type : data.type[this.shortLanguage],
+            options: (Array.isArray(data.options)) ? data.options : data.options[this.shortLanguage],
+            value: (typeof data.value === 'string') ? data.value : data.value[this.shortLanguage],
+            subLabel: (data.subLabel && (typeof data.subLabel === 'string')) ? data.subLabel : (data.subLabel && (typeof data.subLabel === 'object')) ? data.subLabel[this.shortLanguage] : '',
+            HTMLcode: (data.HTMLcode && (typeof data.HTMLcode === 'string')) ? data.HTMLcode : (data.HTMLcode && (typeof data.HTMLcode === 'object')) ? data.HTMLcode[this.shortLanguage] : '',
         }
 
-       
 
-      /*  if (obj.required === 'false') {
-            this.optionalNames.push(data.name);
-        } */
-        
-
-        if (obj.condition !== null) {
-            obj.required = 'false';
-
-
-            
-            this.mandatoryWhen(obj.name, obj.condition);
-        }
-        
-        this._displayRules = function(display) {
-            display.addOptionalToLabel ({
-                labelOptionalNames: [obj.name],                     
-                triggerName: data.triggerName,
-            })
-        }
 
         this.customFields.push(obj);
     }
@@ -910,42 +855,42 @@ export class FormComponent {
      * If this variable is absent, new field is being added to the very end of the form. 
 */
 
-    addField(name, placeBefore, ifMandatory='false', condition = () => {return true}) {
+    addField(name, placeBefore, ifMandatory = 'false', condition = () => { return true }) {
         if (placeBefore) {
-            this.fieldsOrder.push([name, placeBefore]);            
+            this.fieldsOrder.push([name, placeBefore]);
         } else {
             this.fieldsOrder.push([name]);
         }
 
-        
+
         if (!this._getAllNamesOfGroupedChbxes().includes(name)) {
-          //  if ((ifMandatory === 'true') || (ifMandatory === true)) {this.staticValidationRules[name] = 'true'}
-          
-         this.staticValidationRules[name] = ((ifMandatory === 'true') || (ifMandatory === true)) ? 'true' : 'false';
+            //  if ((ifMandatory === 'true') || (ifMandatory === true)) {this.staticValidationRules[name] = 'true'}
+
+            this.staticValidationRules[name] = ((ifMandatory === 'true') || (ifMandatory === true)) ? 'true' : 'false';
         }
 
-        
-       
+
+
 
         if ((this.staticValidationRules[name] === 'true') || (this.staticValidationRules[name] === true)) {
-            let validationAPI = (validation) => {              
-                validation.addDependencyRule ([name], condition);               
-          };
-    
-          this.validationRules  = validationAPI;
+            let validationAPI = (validation) => {
+                validation.addDependencyRule([name], condition);
+            };
+
+            this.validationRules = validationAPI;
         }
     }
 
-    
+
 
 
     addFields(names, placeBefore, ifMandatory, condition) {
         for (let name of names) {
             this.addField(name, placeBefore, ifMandatory, condition);
         }
-        
+
     }
-    
+
 
     /**
      * Removes a field from the form
@@ -966,9 +911,9 @@ export class FormComponent {
         if (Array.isArray(fields)) {
             for (let name of fields) {
                 this.removed_fields.push(name);
-            }    
+            }
         }
-            
+
     }
 
     _getFieldsetID(name) {
@@ -985,94 +930,94 @@ export class FormComponent {
                 }
             }
         }
-    }    
+    }
 
-    get validationRules () {    
-       for (let func of this._validationFunctions) {       
+    get validationRules() {
+        for (let func of this._validationFunctions) {
             func.call(this, this.validation);
-       }
-    }
-    set validationRules (func) {
-        this._validationFunctions.push(func);    
-    }
-
-    get displayRules () {    
-        
-        for (let func of this._displayFunctions) {       
-             func.call(this, this.display);
-             
         }
-     }
-     set displayRules (func) {
-      
-         this._displayFunctions.push(func);    
-         
-        
-     }
+    }
+    set validationRules(func) {
+        this._validationFunctions.push(func);
+    }
 
-/**
- * 
- * @param {string} names HTML names separated by space
- */
+    get displayRules() {
 
- /**
-     * Method for combining checkboxes into a group
-     * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
-     * @param {string} names - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
-     * @param {string} errorMessage
-     * @param {Function} condition - in case if needed to rewrite a normal condition.If not - don't use this method. Should return true or false. 
-     * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
-     * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+        for (let func of this._displayFunctions) {
+            func.call(this, this.display);
+
+        }
+    }
+    set displayRules(func) {
+
+        this._displayFunctions.push(func);
+
+
+    }
+
+    /**
+     * 
+     * @param {string} names HTML names separated by space
      */
 
-    checkboxesGroup (names, data = {}) {
+    /**
+        * Method for combining checkboxes into a group
+        * @param {Array} data - Array of Objects in format:  [{namesOfgroup: '', errorMessage: '', condition}, ... ]
+        * @param {string} names - HTML names of checkboxes in format: 'chbx chbx2 chbx3'
+        * @param {string} errorMessage
+        * @param {Function} condition - in case if needed to rewrite a normal condition.If not - don't use this method. Should return true or false. 
+        * @param {number} numMin - minimum number of checkboxes to be checked (default = 1)
+        * @param {number} numMax - maximum number of checkboxes to be checked (default = all checkboxes)
+        */
 
-        for (let name of names.split(' ')) {          
+    checkboxesGroup(names, data = {}) {
+
+        for (let name of names.split(' ')) {
             delete this.staticValidationRules[name];
         }
 
-        let dataToSend = {namesOfgroup: names};
-    
-        if (data.errorMessage !== undefined) {dataToSend.errorMessage = data.errorMessage};
-        if (data.numMin !== undefined) {dataToSend.numMin = data.numMin};
-        if (data.numMax !== undefined) {dataToSend.numMax = data.numMax};
+        let dataToSend = { namesOfgroup: names };
+
+        if (data.errorMessage !== undefined) { dataToSend.errorMessage = data.errorMessage };
+        if (data.numMin !== undefined) { dataToSend.numMin = data.numMin };
+        if (data.numMax !== undefined) { dataToSend.numMax = data.numMax };
 
         this.arrayOfCheckboxesGroup.push(dataToSend);
-       
+
         let validationAPI = (validation) => {
-            
+
             let totalNumRemoved = names.split(' ').length;
             let totalNumHided = names.split(' ').length;
 
             for (let name of names.split(' ')) {
-            
-                if (this.removed_fields.includes(name)) {                
-                    totalNumRemoved = totalNumRemoved-1;
+
+                if (this.removed_fields.includes(name)) {
+                    totalNumRemoved = totalNumRemoved - 1;
                 }
 
-                if (this.hided_fields.includes(name)) {                
-                    totalNumHided = totalNumHided-1;
+                if (this.hided_fields.includes(name)) {
+                    totalNumHided = totalNumHided - 1;
                 }
             }
-            if ((totalNumRemoved !== 0) && (totalNumHided !== 0)) {              
-                validation.checkboxesGroups(this.arrayOfCheckboxesGroup);               
+            if ((totalNumRemoved !== 0) && (totalNumHided !== 0)) {
+                validation.checkboxesGroups(this.arrayOfCheckboxesGroup);
             }
-/*
-            for (let name of this._getAllNamesOfGroupedChbxes ()) {
-                this.staticValidationRules[name] = 'false';
-            }
-            */
-            
-    };
+            /*
+                        for (let name of this._getAllNamesOfGroupedChbxes ()) {
+                            this.staticValidationRules[name] = 'false';
+                        }
+                        */
 
-    this.validationRules  = validationAPI;
+        };
 
-    
+        this.validationRules = validationAPI;
+
+
     }
-        
 
-    checkboxesGroups (names, data = {}) {        
-        this.checkboxesGroup (names, data = {});
+
+    checkboxesGroups(names, data = {}) {
+        this.checkboxesGroup(names, data = {});
     }
 
 
@@ -1080,17 +1025,17 @@ export class FormComponent {
     hideOther(f1_name, f2_name, val) {
 
         let displayAPI = (display) => {
-          
+
             display.hideOther(f1_name, f2_name, val);
             //display.showOther(f1_name, f2_name, val)
         }
 
-        this.displayRules  = displayAPI;
-        }
-    
-     
+        this.displayRules = displayAPI;
+    }
 
-    
+
+
+
 
     /**
      * addDependency(data) - Shows/hides fieldset depending on a made choice in checkbox or 
@@ -1120,308 +1065,308 @@ export class FormComponent {
         if (Array.isArray(data.optionValue)) {
             optValues = data.optionValue.slice();
         }
-        
+
         if (typeof data.optionValue === 'undefined') {
             optValues = ['Yes', 'on'];
         }
-        
-        let condition = data.condition ? data.condition :  
-        
+
+        let condition = data.condition ? data.condition :
+
             function () {
-                
+
                 return ($(`[name="${data.triggerName}"]`).is(':checked') || (($(`[name="${data.triggerName}"]`).prop("tagName") === 'SELECT') &&
                     (optValues.includes($(`[name="${data.triggerName}"]`).val()))));
-                    
+
             }
 
-            let mandatory = [];
+        let mandatory = [];
 
-            if (Array.isArray(data.mandatory)) {
-                for (let name of data.mandatory) {
-                    if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'true') {
-                        mandatory.push(name);
-                    }
+        if (Array.isArray(data.mandatory)) {
+            for (let name of data.mandatory) {
+                if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'true') {
+                    mandatory.push(name);
                 }
-            }            
-       
-            let validationAPI = (validation) => {
-                validation.addDependencyRule (mandatory, condition);            
-              }                
-
-         
-            let displayAPI = (display) => {      
-
-                display.dependIdFromName (data.triggerName, data.fieldset, optValues);
-
-                let firstOptional = [];
-              
-                if (Array.isArray(data.firstOptional)) {
-                    for (let name of data.firstOptional) {
-                        if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'false') {
-                            firstOptional.push(name);
-                        }
-                    }
-                }
-                
-                
-                display.addOptionalToLabel ({
-                    labelOptionalNames: firstOptional,                     
-                    triggerName: data.triggerName,
-                })
-
-                
-                              
-          } 
-          
-          this._displayValidationRules (displayAPI, validationAPI);
-       
+            }
         }
 
-        _staticValidationRulesCombine (name) {
+        let validationAPI = (validation) => {
+            validation.addDependencyRule(mandatory, condition);
+        }
 
-            if ((this.fieldsTmpl.staticValidationRules[name] === 'false') || 
+
+        let displayAPI = (display) => {
+
+            display.dependIdFromName(data.triggerName, data.fieldset, optValues);
+
+            let firstOptional = [];
+
+            if (Array.isArray(data.firstOptional)) {
+                for (let name of data.firstOptional) {
+                    if (!this.staticValidationRules.hasOwnProperty(name) || this.staticValidationRules[name].toString() === 'false') {
+                        firstOptional.push(name);
+                    }
+                }
+            }
+
+
+            display.addOptionalToLabel({
+                labelOptionalNames: firstOptional,
+                triggerName: data.triggerName,
+            })
+
+
+
+        }
+
+        this._displayValidationRules(displayAPI, validationAPI);
+
+    }
+
+    _staticValidationRulesCombine(name) {
+
+        if ((this.fieldsTmpl.staticValidationRules[name] === 'false') ||
             (this.staticValidationRules[name] === 'false') || (this.staticValidationRules[name] != undefined)) {
-                return false
-            } else return true;
+            return false
+        } else return true;
+
+    }
+
+    /**
+     * 
+     * @param {string} fName1 - HTML name of the field (checkbox or SELECT)
+     * @param {string} fName2 - HTML name of the dependable field        
+     * @param {string, Array} opt - Default value = "Other". Value of option in Select (fName1) field, which should trigger fName2 to appear
+     * @param {Function} condition 
+     */
+
+
+    showOther(fName1, fName2, opt, condition = () => { return false }) {
+
+        let optValues = [];
+
+        if (typeof opt === 'string') {
+            optValues.push(opt);
+        }
+
+        if (Array.isArray(opt)) {
+            optValues = opt.slice();
+        }
+
+        if (typeof opt === 'undefined') {
+            optValues.push('Other');
+        }
+
+
+        let displayAPI = (display) => {
+            display.showOther(fName1, fName2, optValues);
+        }
+
+        if (this._staticValidationRulesCombine(fName2)) {
+
+            condition = function () {
+                return ($(`[name="${fName1}"]`).is(':checked') ||
+                    ($(`[name="${fName1}"]`).prop("tagName") === 'SELECT' && (optValues.includes($(`[name="${fName1}"]`).val()))));
+            };
 
         }
 
-        /**
-         * 
-         * @param {string} fName1 - HTML name of the field (checkbox or SELECT)
-         * @param {string} fName2 - HTML name of the dependable field        
-         * @param {string, Array} opt - Default value = "Other". Value of option in Select (fName1) field, which should trigger fName2 to appear
-         * @param {Function} condition 
-         */
-        
+        let validationAPI = (validation) => {
+            validation.addDependencyRule([fName2], condition);
+        };
 
-        showOther (fName1, fName2, opt, condition = () => {return false}) {
+        this._displayValidationRules(displayAPI, validationAPI);
+    }
 
-            let optValues = [];
+    _displayValidationRules(displayAPI, validationAPI) {
+        this.displayRules = displayAPI;
+        this.validationRules = validationAPI;
+    }
 
-              if (typeof opt === 'string') {
-                optValues.push(opt);
-              }
-      
-              if (Array.isArray(opt)) {
-                  optValues = opt.slice();     
-              }  
-              
-              if (typeof opt === 'undefined') {
-                    optValues.push('Other');
-              }
 
-          
-            let displayAPI = (display) => {
-                display.showOther(fName1, fName2, optValues);
-            }
+    /**
+     * 
+     * @param {string} fName - HTML name of the SELECT field to be shown
+     * @param {Map} scheme - mandatory (scheme of dependency)
+     * @param {Function} condition - optional
+     */
 
-            if (this._staticValidationRulesCombine(fName2)) {    
-    
-                condition = function () {                                          
-                    return ($(`[name="${fName1}"]`).is(':checked') || 
-                        ($(`[name="${fName1}"]`).prop("tagName") === 'SELECT' && (optValues.includes($(`[name="${fName1}"]`).val()))));                     
-                };
-                   
-            }   
-            
-            let validationAPI = (validation) => {              
-                validation.addDependencyRule ([fName2], condition);               
-          };
-            
-          this._displayValidationRules (displayAPI, validationAPI);
-        }        
+    addDependencyFromCheckboxes(fName, scheme, condition = () => { return true }) {
 
-          _displayValidationRules (displayAPI, validationAPI) {
-            this.displayRules  = displayAPI;
-            this.validationRules  = validationAPI;
-          }
-      
+        let displayAPI = (display) => {
 
-          /**
-           * 
-           * @param {string} fName - HTML name of the SELECT field to be shown
-           * @param {Map} scheme - mandatory (scheme of dependency)
-           * @param {Function} condition - optional
-           */
+            let setOfNames = new Set();
 
-          addDependencyFromCheckboxes (fName, scheme, condition = () => {return true}) {
-          
-            let displayAPI = (display) => {         
-
-                let setOfNames = new Set();
-
-                for (let values of scheme.values()) {
-                    for (let val of values) {
-                        setOfNames.add(val);
-                    }   
-                    
+            for (let values of scheme.values()) {
+                for (let val of values) {
+                    setOfNames.add(val);
                 }
 
-                let totalNumRemoved = setOfNames.size;
-                let totalNumHided = setOfNames.size;   
+            }
 
-             
-                for (let name of setOfNames) {
-                  
-                    if (this.removed_fields.includes(name)) {                      
-                        totalNumRemoved = totalNumRemoved-1;
+            let totalNumRemoved = setOfNames.size;
+            let totalNumHided = setOfNames.size;
+
+
+            for (let name of setOfNames) {
+
+                if (this.removed_fields.includes(name)) {
+                    totalNumRemoved = totalNumRemoved - 1;
+                }
+
+                if (this.hided_fields.includes(name)) {
+                    totalNumHided = totalNumHided - 1;
+                }
+            }
+
+
+
+            if ((totalNumRemoved !== 0) && (totalNumHided !== 0)) {
+                display.complexDepFromCheckboxes(fName, scheme);
+            }
+
+        }
+
+        if (this._staticValidationRulesCombine(fName)) {
+            let validationAPI = (validation) => {
+                validation.addDependencyRule([fName], condition);
+            };
+
+            this.validationRules = validationAPI;
+        }
+
+        this.displayRules = displayAPI;
+    }
+
+    /**
+  * addDependencyFromSelect - Shows SELECT field and generates a relevant list of options depending on a scheme of chosen option
+* @param {string} fName1 - HTML name of the field1
+* @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
+* @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT to be shown, on the right hand: an array of values of relevant options from the field 1.      
+*/
+
+    addDependencyFromSelect(fName1, fNameToShow, scheme, condition = () => { return true }) {
+
+        let displayAPI = (display) => {
+
+            display.complexDepFromSelect(fName1, fNameToShow, scheme);
+
+        }
+
+        if (this._staticValidationRulesCombine(fNameToShow)) {
+            let validationAPI = (validation) => {
+                validation.addDependencyRule([fNameToShow], condition);
+            };
+
+            this.validationRules = validationAPI;
+        }
+
+        this.displayRules = displayAPI;
+    }
+
+
+    updateHidden(f1Name, f2Name, scheme) {
+        let displayAPI = (display) => {
+            display.updateHidden(f1Name, f2Name, scheme);
+        }
+
+        this.displayRules = displayAPI;
+
+    }
+
+    _queryString() {
+        if (this.rewritedParametersFromURL.hasOwnProperty('country')) {
+            this.selectedItems.country = getCountry(this.rewritedParametersFromURL.country);
+        } else if (!this.selectedItems.country) {
+            this.selectedItems.country = this._identifyLocale('country');
+        }
+
+        if (this.rewritedParametersFromURL.hasOwnProperty('lang')) {
+            this.hiddenFields.language1 = getLanguage(this.rewritedParametersFromURL.lang);
+        }
+
+        if (this.rewritedParametersFromURL.hasOwnProperty('sFDCLastCampaignID')) {
+            this.rewritedParametersFromURL.sFDCLastCampaignID
+            this.hiddenFields.sFDCLastCampaignID = this.rewritedParametersFromURL.sFDCLastCampaignID;
+        }
+    }
+
+    _getAllNamesOfGroupedChbxes() {
+
+        for (let group of this.arrayOfCheckboxesGroup) {
+
+            let items = group.namesOfgroup.split(' ');
+
+            this.inGroupOfChbxes = [...this.inGroupOfChbxes, ...items]
+
+
+        }
+
+        return this.inGroupOfChbxes;
+    }
+
+
+    _addingToValidator(condition = () => { return true }) {
+
+
+        let names = [];
+
+
+
+        for (let [key, val] of Object.entries(this.staticValidationRules)) {
+
+            if ((val.toString() === 'true')) {
+                names.push(key);
+            }
+        }
+
+
+
+        for (let [key, val] of Object.entries(this.fieldsTmpl.staticValidationRules)) {
+
+
+            if (val.toString() === 'true') {
+                names.push(key);
+            }
+        }
+
+
+        if (!!names.length) {
+            for (let fieldset of this.fieldsTmpl.fieldsets.values()) {
+                for (let field of fieldset) {
+
+
+                    if (!names.includes(field) &&
+                        (!['salesRequest', 'elqGlobalLanguage', 'stateProv'].includes(field))) {
+                        names.push(field);
+
                     }
-    
-                    if (this.hided_fields.includes(name)) {                
-                        totalNumHided = totalNumHided-1;
-                    }
                 }
-                
-              
-                
-                if ((totalNumRemoved !== 0) && (totalNumHided !== 0)) {              
-                    display.complexDepFromCheckboxes (fName, scheme);  
-                }
-            
+
             }
 
-            if (this._staticValidationRulesCombine(fName)) {
-                let validationAPI = (validation) => {              
-                    validation.addDependencyRule ([fName], condition);               
-              };
+            let allNamesOfGroupedChbxes = this._getAllNamesOfGroupedChbxes();
 
-              this.validationRules  = validationAPI;
-            }            
-            
-            this.displayRules  = displayAPI;            
-          }
+            names = names.filter((name) => {
+                return (!allNamesOfGroupedChbxes.includes(name) && (
+                    (this._staticValidationRulesCombine(name))
+                    || ((this.staticValidationRules[name] === undefined) && (this.fieldsTmpl.staticValidationRules[name] === undefined))));
+            })
 
-            /**
-          * addDependencyFromSelect - Shows SELECT field and generates a relevant list of options depending on a scheme of chosen option
-        * @param {string} fName1 - HTML name of the field1
-        * @param {string} fNameToShow - HTML name of the SELECT field, which is needed to be shown
-        * @param {Map} scheme - scheme of dependencies. On the left hand of the Map is a value of options in SELECT to be shown, on the right hand: an array of values of relevant options from the field 1.      
-        */
+            let validationAPI = (validation) => {
+                validation.addDependencyRule(names, condition);
+            };
 
-          addDependencyFromSelect (fName1, fNameToShow, scheme, condition = () => {return true}) {
-           
-            let displayAPI = (display) => {             
-        
-                display.complexDepFromSelect (fName1, fNameToShow, scheme);
-    
-            }
-
-            if (this._staticValidationRulesCombine(fNameToShow)) {
-                let validationAPI = (validation) => {              
-                    validation.addDependencyRule ([fNameToShow], condition);               
-              };
-
-              this.validationRules  = validationAPI;
-            }
-
-            this.displayRules  = displayAPI;
-          }
+            this.validationRules = validationAPI;
+        }
+    }
 
 
-          updateHidden (f1Name, f2Name, scheme) {
-            let displayAPI = (display) => {
-                display.updateHidden (f1Name, f2Name, scheme);
-            }
-
-            this.displayRules  = displayAPI;
-
-          }
-
-          _queryString () {
-            if (this.rewritedParametersFromURL.hasOwnProperty('country')) {
-                this.selectedItems.country = getCountry(this.rewritedParametersFromURL.country);
-            } else if (!this.selectedItems.country) {
-                this.selectedItems.country = this._identifyLocale('country');
-            }
-
-            if (this.rewritedParametersFromURL.hasOwnProperty('lang')) {
-                this.hiddenFields.language1 = getLanguage(this.rewritedParametersFromURL.lang);
-            }
-
-            if (this.rewritedParametersFromURL.hasOwnProperty('sFDCLastCampaignID')) {
-                this.rewritedParametersFromURL.sFDCLastCampaignID
-                this.hiddenFields.sFDCLastCampaignID = this.rewritedParametersFromURL.sFDCLastCampaignID;
-            }
-          }
-
-          _getAllNamesOfGroupedChbxes () {
-           
-            for (let group of this.arrayOfCheckboxesGroup) {
-               
-                let items = group.namesOfgroup.split(' ');
-              
-                this.inGroupOfChbxes =[...this.inGroupOfChbxes, ...items]     
-
-        
-            }
-
-            return this.inGroupOfChbxes;
-          }
 
 
-          _addingToValidator (condition = () => {return true}) {           
-          
-           
-            let names = [];
-                
-                        
-         
-            for (let [key, val] of Object.entries(this.staticValidationRules)) {             
-               
-                if ((val.toString() === 'true')) {                    
-                    names.push(key);                                 
-                }
-            }
-
-          
-
-            for (let [key, val] of Object.entries(this.fieldsTmpl.staticValidationRules)) {
-
-
-                if (val.toString() === 'true') {
-                    names.push(key);                             
-                }
-            }
-           
-         
-            if (!!names.length) {
-                for (let fieldset of this.fieldsTmpl.fieldsets.values()) {
-                    for (let field of fieldset) {
-                       
-                        
-                        if (!names.includes(field) && 
-                        (!['salesRequest','elqGlobalLanguage','stateProv'].includes(field))) {
-                            names.push(field);       
-                                          
-                        }
-                    }
-                    
-                }
-              
-                let allNamesOfGroupedChbxes = this._getAllNamesOfGroupedChbxes();
-
-                    names = names.filter((name) => {                        
-                        return (!allNamesOfGroupedChbxes.includes(name) && (
-                        (this._staticValidationRulesCombine(name))
-                        || ((this.staticValidationRules[name] === undefined) && (this.fieldsTmpl.staticValidationRules[name] === undefined))));                        
-                    })                      
-                  
-                let validationAPI = (validation) => {              
-                    validation.addDependencyRule (names, condition);               
-              };
-
-              this.validationRules  = validationAPI; 
-            }
-          }
-         
-    
-
-   
 
     render() {
-      
-        this._queryString();   
+
+        this._queryString();
 
         const langTmplUrl = langTemplate(this.hiddenFields.language1);
         let initFields;
@@ -1448,23 +1393,23 @@ export class FormComponent {
                     const smpTmplUrl = smpTemplate(this.hiddenFields.division1);
                     this._scriptDynamicLoading(smpTmplUrl, document.head, false).onload = () => {
                         //this.fieldsTmpl = !this.settings.leadgenBasic ? __globScopeSMPtemplate__.leadgenCA : __globScopeSMPtemplate__.leadGenBasic;
-                        if (!ifLeadGenTypeIsCorrect(this.settings.leadGenType, this.hiddenFields.division1)) {                            
-                            this.settings.leadGenType = 'CA';                          
+                        if (!ifLeadGenTypeIsCorrect(this.settings.leadGenType, this.hiddenFields.division1)) {
+                            this.settings.leadGenType = 'CA';
                         }
 
                         this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
-                        
-                      
+
+
                         resolve();
                     }
                 })
-            } else {                
-                if (!ifLeadGenTypeIsCorrect(this.settings.leadGenType, this.hiddenFields.division1)) {                 
+            } else {
+                if (!ifLeadGenTypeIsCorrect(this.settings.leadGenType, this.hiddenFields.division1)) {
                     this.settings.leadGenType = 'CA';
                 }
 
                 this.fieldsTmpl = __globScopeSMPtemplate__[`leadGenType_${this.settings.leadGenType}`];
-                
+
                 resolve();
             }
 
@@ -1474,7 +1419,7 @@ export class FormComponent {
                 initFields = new Promise((resolve) => {
                     const baseTmplUrl = baseFieldsTemplate();
                     this._scriptDynamicLoading(baseTmplUrl, document.head, false).onload = () => {
-                        this.fieldsTmpl = __globScopeBaseFieldstemplate__;                        
+                        this.fieldsTmpl = __globScopeBaseFieldstemplate__;
                         resolve();
                     }
                 })
@@ -1486,7 +1431,7 @@ export class FormComponent {
         }
 
         Promise.all([initLang, initFields]).then(
-            resolve => {            
+            resolve => {
                 this._formRender();
             }
         )
@@ -1504,57 +1449,52 @@ export class FormComponent {
                     // resolve();
                 }
             )
-       
 
+        // Adding Validation/display fields rules into the domReady
         const dynamicVariable = '__load_Validation-Display_Rules__' + this.constructor.instance;
         domReady[dynamicVariable] = () => {
 
             this.display = new DisplayFormFields(this.el, this.langTmpl.optionalText);  // init Display Rules
 
-            // Final Optional Fields init (After Display was initialized and custome adding methods were used)
+            // Final Optional Fields init (After Display was initialized and customly added methods were used)
             this._setOptionalNamesArr();
 
             if (typeof this.fieldsTmpl.displayRules === 'function') {
-                this.fieldsTmpl.displayRules(this.display);         // pulled from template          
-            }              
+                this.fieldsTmpl.displayRules(this.display);         // pulled from template (alternative way for using display and validation separately. Deprecated)         
+            }
 
             this.validation = new FormValidationRules(this.el, this.elId, this.staticValidationRules);  // init Validation Rules
 
-            if (typeof this.fieldsTmpl.validationRules === 'function') {   // pulled from template
+            if (typeof this.fieldsTmpl.validationRules === 'function') {          // pulled from template (alternative way for using display and validation separately. Deprecated)  
                 this.fieldsTmpl.validationRules(this.validation)
             }
 
-            if (typeof this.fieldsTmpl.displayValidationRules === 'function') {   // pulled from template
+            if (typeof this.fieldsTmpl.displayValidationRules === 'function') {   // pulled from template (current method, which combines methods of display & validation)
                 this.fieldsTmpl.displayValidationRules(this);
             }
 
-            
+            this.displayRules;   // display pulled from LP
+            this.validationRules;   // validation pulled from LP          
 
-                this.displayRules;   // pulled from LP
-                this.validationRules;   // pulled from LP
-                
-           
 
-       
             for (let name of Object.keys(this.dynamicValidationRules)) {
-                
+
                 if (Array.isArray(this.dynamicValidationRules[name])) {
-                 
+
                     for (let condition of this.dynamicValidationRules[name]) {
-                      
-                        this.validation.addDependencyRule ([name], condition);
-                       
-                    } 
-                } else {
-                        this.validation.addDependencyRule ([name], this.dynamicValidationRules[name]);
+
+                        this.validation.addDependencyRule([name], condition);
+
                     }
-               
-               
+                } else {
+                    this.validation.addDependencyRule([name], this.dynamicValidationRules[name]);
+                }
+
+
             }
-                   
+
             // Add 'Optional' to labels of optional fields              
             this.display.makeOptional(this.optionalNames, this.langTmpl.optionalText);
-
 
             this.validation.render(); // All validation methods should go above
 
@@ -1571,6 +1511,7 @@ export class FormComponent {
         //Merging data from templates with what was provided on LP customly
         this._mergeFilterOptions();
         this._mergeLangTmpl();
+
         this._updateTextField();
         this._mergeFieldsets();
         this._addCustomFields();
@@ -1587,16 +1528,16 @@ export class FormComponent {
             this.settings._mobilePhone = true;
         }
 
-        if ((this.fieldsTmpl.salesRequestFieldType !== undefined) && 
+        if ((this.fieldsTmpl.salesRequestFieldType !== undefined) &&
             (this.fieldsTmpl.salesRequestFieldType.toLowerCase() === 'select')) {
             if (!this.settings.changedFieldTypes.salesRequest) {
                 this.settings.changedFieldTypes.salesRequest = true;
-            } else {                
+            } else {
                 this.settings.changedFieldTypes.salesRequest = false;
             }
         }
 
-        if ((this.fieldsTmpl.selDistFieldType !== undefined) && 
+        if ((this.fieldsTmpl.selDistFieldType !== undefined) &&
             (this.fieldsTmpl.selDistFieldType.toLowerCase() === 'select')) {
             if (!this.settings.changedFieldTypes.selDist) {
                 this.settings.changedFieldTypes.selDist = true;
@@ -1604,14 +1545,14 @@ export class FormComponent {
                 this.settings.changedFieldTypes.selDist = false;
             }
         }
-        
-       this._addingToValidator();
 
-       if (this.fieldsTmpl.hiddenFields) {
-        let hiddenFields = Object.assign(this.fieldsTmpl.hiddenFields, this.hiddenFields);
-        this.hiddenFields = hiddenFields;
-       }
-       
+        this._addingToValidator();
+
+        if (this.fieldsTmpl.hiddenFields) {
+            let hiddenFields = Object.assign(this.fieldsTmpl.hiddenFields, this.hiddenFields);
+            this.hiddenFields = hiddenFields;
+        }
+
         const form = new FormAssetsCreator({
             el: this.el,
             hiddenFields: this.hiddenFields,
@@ -1624,24 +1565,24 @@ export class FormComponent {
             customFormClasses: this.customFormClasses,
             //SMPsegment is used for covering specifics in lang templates (for TMC inside ASD, for example)
             SMPsegment: this.settings.SMPsegment ? this.settings.SMPsegment : this.fieldsTmpl.SMPsegment ? this.fieldsTmpl.SMPsegment : null,
-            busPhoneRequired: this.staticValidationRules.busPhone !== undefined ? this.staticValidationRules.busPhone : this.fieldsTmpl.staticValidationRules.busPhone !== undefined 
+            busPhoneRequired: this.staticValidationRules.busPhone !== undefined ? this.staticValidationRules.busPhone : this.fieldsTmpl.staticValidationRules.busPhone !== undefined
                 ? this.fieldsTmpl.staticValidationRules.busPhone : 'true',
-            mobilePhoneRequired: this.staticValidationRules.mobilePhone !== undefined ? this.staticValidationRules.mobilePhone : this.fieldsTmpl.staticValidationRules.mobilePhone !== undefined 
-            ? this.fieldsTmpl.staticValidationRules.mobilePhone : 'true',
+            mobilePhoneRequired: this.staticValidationRules.mobilePhone !== undefined ? this.staticValidationRules.mobilePhone : this.fieldsTmpl.staticValidationRules.mobilePhone !== undefined
+                ? this.fieldsTmpl.staticValidationRules.mobilePhone : 'true',
             innerHTMLcode: this.innerHTMLcode,
-            
+
         });
 
-        this.setDomReadyPrioritize(() => {return form._busPhoneSettings.bind(form, this._identifyLocale('countryCode'))});
+        this.setDomReadyPrioritize(() => { return form._busPhoneSettings.bind(form, this._identifyLocale('countryCode')) });
 
 
         form.render();
-        
+
     }
 
 
-    changeFieldType(fieldName) {        
-        this.settings.changedFieldTypes[fieldName] = true;         
+    changeFieldType(fieldName) {
+        this.settings.changedFieldTypes[fieldName] = true;
     }
 
     //Using a variable from mmmSettings (this can be a fast workaround in case of any issues with the correct order of scripts loading)

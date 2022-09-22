@@ -235,7 +235,7 @@
 
      
 
-      <form name="TEST-TMC-202208-en_EMEA-CON-General_SMP1">
+      <form class='exclusiveCountry' name="TEST-TMC-202208-en_EMEA-CON-General_SMP1">
         <span elqid="2218" elqtype="Section" class="remove-absolute" style="display: block"></span>
       </form>
 
@@ -244,6 +244,7 @@
   
   <!-- Form Component Script -->
   <script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script>
+  <!--script src="./dist/app.js"></script-->
 
   <script>
 	(function() {
@@ -262,6 +263,13 @@
         form1.settings.vendor = 'elq-direct'; 
         //Choosing a correct TMC template. Possible values: "TMC_CA" and "TMC_Basic"
         form1.settings.leadGenType = "TMC_Basic";
+
+        form1.newField({ label: {en: 'What is a test', fr: 'French txt'}, errMessage: {en: 'What is a test', fr: 'French txt'}, type: 'select', options: {en: [['1', '2'], ['3', '4']], fr: [['1', 'fr'], ['3', 'fr']]}, name: 'tttt', className: 'rfrfrf', condition:'', value: '',  subLabel: {en: 'sublabel', fr: 'sublabel French txt'}, HTMLcode: {en: 'I am <a href="#">here</a>', fr: 'I am <a href="#"> French here</a>'}});
+        form1.addField('tttt', '', 'false');
+        
+
+        
+       
 
         form1.render();
     

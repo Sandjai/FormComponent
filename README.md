@@ -109,25 +109,28 @@ form1.changeOrder(['salutation','firstName','lastName','EMSD_cust_type']); /* To
 form1.changeOrder(['city','zipPostal'], 'after');   /* To move 'city' right after the 'zipPostal' field */
 ``` 
 
-:red_circle: `newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: '', required: 'false' })`
-New field declaration. (Adding a new declarated field to a form is managed via a next method below).
+:red_circle: `newField({ name: '', label: '', errMessage: '', type: '', options: '', value: '',  subLabel: '', HTMLcode: '', })`
+
+New field declaration. (Please note, that this is just a declaration (not adding to a form). Adding a new declarated field to a form is managed via a 'newField()' method, described the next).
+By default declared field is an optional one. For making it mandatory use 'staticValidationRules' object or special argument in 'addField()' method.
+
 ```javascript
  /**
      * 
      * @param {Object} data - Includes settings of the new field:
+     * name: '',        - Mandatory: (should be matching with the HTML name field of the form)      
      * label: '',       - Mandatory
      * errMessage: '',  - Mandatory
      * type: '',        - Mandatory: (possible values for type: 'text', 'textarea', checkbox', 'radio', 'select', 'header')
      * options: '',     - only in case if type = 'select'
-     * name: '',        - Mandatory: (should be matching with the HTML name field of the form)      
-     * className: '',   - Optional: class for <li> wrapper of the field
      * subLabel: '' // optional, just for text in coursive small font
-     *  HTMLcode: '' // optional if you want to add a link, for example, just add HTML code here     
+     * HTMLcode: '' // optional if you want to add a link, for example, just add HTML code here     
+     * value
          
      
 */
 
-newField({ label: '', errMessage: '', type: '', options: '', name: '', value: '', className: ''})
+newField({ name: '', label: '', errMessage: '', type: '', options: '', value: '', subLabel: '', HTMLcode: ''})
 
 ```
 **Examples:**
