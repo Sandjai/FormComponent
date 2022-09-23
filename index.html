@@ -243,8 +243,8 @@
   </div>
   
   <!-- Form Component Script -->
-  <script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script>
-  <!--script src="./dist/app.js"></script-->
+  <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
+  <script src="./dist/app.js"></script>
 
   <script>
 	(function() {
@@ -264,11 +264,24 @@
         //Choosing a correct TMC template. Possible values: "TMC_CA" and "TMC_Basic"
         form1.settings.leadGenType = "TMC_Basic";
 
-        form1.newField({ label: {en: 'What is a test', fr: 'French txt'}, errMessage: {en: 'What is a test', fr: 'French txt'}, type: 'select', options: {en: [['1', '2'], ['3', '4']], fr: [['1', 'fr'], ['3', 'fr']]}, name: 'tttt', className: 'rfrfrf', condition:'', value: '',  subLabel: {en: 'sublabel', fr: 'sublabel French txt'}, HTMLcode: {en: 'I am <a href="#">here</a>', fr: 'I am <a href="#"> French here</a>'}});
-        form1.addField('tttt', '', 'false');
-        
+        form1.newField({ 
+            name: 'customfield', 
+            label: 'New field', 
+            errMessage: 'This field is mandatory', 
+            type: 'select', 
+            options: [
+                //Backend value - Frontend Value
+                ['option 1', 'option 1'], 
+                ['option 2', 'option 2']
+            ], 
+        });
 
+        form1.addField('customfield');
         
+        // Declare new field
+        form1.newField({ name: 'customfield2', label: {en: 'What is a test', fr: 'French txt'}, errMessage: {en: 'What is a test', fr: 'French txt'}, type: 'select', options: {en: [['1', '2'], ['3', '4']], fr: [['1', 'fr'], ['3', 'fr']]}, });
+        // Add field
+        form1.addField('customfield2');
        
 
         form1.render();
@@ -287,7 +300,7 @@ var busPhoneid = "#busPhoneID"; // Enter this for the first form on the page
 var countryselectid = "#countryID"; // Enter this for the first form on the page
 
 // adjust as needed
-var prefCountries = ['gb', 'ie']; // these will appear at the top of the list the first must match the pre-selected country in the form
+var prefCountries = []; // these will appear at the top of the list the first must match the pre-selected country in the form
 var placeholderphoneformat = "FIXED_LINE"; // can be "MOBILE" or "FIXED_LINE"
 var validationtype = "SOFT"; // can be "SOFT" or "HARD" - Soft = form will submit with a missing or invalid number.  Hard = form will not submit with a missing or invalid number.
 </script>

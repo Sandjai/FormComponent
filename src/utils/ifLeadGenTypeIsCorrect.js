@@ -1,7 +1,7 @@
 
 
     export default function (leadGentype, division) {
-let div = division.slice(0, division.indexOf(' '));
+        let div = division.slice(0, division.indexOf(' '));
 
         const leadGenTypesExisting = {
             AAD: ['CA', 'Basic',],
