@@ -282,6 +282,19 @@
         form1.newField({ name: 'customfield2', label: {en: 'What is a test', fr: 'French txt'}, errMessage: {en: 'What is a test', fr: 'French txt'}, type: 'select', options: {en: [['1', '2'], ['3', '4']], fr: [['1', 'fr'], ['3', 'fr']]}, });
         // Add field
         form1.addField('customfield2');
+
+
+
+        form1.newField({ 
+            name: 'customfield3', 
+            label: 'New field', 
+            errMessage: 'This field is mandatory', 
+            type: 'radio', 
+          
+           
+        });
+
+        form1.addField('customfield3');
        
 
         form1.render();

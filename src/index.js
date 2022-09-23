@@ -819,13 +819,7 @@ export class FormComponent {
      * required:        - can be 'true' or 'false'
      */
 
-    newField(data = { name: '', label: '', errMessage: '', type: '', options: '', value: '', subLabel: '', HTMLcode: '' }) {
-
-        let value;
-
-        if (data.type === "checkbox" || data.type === "radio") {
-            value = "on";
-        }
+    newField(data = { name: '', label: '', errMessage: '', type: '', options: '', value: '', subLabel: '', HTMLcode: '' }) {        
 
         if (this.rewritedParametersFromURL.lang) {
             this.shortLanguage = this.rewritedParametersFromURL.lang;

@@ -44,12 +44,8 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     -var _ifChecked = true        
                 else 
                     -var _ifChecked = false       
-                label.MMM--blockLabel(
-                    for=item + 'ID-' + idGen)=langPath[item].label
-                p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
-                div 
-                    != langPath[item].HTMLcode ? langPath[item].HTMLcode : ''
-                input.MMM--textInput.MMM--defaultFields(
+               
+                input.MMM--radio(
                     type='radio'
                     value=langPath[item].value ? langPath[item].value : 'on'
                     name=item                    
@@ -59,6 +55,11 @@ mixin custom_form__field(item, langTmpl, div, addedClasses, staticValidationRule
                     data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "false"
                     data-msg-required=langPath[item].errMessage
                     )  
+                label.MMM--blockLabel.MMM--radio(
+                    for=item + 'ID-' + idGen style='margin-left: 5px')=langPath[item].label
+                p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
+                div 
+                    != langPath[item].HTMLcode ? langPath[item].HTMLcode : ''
 
             when 'textarea'        
                 label.MMM--blockLabel(

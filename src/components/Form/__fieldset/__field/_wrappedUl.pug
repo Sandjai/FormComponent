@@ -39,21 +39,26 @@ mixin wrappedUl(item, langTmpl, div, addedClasses, staticValidationRules, idGen,
                                 for=subitem + 'ID-' + idGen)=langPath[subitem].label  
 
                         when 'radio' 
-                            if (selectedItems.hasOwnProperty(subitem))
+                            if (selectedItems.hasOwnProperty(item))
                                 -var _ifChecked = true        
                             else 
                                 -var _ifChecked = false       
-                            label.MMM--blockLabel(
-                                for=subitem + 'ID-' + idGen)=langPath[subitem].label
-                            input.MMM--textInput.MMM--defaultFields(
-                                id=subitem + 'ID-' + idGen
-                                checked =  _ifChecked
-                                value=langPath[subitem].value ? langPath[subitem].value : 'on'
+                        
+                            input.MMM--radio(
                                 type='radio'
-                                name=subitem
-                                data-rule-required=staticValidationRules[subitem] ? staticValidationRules[subitem] : "false"
-                                data-msg-required=langPath[subitem].errMessage
+                                value=langPath[item].value ? langPath[item].value : 'on'
+                                name=item                    
+                                checked =  _ifChecked
+                                id=item + 'ID-' + idGen                   
+                                
+                                data-rule-required=staticValidationRules[item] ? staticValidationRules[item] : "false"
+                                data-msg-required=langPath[item].errMessage
                                 )  
+                            label.MMM--blockLabel.MMM--radio(
+                                for=item + 'ID-' + idGen style='margin-left: 5px')=langPath[item].label
+                            p.MMM--txt_italic=langPath[item].subLabel ? langPath[item].subLabel : ""
+                            div 
+                                != langPath[item].HTMLcode ? langPath[item].HTMLcode : ''
 
                         when 'textarea'        
                             label.MMM--blockLabel(
