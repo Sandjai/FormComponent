@@ -157,6 +157,20 @@ form1.newField({
     });
 
 ```
+*This example below for the multilanguage support:*
+```javascript
+form1.newField({ 
+    name: 'customfield2', 
+    label: {en: 'English New field', fr: 'French New field'}, 
+    errMessage: {en: 'English error message', fr: 'French error message'}, 
+    type: 'select', 
+    options: {
+        en: [['opt1', 'English Option 1'], ['opt2', 'English Option 2']], 
+        fr: [['opt1', 'French Option 1'], ['opt2', 'French Option 2']]
+    }, 
+});
+
+```
 
 :red_circle: `addField(name)`
 OR
