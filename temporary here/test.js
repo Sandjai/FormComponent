@@ -113,7 +113,7 @@ var __globScopeSMPtemplate__ = {
         //SMPsegment is used for cases when translations for SMP Segment fields are different from the Divisional ones
         //for example: TMC in ASD
         SMPsegment: "TMC",
-        
+
         fieldsets: {
             CA: ['emailAddress', 'country', 'elqGlobalLanguage', 'stateProv', 'salutation', 'firstName', 'lastName', 'mobilePhone', 'TMC_comp_type',],
             preLeadgen: ['mmmIndustry1', 'mmmJobRole1', 'salesRequest'],
@@ -416,10 +416,6 @@ var __globScopeSMPtemplate__ = {
             /*
             * END setting a value 'Yes' to relevant hidden field depending on a chosen Industry (for realizing the scheme of subscription to email groups)
             */
-
-
-
-
         },
 
 

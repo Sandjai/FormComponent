@@ -1,6 +1,13 @@
 export default function (FormName) {
+    let mqlFormTypes;    
+
+    if (typeof __FC_commonConfig__ === 'undefined' || !__FC_commonConfig__.hasOwnProperty('mqlFormTypes')) {
     
-    const mqlFormTypes = ['SAM', 'DEM', 'ASK', 'CON', 'LAR'];  
+        mqlFormTypes = ['SAM', 'DEM', 'ASK', 'CON', 'LAR'];  
+
+    } else {
+        mqlFormTypes = __FC_commonConfig__.mqlFormTypes;
+    }
 
     let formType = null;
 
@@ -11,9 +18,6 @@ export default function (FormName) {
     }
 
     return formType ? formType : false;
-
-
-
      
 }
 

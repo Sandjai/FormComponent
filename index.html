@@ -235,7 +235,7 @@
 
      
 
-      <form class='exclusiveCountry' name="TEST-EMSD-202208-en_EMEA-CON-General_SMP1">
+      <form class='exclusiveCountry' name="TEST-TMC-202208-en_EMEA-CON-General_SMP1">
         <span elqid="2218" elqtype="Section" class="remove-absolute" style="display: block"></span>
       </form>
 
@@ -243,13 +243,15 @@
   </div>
   
   <!-- Form Component Script -->
+  
+  <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/%7b74b63b20-014d-49b3-b044-71789f42f8d9%7d_FC_commonConfig.js"></script-->
   <!--script src="https://images.engage.3m.com/Web/3MCompanyGlobal/{98fa9dd5-8dd4-4f5c-88d5-48865ebcce44}_FormComponent.js"></script-->
   <script src="./dist/app.js"></script>
 
   <script>
 	(function() {
 	
-        var form1 = new window.FormComponent("TEST-EMSD-202208-en_EMEA-CON-General_SMP1");
+        var form1 = new window.FormComponent("TEST-TMC-202208-en_EMEA-CON-General_SMP1");
 
         form1.setHiddenFields({          
         sFDCLastCampaignName: "ASD-1910-EMEA-GLC-CON-DRC_Testing",
@@ -284,7 +286,7 @@
 
 
 
-        form1.newField({ 
+    /*    form1.newField({ 
             name: 'customfield3', 
             label: 'New field', 
             errMessage: 'This field is mandatory', 
@@ -306,7 +308,7 @@
         });
 
         form1.addField('customfield4');
-       
+       */
 
         form1.render();
     

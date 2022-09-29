@@ -12,6 +12,8 @@ import getCountry from './utils/getCountry.js'
 import getDivision from './utils/getDivision.js'
 import ifLeadGenTypeIsCorrect from './utils/ifLeadGenTypeIsCorrect.js'
 
+
+
 /**
  * Initializes settings for the form creation,
  * Render form, 
@@ -124,14 +126,14 @@ export class FormComponent {
         //Must be the first
         if (this.hiddenFields.formType === 'SAM') {
             this.settings.leadGenType = 'Basic';
-        }
+        } 
 
         //Must be the second
-        if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
-            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;
-            this.settings.SMPsegment = 'TMC';
-        }
-
+      /*  if ((getDivision(this.name) === 'ASD - Abrasive Systems Division') && (this.name.indexOf('TMC-') != -1)) {
+            this.settings.leadGenType = 'TMC' + '_' + this.settings.leadGenType;     
+            // Refused to use it automatically       
+            //this.settings.SMPsegment = 'TMC';
+        } */
     }
 
 
@@ -176,8 +178,6 @@ export class FormComponent {
         domReady[this.prioritizedDomReadyKey] = () => {
             current();
             result();
-
-
         }
     }
 
@@ -1431,15 +1431,55 @@ export class FormComponent {
         )
             .then(
                 resolve => {
+                    let loadModule1;
+                    let scripts3M;
+                    let restModules;
 
-                    const scripts3M = ["//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js",
-                        "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
-                        "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
-                        "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js",
-                    ];
-                    loadPageModule('kungfu/EmailForm/EmailOptions');
-                    this._loadScript(scripts3M, false);
-                    loadPageModule('kungfu/Eloqua/globalFormsModule');
+                    let restScripts;
+
+
+                    if (typeof __FC_commonConfig__ === 'undefined' || !__FC_commonConfig__.hasOwnProperty('scriptsAndModules3M')) {
+
+                        loadModule1 = 'kungfu/EmailForm/EmailOptions';
+
+                        scripts3M = ["//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaCountries.js",
+                            "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaConsent.js",
+                            "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaLanguages.js",
+                            "//www.3m.com/3m_theme_assets/themes/3MTheme/assets/scripts/build/kungfu/Eloqua/eloquaStates.js",
+                        ];
+
+                        restModules = ['kungfu/Eloqua/globalFormsModule'];
+
+                    } else {
+
+                        if (__FC_commonConfig__.scriptsAndModules3M.loadModule1 !== undefined) {
+                            loadModule1 = __FC_commonConfig__.scriptsAndModules3M.loadModule1;
+                        }
+                        if (__FC_commonConfig__.scriptsAndModules3M.scripts3M !== undefined) {
+                            scripts3M = __FC_commonConfig__.scriptsAndModules3M.scripts3M;
+                        }
+                        if (__FC_commonConfig__.scriptsAndModules3M.restModules !== undefined) {
+                            restModules = __FC_commonConfig__.scriptsAndModules3M.restModules;
+                        }
+                        if (__FC_commonConfig__.scriptsAndModules3M.restScripts !== undefined) {
+                            restScripts = __FC_commonConfig__.scriptsAndModules3M.restScripts;
+                        }
+                    }
+                        if (loadModule1) {
+                            loadPageModule(loadModule1);
+                        }
+                        if (scripts3M) {
+                            this._loadScript(scripts3M, false);
+                        }
+                        if (restModules) {
+                            for (let link of restModules) {
+                                loadPageModule(link);
+                            }
+                        }
+                        if (restScripts) {                          
+                                this._loadScript(restScripts, false);                          
+                        }                   
+                    
                     // resolve();
                 }
             )

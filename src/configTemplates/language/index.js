@@ -1,7 +1,11 @@
 export default function (language) {
+
+  let langRouting;
+
+  if (typeof __FC_commonConfig__ === 'undefined' || !__FC_commonConfig__.hasOwnProperty('langRouting')) {
  
-const langRouting = {
-               
+      langRouting = {
+        Arabic: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{5e7758fe-04af-46c7-8539-4fcc20fc92a2}_language-data-ar.js.js',       
         Bulgarian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{a8bd3b35-0670-4cde-99da-4ce6acd9c9a1}_language-data-bg.js',
         Croatian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{d81cafa0-938d-4062-b8b4-fbd41e98836e}_language-data-hr.js',
         Czech: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{4ad7d5cd-17a7-4378-8a1a-966670a52270}_language-data-cs.js',
@@ -30,7 +34,13 @@ const langRouting = {
         Turkish: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{e8e95aaf-1535-4a35-8870-9d921d0a1107}_language-data-tr.js',
         Ukrainian: 'https://images.engage.3m.com/Web/3MCompanyGlobal/{b90aa56f-150f-4ea5-8ac0-77e3887b4c38}_language-data-uk.js',
     } 
+  } else {
+      langRouting = __FC_commonConfig__.langRouting;
+  }
    
+
+    // For testing on local server
+    // Before usage please check if content in test templates is up to date
   /*
     const langRouting = {      
         
