@@ -825,15 +825,21 @@ export class FormComponent {
             this.shortLanguage = this.rewritedParametersFromURL.lang;
         }
 
+        let shortLanguage = this.shortLanguage;
+
+        if (typeof data.label[shortLanguage] === 'undefined') {
+            shortLanguage = Object.keys(data.label)[0];          
+        }
+
         const obj = {
             name: data.name,
-            label: (typeof data.label === 'string') ? data.label : (typeof data.label === 'object') ? data.label[this.shortLanguage] : '',
-            errMessage: (typeof data.errMessage === 'string') ? data.errMessage : (typeof data.errMessage === 'object') ? data.errMessage[this.shortLanguage] : '',
-            type: (typeof data.type === 'string') ? data.type : (typeof data.type === 'object') ? data.type[this.shortLanguage] : '',
-            options: (Array.isArray(data.options)) ? data.options : (typeof data.options === 'object') ? data.options[this.shortLanguage] : '',
-            value: (typeof data.value === 'string') ? data.value : (typeof data.value === 'object') ? data.value[this.shortLanguage] : '',
-            subLabel: (data.subLabel && (typeof data.subLabel === 'string')) ? data.subLabel : (data.subLabel && (typeof data.subLabel === 'object')) ? data.subLabel[this.shortLanguage] : '',
-            HTMLcode: (data.HTMLcode && (typeof data.HTMLcode === 'string')) ? data.HTMLcode : (data.HTMLcode && (typeof data.HTMLcode === 'object')) ? data.HTMLcode[this.shortLanguage] : '',
+            label: (typeof data.label === 'string') ? data.label : (typeof data.label === 'object') ? data.label[shortLanguage] : '',
+            errMessage: (typeof data.errMessage === 'string') ? data.errMessage : (typeof data.errMessage === 'object') ? data.errMessage[shortLanguage] : '',
+            type: (typeof data.type === 'string') ? data.type : (typeof data.type === 'object') ? data.type[shortLanguage] : '',
+            options: (Array.isArray(data.options)) ? data.options : (typeof data.options === 'object') ? data.options[shortLanguage] : '',
+            value: (typeof data.value === 'string') ? data.value : (typeof data.value === 'object') ? data.value[shortLanguage] : '',
+            subLabel: (data.subLabel && (typeof data.subLabel === 'string')) ? data.subLabel : (data.subLabel && (typeof data.subLabel === 'object')) ? data.subLabel[shortLanguage] : '',
+            HTMLcode: (data.HTMLcode && (typeof data.HTMLcode === 'string')) ? data.HTMLcode : (data.HTMLcode && (typeof data.HTMLcode === 'object')) ? data.HTMLcode[shortLanguage] : '',
         }
 
 

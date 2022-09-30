@@ -157,7 +157,7 @@ form1.newField({
     });
 
 ```
-*This example below for the multilanguage support:*
+*!!! This example below for the multilanguage support: !!!*
 ```javascript
 form1.newField({ 
     name: 'customfield2', 
